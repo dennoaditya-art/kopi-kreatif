@@ -5,14 +5,15 @@ import Link from "next/link"
 import { motion, useScroll, useMotionValueEvent, useReducedMotion } from "motion/react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import { ShoppingCart, Menu, X, Coffee } from "lucide-react"
+import { ShoppingCart, Menu, X, Coffee, Sun, Moon } from "lucide-react"
 import { useCart } from "@/lib/cart-context"
+import { useTheme } from "@/lib/theme-context"
 
 const navLinks = [
   { href: "/", label: "Beranda" },
   { href: "/katalog", label: "Katalog" },
-  { href: "/#tentang", label: "Tentang" },
-  { href: "/#testimoni", label: "Testimoni" },
+  { href: "/tentang", label: "Tentang" },
+  { href: "/kontak", label: "Kontak" },
 ]
 
 export function Navbar() {
@@ -21,6 +22,7 @@ export function Navbar() {
   const { scrollY } = useScroll()
   const { totalItems } = useCart()
   const reduce = useReducedMotion()
+  const { theme, toggle: toggleTheme } = useTheme()
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     setScrolled(latest > 20)
@@ -91,6 +93,25 @@ export function Navbar() {
               </motion.span>
             )}
           </Link>
+          <Link
+            href="/masuk"
+            className={cn(
+              "hidden sm:inline-flex items-center gap-1 text-xs font-bold transition-colors hover:text-primary",
+              scrolled ? "text-zinc-600 dark:text-zinc-400" : "text-[#5C4033] dark:text-zinc-400"
+            )}
+          >
+            Masuk
+          </Link>
+          <button
+            onClick={toggleTheme}
+            className={cn(
+              "flex h-9 w-9 items-center justify-center rounded-xl border-2 border-ink transition-all duration-200 hover:bg-primary/20 active:translate-x-[1px] active:translate-y-[1px]",
+              scrolled ? "bg-white dark:bg-zinc-900" : "bg-white/80 dark:bg-zinc-900/80"
+            )}
+            aria-label={theme === "light" ? "Mode gelap" : "Mode terang"}
+          >
+            {theme === "light" ? <Moon size={16} /> : <Sun size={16} />}
+          </button>
           <Link href="/katalog" className="hidden sm:block">
             <Button size="sm" className="border-2 border-ink card-shadow-hard hover:card-shadow-hard-hover active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all">
               Beli Sekarang
@@ -126,6 +147,13 @@ export function Navbar() {
               {link.label}
             </Link>
           ))}
+          <Link
+            href="/masuk"
+            onClick={() => setOpen(false)}
+            className="block text-sm font-bold text-zinc-700 dark:text-zinc-300 py-2 hover:text-primary transition-colors"
+          >
+            Masuk
+          </Link>
           <Link href="/katalog" onClick={() => setOpen(false)}>
             <Button className="w-full border-2 border-ink card-shadow-hard">Beli Sekarang</Button>
           </Link>

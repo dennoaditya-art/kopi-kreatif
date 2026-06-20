@@ -7,7 +7,8 @@ import { motion, useReducedMotion, AnimatePresence } from "motion/react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useCart, itemKey } from "@/lib/cart-context"
-import { Trash2, Minus, Plus, ShoppingCart, ArrowLeft, Tag } from "lucide-react"
+import { Trash2, Minus, Plus, ShoppingCart, ArrowLeft, Tag, Coffee } from "lucide-react"
+import { EmptyState } from "@/components/empty-state"
 
 export default function KeranjangPage() {
   const { items, updateQuantity, removeItem, subtotal } = useCart()
@@ -35,24 +36,19 @@ export default function KeranjangPage() {
         </motion.div>
 
         {items.length === 0 ? (
-          <motion.div
-            className="text-center py-20 space-y-4"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-          >
-            <motion.div
-              className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/5 to-secondary/5 dark:bg-zinc-800 text-primary/30"
-              animate={reduce ? undefined : { y: [0, -5, 0] }}
-              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-            >
-              <ShoppingCart size={28} />
-            </motion.div>
-            <div className="space-y-1">
-              <p className="text-lg font-bold">Keranjang masih kosong</p>
-              <p className="text-sm text-zinc-500 max-w-xs mx-auto">Belum ada kopi yang dipilih. Yuk jelajahi katalog dan temukan favoritmu!</p>
-            </div>
-            <Link href="/katalog"><Button>Lihat Katalog</Button></Link>
-          </motion.div>
+          <EmptyState
+            icon={<ShoppingCart size={32} />}
+            title="Keranjang masih kosong"
+            description="Belum ada kopi yang dipilih. Yuk jelajahi katalog dan temukan favoritmu!"
+            action={
+              <Link href="/katalog">
+                <Button className="gap-2 border-2 border-ink shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] hover:shadow-[6px_6px_0px_0px_rgba(26,26,26,1)]">
+                  <Coffee size={16} />
+                  Lihat Katalog
+                </Button>
+              </Link>
+            }
+          />
         ) : (
           <div className="grid lg:grid-cols-3 gap-6">
             <div className="lg:col-span-2 space-y-3">

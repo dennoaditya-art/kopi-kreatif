@@ -4,9 +4,10 @@ import { useState, useMemo } from "react"
 import { motion, useReducedMotion } from "motion/react"
 import { products } from "@/lib/coffee-data"
 import { ProductCard } from "@/components/product-card"
-import { Search, SearchX } from "lucide-react"
+import { Search, SearchX, RotateCcw } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import { EmptyState } from "@/components/empty-state"
 
 const allCategories = Array.from(new Set(products.map((p) => p.category)))
 const allRoasts = Array.from(new Set(products.map((p) => p.roastLevel)))
@@ -159,27 +160,22 @@ export default function KatalogPage() {
         </motion.div>
 
         {filtered.length === 0 ? (
-          <motion.div
-            className="text-center py-20 space-y-4"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.3 }}
-          >
-            <motion.div
-              className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/5 to-secondary/5 dark:bg-zinc-800 text-primary/30"
-              animate={reduce ? undefined : { rotate: [0, 5, -5, 0] }}
-              transition={{ duration: 0.5, repeat: Infinity, repeatDelay: 2 }}
-            >
-              <SearchX size={28} />
-            </motion.div>
-            <div className="space-y-1">
-              <p className="text-lg font-bold">Kopi tidak ditemukan</p>
-              <p className="text-sm text-zinc-500 max-w-xs mx-auto">Coba kata kunci lain atau atur ulang filter untuk melihat semua produk.</p>
-            </div>
-            <Button variant="outline" size="sm" onClick={() => { setSearch(""); setCategory(""); setRoast("") }}>
-              Atur Ulang Filter
-            </Button>
-          </motion.div>
+          <EmptyState
+            icon={<SearchX size={32} />}
+            title="Kopi tidak ditemukan"
+            description="Coba kata kunci lain atau atur ulang filter untuk melihat semua produk."
+            action={
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => { setSearch(""); setCategory(""); setRoast("") }}
+                className="gap-2 border-2 border-ink"
+              >
+                <RotateCcw size={14} />
+                Atur Ulang Filter
+              </Button>
+            }
+          />
         ) : (
           <motion.div
             className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"

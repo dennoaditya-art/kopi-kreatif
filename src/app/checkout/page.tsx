@@ -6,7 +6,8 @@ import { motion, useReducedMotion } from "motion/react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useCart } from "@/lib/cart-context"
-import { CreditCard, MapPin, Package, ArrowLeft, Check } from "lucide-react"
+import { CreditCard, MapPin, Package, ArrowLeft, Check, ShoppingCart, Coffee } from "lucide-react"
+import { EmptyState } from "@/components/empty-state"
 
 export default function CheckoutPage() {
   const { items, subtotal, clearCart } = useCart()
@@ -48,6 +49,28 @@ export default function CheckoutPage() {
             <Link href="/katalog"><Button>Belanja Lagi</Button></Link>
           </div>
         </motion.div>
+      </div>
+    )
+  }
+
+  if (items.length === 0 && !submitted) {
+    return (
+      <div>
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+          <EmptyState
+            icon={<ShoppingCart size={32} />}
+            title="Tidak ada item untuk di-checkout"
+            description="Keranjang belanja kamu masih kosong. Isi dulu dengan kopi pilihanmu!"
+            action={
+              <Link href="/katalog">
+                <Button className="gap-2 border-2 border-ink shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] hover:shadow-[6px_6px_0px_0px_rgba(26,26,26,1)]">
+                  <Coffee size={16} />
+                  Lihat Katalog
+                </Button>
+              </Link>
+            }
+          />
+        </div>
       </div>
     )
   }

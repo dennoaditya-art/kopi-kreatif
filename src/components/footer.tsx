@@ -36,8 +36,8 @@ export function Footer() {
             {[
               { label: "Beranda", href: "/" },
               { label: "Katalog", href: "/katalog" },
-              { label: "Tentang", href: "/#tentang" },
-              { label: "Testimoni", href: "/#testimoni" },
+              { label: "Tentang", href: "/tentang" },
+              { label: "Kontak", href: "/kontak" },
             ].map((item) => (
               <li key={item.label}><Link href={item.href} className="text-sm hover:text-primary transition-colors">{item.label}</Link></li>
             ))}
