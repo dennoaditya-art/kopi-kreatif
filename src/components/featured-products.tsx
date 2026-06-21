@@ -11,10 +11,10 @@ import { ArrowRight, Star } from "lucide-react"
 const featured = products.slice(0, 4)
 
 const BENTO_LAYOUT = [
-  { span: "lg:col-span-2 lg:row-span-2", index: 0 },
-  { span: "lg:col-span-1 lg:row-span-1", index: 1 },
-  { span: "lg:col-span-1 lg:col-start-4 lg:row-span-1", index: 2 },
-  { span: "lg:col-span-2 lg:col-start-3 lg:row-start-2", index: 3 },
+  { span: "col-span-full lg:col-span-2 lg:row-span-2", index: 0 },
+  { span: "sm:col-span-1 lg:col-span-1 lg:row-span-1", index: 1 },
+  { span: "sm:col-span-1 lg:col-span-1 lg:col-start-4 lg:row-span-1", index: 2 },
+  { span: "col-span-full sm:col-span-2 lg:col-span-2 lg:col-start-3 lg:row-start-2", index: 3 },
 ]
 
 export function FeaturedProducts() {
@@ -49,7 +49,7 @@ export function FeaturedProducts() {
           </motion.div>
         </div>
 
-        <div className="grid gap-4 lg:grid-cols-4 lg:grid-rows-[auto_auto]">
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4 lg:grid-rows-[auto_auto]">
           {BENTO_LAYOUT.map(({ span, index }) => {
             const product = featured[index]
             const isHero = index === 0
@@ -75,7 +75,7 @@ export function FeaturedProducts() {
                     isHero ? "" : "hover:-translate-y-1"
                   }`}
                 >
-                  <div className={`relative overflow-hidden ${isHero ? "min-h-full" : "aspect-[4/3]"}`}>
+                  <div className={`relative overflow-hidden ${isHero ? "min-h-[320px] sm:min-h-full" : "aspect-[1/1] sm:aspect-[4/3]"}`}>
                     <Image
                       src={product.image}
                       alt={product.name}
@@ -119,7 +119,7 @@ export function FeaturedProducts() {
                     <div className="p-4 space-y-2">
                       <div className="flex items-start justify-between gap-2">
                         <div className="min-w-0">
-                          <h3 className="font-bold text-sm leading-tight truncate group-hover:text-brick transition-colors text-ink">
+                          <h3 className="font-bold text-sm leading-tight group-hover:text-brick transition-colors text-ink">
                             {product.name}
                           </h3>
                           <p className="text-[12px] text-ink/60 font-medium">{product.tagline}</p>

@@ -27,10 +27,10 @@ export function Hero() {
   return (
     <section className="relative overflow-hidden bg-paper">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-12 gap-8 min-h-dvh items-center py-16 lg:py-0">
+        <div className="grid lg:grid-cols-12 gap-6 sm:gap-8 min-h-dvh items-start lg:items-center py-10 sm:py-16 lg:py-0">
 
           {/* Left: text content */}
-          <div className="lg:col-span-5 space-y-6 z-10">
+          <div className="lg:col-span-5 space-y-5 sm:space-y-6 z-10">
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
@@ -88,8 +88,8 @@ export function Hero() {
           <div className="lg:col-span-6 lg:col-start-7 relative z-10 flex items-center justify-center lg:justify-end">
             <div className="relative w-full max-w-md">
               {/* Decorative rotated square */}
-              <div className="absolute -top-6 -right-6 w-32 h-32 rounded-[16px] bg-brick border-2 border-ink card-shadow-hard rotate-12 flex items-center justify-center z-20">
-                <span className="font-black text-ink text-sm -rotate-12">HOT!</span>
+              <div className="absolute -top-3 sm:-top-6 -right-3 sm:-right-6 w-20 h-20 sm:w-32 sm:h-32 rounded-[16px] bg-brick border-2 border-ink card-shadow-hard rotate-12 flex items-center justify-center z-20">
+                <span className="font-black text-ink text-[10px] sm:text-sm -rotate-12">HOT!</span>
               </div>
 
               {/* Gallery frame */}
@@ -169,12 +169,12 @@ export function Hero() {
 
               {/* Floating badge */}
               <motion.div
-                className="absolute -bottom-4 -left-4 bg-olive text-white rounded-[16px] px-5 py-3 border-2 border-ink card-shadow-hard z-20"
+                className="absolute -bottom-3 sm:-bottom-4 -left-3 sm:-left-4 bg-olive text-white rounded-[16px] px-3 py-2 sm:px-5 sm:py-3 border-2 border-ink card-shadow-hard z-20"
                 animate={reduce ? undefined : { y: [0, -6, 0] }}
                 transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
               >
-                <p className="text-[10px] uppercase tracking-widest text-white/70 font-bold">Promo</p>
-                <p className="font-black text-lg">Gratis Ongkir</p>
+                <p className="text-[9px] sm:text-[10px] uppercase tracking-widest text-white/70 font-bold">Promo</p>
+                <p className="font-black text-sm sm:text-lg">Gratis Ongkir</p>
               </motion.div>
             </div>
           </div>

@@ -77,7 +77,7 @@ export function ProductCard({ product }: { product: Product }) {
           </div>
         </div>
 
-        <div className="p-4 space-y-3">
+        <div className="p-3 sm:p-4 space-y-2 sm:space-y-3">
           <div className="flex items-start justify-between gap-2">
             <div className="min-w-0">
               <h3 className="font-bold text-sm leading-tight truncate group-hover:text-brick transition-colors text-ink">{product.name}</h3>
@@ -103,20 +103,20 @@ export function ProductCard({ product }: { product: Product }) {
           </div>
 
           <div className="flex items-center justify-between pt-1">
-            <div className="flex items-baseline gap-2">
-              <span className="text-base font-black tracking-tight text-ink">Rp{product.price.toLocaleString("id-ID")}</span>
+            <div className="flex items-baseline gap-1.5">
+              <span className="text-sm sm:text-base font-black tracking-tight text-ink">Rp{product.price.toLocaleString("id-ID")}</span>
               {product.originalPrice && (
-                <span className="text-[11px] text-ink-muted line-through">Rp{product.originalPrice.toLocaleString("id-ID")}</span>
+                <span className="text-[10px] sm:text-[11px] text-ink-muted line-through">Rp{product.originalPrice.toLocaleString("id-ID")}</span>
               )}
             </div>
             <motion.div
-              className="h-9 w-9 rounded-lg bg-ink text-paper flex items-center justify-center cursor-pointer border-2 border-ink card-shadow-hard"
+              className="h-8 w-8 sm:h-9 sm:w-9 rounded-lg bg-ink text-paper flex items-center justify-center cursor-pointer border-2 border-ink card-shadow-hard"
               whileHover={reduce ? undefined : { scale: 1.2, rotate: 10 }}
               whileTap={reduce ? undefined : { scale: 0.9, rotate: -10 }}
               transition={{ type: "spring", stiffness: 400, damping: 8 }}
               aria-label="Tambah ke keranjang"
             >
-              <ShoppingCart size={14} />
+              <ShoppingCart size={12} />
             </motion.div>
           </div>
 
