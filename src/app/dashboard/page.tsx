@@ -16,8 +16,6 @@ const statusColors: Record<string, "success" | "default" | "brick" | "destructiv
   Dibatalkan: "destructive",
 }
 
-const DASHBOARD_PASS = "admin123"
-
 export default function DashboardPage() {
   const [authed, setAuthed] = useState(false)
   const [pass, setPass] = useState("")
@@ -48,7 +46,7 @@ export default function DashboardPage() {
               placeholder="Kode akses"
               value={pass}
               onChange={(e) => { setPass(e.target.value); setError(false) }}
-              onKeyDown={(e) => { if (e.key === "Enter" && pass === DASHBOARD_PASS) setAuthed(true); else if (e.key === "Enter") setError(true) }}
+              onKeyDown={(e) => { if (e.key === "Enter") handleAuth() }}
               className="text-center text-sm h-11"
             />
             {error && <motion.p
@@ -57,12 +55,20 @@ export default function DashboardPage() {
               className="text-xs text-red-500 font-medium"
             >Kode akses salah</motion.p>}
           </div>
-          <Button onClick={() => { if (pass === DASHBOARD_PASS) setAuthed(true); else setError(true) }} className="gap-2">
+          <Button onClick={handleAuth} className="gap-2">
             <LogIn size={16} /> Masuk
           </Button>
         </motion.div>
       </div>
     )
+  }
+
+  function handleAuth() {
+    if (pass === process.env.NEXT_PUBLIC_DASHBOARD_PASS) {
+      setAuthed(true)
+    } else {
+      setError(true)
+    }
   }
 
   return (

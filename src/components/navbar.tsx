@@ -130,7 +130,7 @@ export function Navbar() {
               key={link.href}
               href={link.href}
               onClick={() => setOpen(false)}
-              className="block text-sm font-bold text-ink-muted py-2 hover:text-brick transition-colors"
+              className="block text-sm font-bold text-ink-muted py-3 hover:text-brick transition-colors"
             >
               {link.label}
             </Link>
@@ -138,7 +138,7 @@ export function Navbar() {
           <Link
             href="/masuk"
             onClick={() => setOpen(false)}
-            className="block text-sm font-bold text-ink-muted py-2 hover:text-brick transition-colors"
+            className="block text-sm font-bold text-ink-muted py-3 hover:text-brick transition-colors"
           >
             Masuk
           </Link>

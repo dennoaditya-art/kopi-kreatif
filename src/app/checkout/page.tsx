@@ -138,7 +138,7 @@ export default function CheckoutPage() {
                     whileHover={{ x: 2 }}
                     className="flex items-center gap-3 p-3 rounded-xl border border-ink/10 dark:border-ink/20 cursor-pointer hover:bg-brick/5 dark:hover:bg-surface-alt-ink transition-colors has-[:checked]:bg-brick/5 has-[:checked]:border-brick dark:has-[:checked]:bg-brick/10"
                   >
-                    <input type="radio" name="shipping" defaultChecked={method.label === "Reguler"} className="h-4 w-4 accent-secondary" />
+                    <input type="radio" name="shipping" defaultChecked={method.label === "Reguler"} className="h-4 w-4 accent-brick" />
                     <div className="flex-1 flex items-center justify-between">
                       <div>
                         <span className="font-bold text-sm">{method.label}</span>
@@ -175,7 +175,7 @@ export default function CheckoutPage() {
                     whileHover={{ x: 2 }}
                     className="flex items-center gap-3 p-3 rounded-xl border border-ink/10 dark:border-ink/20 cursor-pointer hover:bg-olive/5 dark:hover:bg-surface-alt-ink transition-colors has-[:checked]:bg-olive/5 has-[:checked]:border-olive dark:has-[:checked]:bg-olive/10"
                   >
-                    <input type="radio" name="payment" defaultChecked={pay.label === "Transfer BCA"} className="h-4 w-4 accent-accent" />
+                    <input type="radio" name="payment" defaultChecked={pay.label === "Transfer BCA"} className="h-4 w-4 accent-brick" />
                     <div>
                       <span className="font-bold text-sm">{pay.label}</span>
                       <p className="text-xs text-ink-muted">{pay.detail}</p>

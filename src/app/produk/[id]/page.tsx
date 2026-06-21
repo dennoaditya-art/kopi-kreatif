@@ -263,7 +263,7 @@ export default function DetailProdukPage() {
                 className="flex items-center gap-1 text-brick font-semibold"
                 whileHover={{ scale: 1.05 }}
               >
-                <Truck size={12} /> Free shipping
+                <Truck size={12} /> Gratis Ongkir
               </motion.span>
               <span className="w-1 h-1 rounded-full bg-ink/20 dark:bg-paper/20" />
               <motion.span

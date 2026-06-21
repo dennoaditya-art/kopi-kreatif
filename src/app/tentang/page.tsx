@@ -7,10 +7,10 @@ import { Button } from "@/components/ui/button"
 import { Coffee, Sprout, Heart, Award, Users, ArrowRight } from "lucide-react"
 
 const values = [
-  { icon: Sprout, title: "Petani Dulu", desc: "Kami bermitra langsung dengan petani kopi lokal dengan harga yang adil dan berkelanjutan." },
-  { icon: Heart, title: "Cinta Produk Lokal", desc: "Setiap biji adalah kekayaan Nusantara yang kami banggakan ke seluruh dunia." },
-  { icon: Award, title: "Kualitas Terjaga", desc: "Roasting small-batch mingguan memastikan setiap pengiriman dalam kondisi puncak kesegaran." },
-  { icon: Users, title: "Komunitas", desc: "Lebih dari sekadar jual kopi — kami membangun ekosistem pecinta kopi Nusantara." },
+  { icon: Sprout, title: "Petani Dulu", desc: "Kami bermitra langsung dengan petani kopi lokal dengan harga yang adil dan berkelanjutan.", color: "bg-brick", iconColor: "text-ink" },
+  { icon: Heart, title: "Cinta Produk Lokal", desc: "Setiap biji adalah kekayaan Nusantara yang kami banggakan ke seluruh dunia.", color: "bg-olive", iconColor: "text-white" },
+  { icon: Award, title: "Kualitas Terjaga", desc: "Roasting small-batch mingguan memastikan setiap pengiriman dalam kondisi puncak kesegaran.", color: "bg-ink", iconColor: "text-paper" },
+  { icon: Users, title: "Komunitas", desc: "Lebih dari sekadar jual kopi — kami membangun ekosistem pecinta kopi Nusantara.", color: "bg-brick", iconColor: "text-ink" },
 ]
 
 const timeline = [
@@ -160,7 +160,7 @@ export default function TentangPage() {
                 transition={{ duration: 0.4, delay: i * 0.08 }}
                 whileHover={reduce ? undefined : { y: -4 }}
               >
-                <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-brick text-ink card-shadow-hard">
+                <div className={`mb-3 flex h-12 w-12 items-center justify-center rounded-xl ${v.color} ${v.iconColor} card-shadow-hard`}>
                   <v.icon size={20} />
                 </div>
                 <h3 className="font-black text-ink dark:text-white">{v.title}</h3>

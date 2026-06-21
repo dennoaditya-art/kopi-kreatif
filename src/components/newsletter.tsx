@@ -42,7 +42,7 @@ export function Newsletter() {
                 Berlangganan
               </Button>
             </div>
-            <p className="text-[11px] text-paper/50 font-medium">Free unsubscribe anytime.</p>
+            <p className="text-[11px] text-paper/50 font-medium">Berhenti kapan saja.</p>
           </div>
         </motion.div>
       </div>
