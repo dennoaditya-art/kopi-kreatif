@@ -47,10 +47,9 @@ export function Footer() {
             <h3 className="font-bold text-ink text-sm">Bantuan</h3>
           <ul className="space-y-2">
             {["Cara Memesan", "Pengiriman", "Kebijakan Retur", "FAQ"].map((item) => (
-              <li key={item}><Link href="/" className="text-sm hover:text-brick transition-colors">{item}</Link></li>
+              <li key={item}><Link href="/kontak" className="text-sm hover:text-brick transition-colors">{item}</Link></li>
             ))}
           </ul>
-          <p className="text-[11px] text-ink-muted italic">Halaman bantuan segera hadir</p>
           </div>
 
           <div className="space-y-3">

@@ -3,7 +3,7 @@
 > Premium Next.js template untuk brand kopi, roastery, dan F&B artisan.  
 > Desain neobrutalist berani dengan palette **Olive + Brick + Paper**.
 
-![Preview](https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=1200&h=630&fit=crop)
+![Preview](/preview.png)
 
 ---
 
