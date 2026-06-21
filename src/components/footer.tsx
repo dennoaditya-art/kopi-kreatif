@@ -46,8 +46,13 @@ export function Footer() {
           <div className="space-y-3">
             <h3 className="font-bold text-ink text-sm">Bantuan</h3>
           <ul className="space-y-2">
-            {["Cara Memesan", "Pengiriman", "Kebijakan Retur", "FAQ"].map((item) => (
-              <li key={item}><Link href="/kontak" className="text-sm hover:text-brick transition-colors">{item}</Link></li>
+            {[
+              { label: "Cara Memesan", href: "/kontak#cara-memesan" },
+              { label: "Pengiriman", href: "/kontak#pengiriman" },
+              { label: "Kebijakan Retur", href: "/kontak#kebijakan-retur" },
+              { label: "FAQ", href: "/kontak#faq" },
+            ].map((item) => (
+              <li key={item.label}><Link href={item.href} className="text-sm hover:text-brick transition-colors">{item.label}</Link></li>
             ))}
           </ul>
           </div>
@@ -56,8 +61,8 @@ export function Footer() {
             <h3 className="font-bold text-ink text-sm">Newsletter</h3>
             <p className="text-sm text-ink-muted">Dapatkan promo dan info kopi terbaru langsung di email Anda.</p>
             <div className="flex gap-2">
-              <Input type="email" placeholder="Email kamu" className="h-10 text-sm" />
-              <button className="shrink-0 text-xs h-10 px-4 rounded-[16px] bg-brick text-ink font-bold border-2 border-ink card-shadow-hard hover:card-shadow-hard-hover transition-all active:translate-x-[2px] active:translate-y-[2px] active:shadow-none">
+              <Input type="email" placeholder="Email kamu" aria-label="Email untuk newsletter" className="h-10 text-sm" />
+              <button aria-label="Langganan newsletter" className="shrink-0 text-xs h-10 px-4 rounded-[16px] bg-brick text-ink font-bold border-2 border-ink card-shadow-hard hover:card-shadow-hard-hover transition-all active:translate-x-[2px] active:translate-y-[2px] active:shadow-none">
                 Kirim
               </button>
             </div>

@@ -232,6 +232,59 @@ export default function KontakPage() {
           </div>
         </div>
         </section>
+
+      {/* FAQ */}
+      <section className="border-t-2 border-ink/10 pb-16 sm:pb-20">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+          <motion.div
+            className="mb-10 text-center pt-16"
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-3xl font-black tracking-display sm:text-4xl" id="faq">
+              Pertanyaan <span className="text-brick">Umum</span>
+            </h2>
+          </motion.div>
+          <div className="space-y-4">
+            {[
+              { id: "cara-memesan", q: "Bagaimana cara memesan?", a: "Pilih produk favorit dari katalog, atur jumlah dan grind sesuai selera, lalu klik Tambah ke Keranjang. Setelah selesai, lanjut ke halaman Checkout dan isi data pengiriman." },
+              { id: "pengiriman", q: "Berapa lama pengiriman?", a: "Reguler 3-5 hari kerja, Express 1-2 hari kerja, dan Same Day 6-8 jam (area terbatas). Gratis ongkir untuk pembelian minimal Rp100.000." },
+              { id: "kebijakan-retur", q: "Bagaimana kebijakan retur?", a: "Produk yang belum dibuka dapat diretur dalam 7 hari setelah diterima. Hubungi kami melalui halaman ini untuk proses retur." },
+              { id: "metode-pembayaran", q: "Apa saja metode pembayaran?", a: "Kami menerima Transfer Bank (BCA, Mandiri), GoPay, dan COD. Pembayaran akan dikonfirmasi otomatis setelah transfer." },
+            ].map((faq, i) => (
+              <motion.details
+                key={faq.id}
+                id={faq.id}
+                className="group rounded-2xl border-2 border-ink bg-white dark:bg-surface-alt-ink overflow-hidden card-shadow-hard"
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.08 }}
+              >
+                <summary className="flex items-center justify-between gap-4 px-5 py-4 cursor-pointer font-bold text-sm text-ink dark:text-white list-none select-none">
+                  {faq.q}
+                  <motion.span
+                    className="text-brick shrink-0"
+                    animate={{ rotate: 0 }}
+                    whileHover={{ rotate: 90 }}
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+                  </motion.span>
+                </summary>
+                <motion.div
+                  className="px-5 pb-4 text-sm text-ink-muted leading-relaxed"
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {faq.a}
+                </motion.div>
+              </motion.details>
+            ))}
+          </div>
+        </div>
+      </section>
     </div>
   )
 }

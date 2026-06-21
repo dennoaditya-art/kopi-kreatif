@@ -81,6 +81,7 @@ export default function KatalogPage() {
             <Input
               type="text"
               placeholder="Cari kopi..."
+              aria-label="Cari produk kopi"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="pl-9 text-sm h-10 w-full"
@@ -89,6 +90,7 @@ export default function KatalogPage() {
           <select
             value={sort}
             onChange={(e) => setSort(e.target.value)}
+            aria-label="Urutkan produk"
             className="rounded-xl border-2 border-ink px-3 py-2 text-xs font-bold bg-white dark:bg-surface-alt-ink text-ink cursor-pointer focus:ring-2 focus:ring-brick focus:outline-none h-10 shrink-0 card-shadow-hard"
           >
             <option value="">Urutkan: Terbaru</option>
