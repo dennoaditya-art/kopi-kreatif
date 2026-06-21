@@ -35,6 +35,37 @@ export default function DetailProdukPage() {
     el.style.setProperty("--my", `${y}%`)
   }, [])
 
+  useEffect(() => {
+    if (!product) return
+    const el = document.createElement("script")
+    el.type = "application/ld+json"
+    el.text = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Product",
+      name: product.name,
+      description: product.description,
+      image: `https://kopi-kreatif.vercel.app${product.image}`,
+      sku: product.id,
+      mpn: product.id,
+      brand: { "@type": "Brand", name: "KOPI Nusantara" },
+      offers: {
+        "@type": "Offer",
+        price: product.price,
+        priceCurrency: "IDR",
+        availability: product.stock > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+        url: `https://kopi-kreatif.vercel.app/produk/${product.id}`,
+        priceValidUntil: "2027-12-31",
+      },
+      aggregateRating: {
+        "@type": "AggregateRating",
+        ratingValue: product.rating,
+        reviewCount: product.reviewCount,
+      },
+    })
+    document.head.appendChild(el)
+    return () => { el.remove() }
+  }, [product])
+
   if (!product) {
     return (
       <div className="mx-auto max-w-7xl px-4 py-16 text-center space-y-3">
@@ -49,30 +80,6 @@ export default function DetailProdukPage() {
         <Link href="/katalog"><Button>Kembali ke Katalog</Button></Link>
       </div>
     )
-  }
-
-  const productSchema = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    name: product.name,
-    description: product.description,
-    image: `https://kopi-kreatif.vercel.app${product.image}`,
-    sku: product.id,
-    mpn: product.id,
-    brand: { "@type": "Brand", name: "KOPI Nusantara" },
-    offers: {
-      "@type": "Offer",
-      price: product.price,
-      priceCurrency: "IDR",
-      availability: product.stock > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
-      url: `https://kopi-kreatif.vercel.app/produk/${product.id}`,
-      priceValidUntil: "2027-12-31",
-    },
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: product.rating,
-      reviewCount: product.reviewCount,
-    },
   }
 
   const related = products.filter((p) => p.category === product.category && p.id !== product.id).slice(0, 4)
@@ -96,14 +103,6 @@ export default function DetailProdukPage() {
     toast(`${product.name} ditambahkan ke keranjang!`, "success")
     setTimeout(() => setAdded(false), 2000)
   }
-
-  useEffect(() => {
-    const el = document.createElement("script")
-    el.type = "application/ld+json"
-    el.text = JSON.stringify(productSchema)
-    document.head.appendChild(el)
-    return () => { el.remove() }
-  }, [])
 
   return (
     <div className="overflow-hidden">

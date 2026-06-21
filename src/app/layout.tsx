@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
-import Script from "next/script"
+import { ThemeInit } from "@/components/theme-init"
 import "./globals.css"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
@@ -35,16 +35,7 @@ export const metadata: Metadata = {
   },
 }
 
-const themeScript = `
-  (function() {
-    try {
-      var t = localStorage.getItem('kopi-theme');
-      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        document.documentElement.classList.add('dark');
-      }
-    } catch(e) {}
-  })()
-`
+const themeScript = `try{var t=localStorage.getItem('kopi-theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.classList.add('dark')}catch(e){}`
 
 export default function RootLayout({
   children,
@@ -54,43 +45,24 @@ export default function RootLayout({
   return (
     <html lang="id" className={`${geistSans.variable} ${geistMono.variable}`} suppressHydrationWarning>
       <body className="min-h-dvh flex flex-col antialiased">
-        <Script id="schema-org" type="application/ld+json" strategy="beforeInteractive"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Organization",
-              name: "KOPI Nusantara",
-              url: "https://kopi-kreatif.vercel.app",
-              logo: "https://kopi-kreatif.vercel.app/preview.png",
-              description: "Premium coffee e-commerce template. Bubuk kopi Nusantara pilihan.",
-              contactPoint: {
-                "@type": "ContactPoint",
-                telephone: "+62-812-3456-7890",
-                contactType: "customer service",
-                availableLanguage: ["Indonesian", "English"],
-              },
-              sameAs: ["https://instagram.com/kopi-nusantara", "https://tiktok.com/@kopi-nusantara"],
-            }),
-          }}
-        />
-        <Script id="schema-website" type="application/ld+json" strategy="beforeInteractive"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "WebSite",
-              name: "KOPI Nusantara",
-              url: "https://kopi-kreatif.vercel.app",
-              potentialAction: {
-                "@type": "SearchAction",
-                target: {
-                  "@type": "EntryPoint",
-                  urlTemplate: "https://kopi-kreatif.vercel.app/katalog?search={search_term_string}",
-                },
-                "query-input": "required name=search_term_string",
-              },
-            }),
-          }}
-        />
+        <div itemScope itemType="https://schema.org/Organization" style={{ display: "none" }}>
+          <meta itemProp="name" content="KOPI Nusantara" />
+          <meta itemProp="url" content="https://kopi-kreatif.vercel.app" />
+          <meta itemProp="logo" content="https://kopi-kreatif.vercel.app/preview.png" />
+          <meta itemProp="description" content="Premium coffee e-commerce template. Bubuk kopi Nusantara pilihan." />
+          <div itemProp="contactPoint" itemScope itemType="https://schema.org/ContactPoint">
+            <meta itemProp="telephone" content="+62-812-3456-7890" />
+            <meta itemProp="contactType" content="customer service" />
+            <meta itemProp="availableLanguage" content="Indonesian,English" />
+          </div>
+          <link itemProp="sameAs" href="https://instagram.com/kopi-nusantara" />
+          <link itemProp="sameAs" href="https://tiktok.com/@kopi-nusantara" />
+        </div>
+        <div itemScope itemType="https://schema.org/WebSite" style={{ display: "none" }}>
+          <meta itemProp="name" content="KOPI Nusantara" />
+          <meta itemProp="url" content="https://kopi-kreatif.vercel.app" />
+          <meta itemProp="potentialAction" content="https://kopi-kreatif.vercel.app/katalog?search={search_term_string}" />
+        </div>
         <ThemeProvider>
           <CartProvider>
             <ToastProvider>
@@ -103,7 +75,7 @@ export default function RootLayout({
             </ToastProvider>
           </CartProvider>
         </ThemeProvider>
-        <Script id="theme-init" strategy="beforeInteractive" dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <ThemeInit script={themeScript} />
       </body>
     </html>
   )
