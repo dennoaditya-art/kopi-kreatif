@@ -132,15 +132,15 @@ export default function KatalogPage() {
         </motion.div>
 
         <motion.div
-          className="flex items-center justify-between mb-5"
+          className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-5"
           initial={reduce ? false : { opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.4 }}
         >
-          <p className="text-xs text-ink-muted font-medium">
+          <p className="text-xs text-ink-muted font-medium shrink-0">
             Menampilkan {filtered.length} dari {products.length} produk
           </p>
-          <div className="hidden lg:flex items-center gap-2">
+          <div className="flex items-center flex-wrap gap-2">
             <span className="text-[11px] font-bold uppercase tracking-[0.1em] text-ink-muted">Roast:</span>
             {allRoasts.map((r) => (
               <motion.button
