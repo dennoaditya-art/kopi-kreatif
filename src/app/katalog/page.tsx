@@ -180,9 +180,8 @@ export default function KatalogPage() {
           <motion.div
             className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
             variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-50px" }}
+            initial={reduce ? false : "hidden"}
+            animate={reduce ? false : "visible"}
           >
             {filtered.map((product) => (
               <motion.div key={product.id} variants={itemVariants}>
