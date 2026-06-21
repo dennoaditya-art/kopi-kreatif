@@ -1,17 +1,16 @@
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
 export function Footer() {
   return (
-    <footer className="border-t border-primary/10 dark:border-zinc-800 bg-gradient-to-b from-[#F5F0EA] to-white dark:from-zinc-950 dark:to-zinc-950 text-zinc-500 dark:text-zinc-400">
+    <footer className="border-t-2 border-ink/10 bg-paper text-ink-muted">
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div className="space-y-3.5">
             <div className="flex items-center gap-2 font-black text-xl tracking-tight">
-              <span className="bg-primary text-white rounded-xl px-2 py-1 shadow-md">KOPI</span>
+              <span className="bg-ink text-paper rounded-[12px] px-2 py-1 border-2 border-ink">KOPI</span>
             </div>
-            <p className="text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
+            <p className="text-sm leading-relaxed text-ink-muted">
               Menghadirkan cita rasa kopi Nusantara terbaik langsung ke pintu Anda.
             </p>
             <div className="flex gap-2">
@@ -21,7 +20,7 @@ export function Footer() {
                 { label: "Facebook", path: "M24 12.073c0-6.627-5.373-12-12-12-6.627 0-12 5.373-12 12 0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" },
                 { label: "X", path: "M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" },
               ].map((s) => (
-                <span key={s.label} className="h-8 w-8 rounded-xl border border-zinc-200 dark:border-zinc-700 flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-all cursor-pointer" aria-label={s.label}>
+                <span key={s.label} className="h-8 w-8 rounded-[12px] border-2 border-ink/20 flex items-center justify-center hover:bg-brick hover:text-ink hover:border-ink transition-all cursor-pointer" aria-label={s.label}>
                   <svg viewBox="0 0 24 24" fill="currentColor" className="h-3.5 w-3.5">
                     <path d={s.path} />
                   </svg>
@@ -31,7 +30,7 @@ export function Footer() {
           </div>
 
           <div className="space-y-3">
-            <h3 className="font-bold text-foreground text-sm">Navigasi</h3>
+            <h3 className="font-bold text-ink text-sm">Navigasi</h3>
           <ul className="space-y-2">
             {[
               { label: "Beranda", href: "/" },
@@ -39,32 +38,34 @@ export function Footer() {
               { label: "Tentang", href: "/tentang" },
               { label: "Kontak", href: "/kontak" },
             ].map((item) => (
-              <li key={item.label}><Link href={item.href} className="text-sm hover:text-primary transition-colors">{item.label}</Link></li>
+              <li key={item.label}><Link href={item.href} className="text-sm hover:text-brick transition-colors">{item.label}</Link></li>
             ))}
           </ul>
           </div>
 
           <div className="space-y-3">
-            <h3 className="font-bold text-foreground text-sm">Bantuan</h3>
+            <h3 className="font-bold text-ink text-sm">Bantuan</h3>
           <ul className="space-y-2">
             {["Cara Memesan", "Pengiriman", "Kebijakan Retur", "FAQ"].map((item) => (
-              <li key={item}><Link href="/" className="text-sm hover:text-primary transition-colors">{item}</Link></li>
+              <li key={item}><Link href="/" className="text-sm hover:text-brick transition-colors">{item}</Link></li>
             ))}
           </ul>
-          <p className="text-[11px] text-zinc-400 dark:text-zinc-500 italic">Halaman bantuan segera hadir</p>
+          <p className="text-[11px] text-ink-muted italic">Halaman bantuan segera hadir</p>
           </div>
 
           <div className="space-y-3">
-            <h3 className="font-bold text-foreground text-sm">Newsletter</h3>
-            <p className="text-sm text-zinc-500 dark:text-zinc-400">Dapatkan promo dan info kopi terbaru langsung di email Anda.</p>
+            <h3 className="font-bold text-ink text-sm">Newsletter</h3>
+            <p className="text-sm text-ink-muted">Dapatkan promo dan info kopi terbaru langsung di email Anda.</p>
             <div className="flex gap-2">
               <Input type="email" placeholder="Email kamu" className="h-10 text-sm" />
-              <Button className="shrink-0 text-xs h-10">Kirim</Button>
+              <button className="shrink-0 text-xs h-10 px-4 rounded-[16px] bg-brick text-ink font-bold border-2 border-ink card-shadow-hard hover:card-shadow-hard-hover transition-all active:translate-x-[2px] active:translate-y-[2px] active:shadow-none">
+                Kirim
+              </button>
             </div>
           </div>
         </div>
 
-        <div className="mt-10 border-t border-primary/10 dark:border-zinc-800 pt-6 text-center text-[11px] text-zinc-400 dark:text-zinc-500">
+        <div className="mt-10 border-t-2 border-ink/10 pt-6 text-center text-[11px] text-ink-muted">
           <p>&copy; 2026 KOPI Nusantara. Dibuat dengan penuh cinta untuk kopi Indonesia.</p>
         </div>
       </div>

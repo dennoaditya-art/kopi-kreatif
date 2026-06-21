@@ -34,9 +34,8 @@ export default function TentangPage() {
   return (
     <div>
       {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#F5EDE4] via-[#FDF6F0] to-[#F0EBE3] py-20 dark:from-zinc-900 dark:via-zinc-900 dark:to-zinc-950 sm:py-28">
-        <div className="pointer-events-none absolute -left-20 top-10 h-72 w-72 animate-blob rounded-full bg-primary/10 blur-3xl dark:bg-primary/[0.05]" />
-        <div className="pointer-events-none absolute -bottom-20 right-10 h-80 w-80 animate-blob rounded-full bg-accent/10 blur-3xl dark:bg-accent/[0.05]" style={{ animationDelay: "3s" }} />
+      <section className="relative overflow-hidden bg-paper">
+        <div className="pointer-events-none absolute -left-20 top-10 h-72 w-72 rounded-full bg-brick/10 dark:bg-brick/[0.05]" />
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div
             className="mx-auto max-w-2xl text-center"
@@ -44,14 +43,14 @@ export default function TentangPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           >
-            <span className="card-shadow-hard mb-4 inline-flex items-center gap-2 rounded-full border-2 border-ink bg-ink px-4 py-1.5 text-xs font-bold text-white">
+            <span className="card-shadow-hard mb-4 inline-flex items-center gap-2 rounded-full border-2 border-ink bg-ink px-4 py-1.5 text-xs font-bold text-white dark:bg-white dark:text-surface-ink dark:border-ink/20">
               <Heart size={12} />
               Cerita Kami
             </span>
             <h1 className="text-4xl font-black leading-[1.05] tracking-display sm:text-5xl lg:text-6xl">
-              Tentang <span className="text-primary">KOPI</span> Nusantara
+              Tentang <span className="text-brick">KOPI</span> Nusantara
             </h1>
-            <p className="mx-auto mt-4 max-w-lg text-base leading-relaxed text-zinc-600 dark:text-zinc-400">
+            <p className="mx-auto mt-4 max-w-lg text-base leading-relaxed text-ink-muted dark:text-ink-muted/80">
               Berawal dari secangkir kopi di pinggir jalan, tumbuh menjadi gerakan untuk memperkenalkan
               kekayaan kopi Nusantara ke seluruh dunia.
             </p>
@@ -60,7 +59,7 @@ export default function TentangPage() {
       </section>
 
       {/* Stats */}
-      <section className="border-y-2 border-ink bg-white py-10 dark:bg-zinc-900">
+      <section className="border-y-2 border-ink bg-white py-10 dark:bg-surface-alt-ink">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
             {stats.map((s, i) => (
@@ -72,8 +71,8 @@ export default function TentangPage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: i * 0.1 }}
               >
-                <p className="text-3xl font-black text-primary sm:text-4xl">{s.val}</p>
-                <p className="mt-1 text-xs font-bold text-zinc-500">{s.label}</p>
+                <p className="text-3xl font-black text-brick sm:text-4xl">{s.val}</p>
+                <p className="mt-1 text-xs font-bold text-ink-muted">{s.label}</p>
               </motion.div>
             ))}
           </div>
@@ -92,20 +91,20 @@ export default function TentangPage() {
               transition={{ duration: 0.6 }}
             >
               <h2 className="text-3xl font-black leading-[1.1] tracking-display sm:text-4xl">
-                Perjalanan <span className="text-primary">KOPI</span>
+                Perjalanan <span className="text-brick">KOPI</span>
               </h2>
-              <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
+              <p className="text-sm leading-relaxed text-ink-muted dark:text-ink-muted/80">
                 KOPI Nusantara lahir dari kegelisahan melihat petani kopi lokal kurang mendapatkan tempat
                 yang layak. Biji kopi terbaik seringkali dijual murah ke tengkulak, sementara kopi impor
                 mendominasi kafe di Indonesia.
               </p>
-              <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
+              <p className="text-sm leading-relaxed text-ink-muted dark:text-ink-muted/80">
                 Kami memutuskan untuk menjadi jembatan — menghubungkan petani kopi berkualitas langsung
                 dengan pecinta kopi di seluruh Indonesia. Dengan roasting segar setiap minggu dan harga
                 yang adil untuk kedua sisi.
               </p>
               <Link href="/katalog">
-                <Button className="gap-2 border-2 border-ink shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] hover:shadow-[6px_6px_0px_0px_rgba(26,26,26,1)]">
+                <Button className="gap-2">
                   Mulai Jelajahi
                   <ArrowRight size={16} />
                 </Button>
@@ -138,7 +137,7 @@ export default function TentangPage() {
       </section>
 
       {/* Values */}
-      <section className="bg-surface-alt/60 py-16 dark:bg-zinc-900/30 sm:py-20">
+      <section className="bg-surface-alt/60 py-16 dark:bg-surface-alt-ink/30 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div
             className="mb-10 text-center"
@@ -147,25 +146,25 @@ export default function TentangPage() {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl font-black tracking-display sm:text-4xl">
-              Apa yang <span className="text-primary">Kami Percaya</span>
+              Apa yang <span className="text-brick">Kami Percaya</span>
             </h2>
           </motion.div>
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {values.map((v, i) => (
               <motion.div
                 key={v.title}
-                className="card-shadow-hard rounded-2xl border-2 border-ink bg-white p-6 transition-all duration-200 hover:card-shadow-hard-hover dark:bg-zinc-900"
+                className="card-shadow-hard rounded-2xl border-2 border-ink bg-white p-6 transition-all duration-200 hover:card-shadow-hard-hover dark:bg-surface-alt-ink"
                 initial={reduce ? false : { opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: i * 0.08 }}
                 whileHover={reduce ? undefined : { y: -4 }}
               >
-                <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-ink shadow-[3px_3px_0px_0px_rgba(26,26,26,1)]">
+                <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-brick text-ink card-shadow-hard">
                   <v.icon size={20} />
                 </div>
                 <h3 className="font-black text-ink dark:text-white">{v.title}</h3>
-                <p className="mt-1.5 text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">{v.desc}</p>
+                <p className="mt-1.5 text-sm leading-relaxed text-ink-muted dark:text-ink-muted/80">{v.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -182,7 +181,7 @@ export default function TentangPage() {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl font-black tracking-display sm:text-4xl">
-              Perjalanan <span className="text-primary">Kami</span>
+              Perjalanan <span className="text-brick">Kami</span>
             </h2>
           </motion.div>
           <div className="relative space-y-0">
@@ -196,12 +195,12 @@ export default function TentangPage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: i * 0.1 }}
               >
-                <div className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border-2 border-ink bg-white text-xs font-black text-ink shadow-[3px_3px_0px_0px_rgba(26,26,26,1)] dark:bg-zinc-900 dark:text-white">
+                <div className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border-2 border-ink bg-white text-xs font-black text-ink card-shadow-hard dark:bg-surface-alt-ink dark:text-white">
                   {t.year.slice(2)}
                 </div>
                 <div className="pt-1">
                   <h3 className="font-black text-ink dark:text-white">{t.title}</h3>
-                  <p className="mt-0.5 text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">{t.desc}</p>
+                  <p className="mt-0.5 text-sm leading-relaxed text-ink-muted dark:text-ink-muted/80">{t.desc}</p>
                 </div>
               </motion.div>
             ))}
@@ -210,7 +209,7 @@ export default function TentangPage() {
       </section>
 
       {/* CTA */}
-      <section className="border-t-2 border-ink bg-gradient-to-br from-primary to-primary-dark py-16 sm:py-20">
+      <section className="border-t-2 border-ink bg-brick-deep py-16 sm:py-20">
         <div className="mx-auto max-w-2xl px-4 text-center sm:px-6 lg:px-8">
           <motion.div
             className="space-y-4"
@@ -218,17 +217,17 @@ export default function TentangPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <Coffee size={32} className="mx-auto text-ink/60" />
-            <h2 className="text-3xl font-black text-ink tracking-display sm:text-4xl">
+            <Coffee size={32} className="mx-auto text-on-brick-deep" />
+            <h2 className="text-3xl font-black text-on-brick-deep tracking-display sm:text-4xl">
               Jadi Bagian dari Cerita
             </h2>
-            <p className="mx-auto max-w-md text-sm leading-relaxed text-ink/80">
+            <p className="mx-auto max-w-md text-sm leading-relaxed text-on-brick-deep">
               Setiap pembelianmu adalah dukungan langsung untuk petani kopi Nusantara.
             </p>
             <Link href="/katalog">
               <Button
                 size="lg"
-                className="border-2 border-ink bg-ink text-white shadow-[5px_5px_0px_0px_rgba(26,26,26,0.3)] hover:shadow-[7px_7px_0px_0px_rgba(26,26,26,0.3)]"
+                className="border-2 border-ink bg-ink text-white dark:bg-card dark:text-ink dark:border-ink/20 card-shadow-hard hover:card-shadow-hard-hover"
               >
                 Belanja Sekarang
               </Button>

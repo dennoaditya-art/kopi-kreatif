@@ -2,45 +2,33 @@
 
 import { motion, useReducedMotion } from "motion/react"
 import { testimonials } from "@/lib/coffee-data"
-import { Star, Coffee } from "lucide-react"
+import { Star } from "lucide-react"
 
-const AVATAR_COLORS = [
-  "bg-primary",
-  "bg-secondary",
-  "bg-accent",
-  "bg-tertiary",
-]
-
-const CARD_BORDERS = [
-  "border-primary/15 dark:border-primary/30",
-  "border-secondary/15 dark:border-secondary/30",
-  "border-accent/15 dark:border-accent/30",
-  "border-tertiary/15 dark:border-tertiary/30",
-]
+const INITIALS_BG = ["bg-brick text-ink", "bg-olive text-white", "bg-ink text-paper", "bg-brick text-white"]
 
 export function Testimonials() {
   const reduce = useReducedMotion()
 
   return (
-    <section id="testimoni" className="py-16 sm:py-20 bg-gradient-to-b from-white to-surface-alt/60 dark:from-zinc-950 dark:to-zinc-900/30 relative overflow-hidden">
-      <motion.div
-        className="absolute -bottom-10 left-10 text-primary/20 text-6xl select-none pointer-events-none"
-        animate={reduce ? undefined : { y: [0, -15, 0], rotate: [0, 10, 0] }}
-        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-      >
-        <Coffee size={40} />
-      </motion.div>
+    <section id="testimoni" className="py-16 sm:py-20 bg-paper-alt relative overflow-hidden">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="max-w-xl mx-auto text-center mb-10 space-y-2">
-          <h2 className="tracking-display text-3xl sm:text-4xl font-black">
-            Kata Mereka
+        <motion.div
+          className="mb-10"
+          initial={reduce ? false : { opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          <h2 className="text-3xl sm:text-4xl font-black text-ink">
+            Kata <span className="text-brick">Mereka</span>
           </h2>
-          <p className="text-sm text-zinc-600 dark:text-zinc-400">
+          <p className="text-sm text-ink-muted mt-1">
             Yang suka ngopi, yang baru jatuh cinta sama kopi — semuanya punya cerita.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {/* Horizontal scroll-snap carousel */}
+        <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4 -mx-4 px-4 scrollbar-none">
           {testimonials.map((t, i) => (
             <motion.div
               key={t.id}
@@ -49,7 +37,7 @@ export function Testimonials() {
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.4, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
               whileHover={reduce ? undefined : { y: -4, scale: 1.02 }}
-              className={`bg-white dark:bg-zinc-900 rounded-2xl border-2 ${CARD_BORDERS[i]} p-5 space-y-3 flex flex-col card-shadow hover:shadow-lg transition-all duration-300`}
+              className="snap-center shrink-0 w-[85vw] sm:w-[320px] bg-card rounded-[16px] border-2 border-ink p-5 card-shadow-hard hover:card-shadow-hard-hover transition-all duration-200 space-y-3 flex flex-col"
             >
               <div className="flex items-center gap-0.5">
                 {Array.from({ length: 5 }).map((_, si) => (
@@ -57,23 +45,20 @@ export function Testimonials() {
                     key={si}
                     size={12}
                     fill={si < t.rating ? "currentColor" : "none"}
-                    className={si < t.rating ? "text-secondary" : "text-zinc-200 dark:text-zinc-700"}
+                    className={si < t.rating ? "text-brick" : "text-ink/20"}
                   />
                 ))}
               </div>
-              <p className="text-sm leading-relaxed flex-1 text-zinc-700 dark:text-zinc-300">
+              <p className="text-sm leading-relaxed flex-1 text-ink/80">
                 &ldquo;{t.content}&rdquo;
               </p>
-              <div className="flex items-center gap-2.5 pt-2 border-t border-zinc-100 dark:border-zinc-800">
-                <motion.div
-                  className={`h-8 w-8 rounded-full ${AVATAR_COLORS[i]} flex items-center justify-center text-white font-bold text-xs shrink-0 shadow-sm`}
-                  whileHover={{ scale: 1.2, rotate: 10 }}
-                >
+              <div className="flex items-center gap-2.5 pt-2 border-t border-ink/10">
+                <div className={`h-8 w-8 rounded-full ${INITIALS_BG[i]} flex items-center justify-center font-bold text-xs shrink-0`}>
                   {t.name.charAt(0)}
-                </motion.div>
+                </div>
                 <div>
-                  <p className="text-sm font-bold leading-tight">{t.name}</p>
-                  <p className="text-[11px] text-zinc-500 dark:text-zinc-400">{t.role}</p>
+                  <p className="text-sm font-bold leading-tight text-ink">{t.name}</p>
+                  <p className="text-[11px] text-ink-muted">{t.role}</p>
                 </div>
               </div>
             </motion.div>

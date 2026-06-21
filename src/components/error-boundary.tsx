@@ -30,11 +30,11 @@ export class ErrorBoundary extends Component<Props, State> {
       if (this.props.fallback) return this.props.fallback
       return (
         <div className="flex flex-col items-center justify-center gap-3 py-20 px-4 text-center">
-          <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/5 dark:bg-zinc-800 text-zinc-400">
+          <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-brick/5 dark:bg-surface-ink text-ink-muted">
             <Frown size={22} />
           </div>
           <h2 className="text-lg font-bold">Terjadi Kesalahan</h2>
-          <p className="text-sm text-zinc-500 max-w-sm">
+          <p className="text-sm text-ink-muted max-w-sm">
             Maaf, terjadi kesalahan yang tidak terduga. Silakan muat ulang halaman.
           </p>
           <Button onClick={() => this.setState({ hasError: false })}>

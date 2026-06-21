@@ -89,7 +89,7 @@ export function Modal({ open, onClose, children, title, className, size = "md" }
             aria-label={title}
             tabIndex={-1}
             className={cn(
-              "relative w-full rounded-2xl border-2 border-ink bg-white p-6 shadow-[8px_8px_0px_0px_rgba(26,26,26,1)] outline-none dark:bg-zinc-900",
+              "relative w-full rounded-[24px] border-2 border-ink bg-card p-6 card-shadow-hard outline-none",
               sizeClasses[size],
               className,
             )}
@@ -100,11 +100,11 @@ export function Modal({ open, onClose, children, title, className, size = "md" }
           >
             <div className="mb-4 flex items-center justify-between">
               {title && (
-                <h2 className="text-lg font-black text-ink dark:text-white">{title}</h2>
+                <h2 className="text-lg font-black text-ink">{title}</h2>
               )}
               <button
                 onClick={onClose}
-                className="ml-auto flex h-8 w-8 items-center justify-center rounded-lg border-2 border-ink bg-white text-ink transition-all hover:bg-primary/20 active:translate-x-[1px] active:translate-y-[1px] dark:bg-zinc-900 dark:text-white"
+                className="ml-auto flex h-8 w-8 items-center justify-center rounded-lg border-2 border-ink bg-card text-ink transition-all hover:bg-brick/20 active:translate-x-[1px] active:translate-y-[1px]"
                 aria-label="Tutup"
               >
                 <X size={16} />

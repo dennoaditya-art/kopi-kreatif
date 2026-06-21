@@ -24,18 +24,18 @@ export default function CheckoutPage() {
           transition={{ type: "spring", stiffness: 100, damping: 15 }}
         >
           <motion.div
-            className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-secondary to-accent text-white shadow-lg shadow-secondary/20"
+            className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-brick text-white shadow-lg shadow-secondary/20"
             animate={reduce ? undefined : { rotate: [0, 5, -5, 0], scale: [1, 1.1, 1] }}
             transition={{ duration: 0.5 }}
           >
             <Check size={32} />
           </motion.div>
           <h1 className="tracking-display text-2xl sm:text-3xl font-black">Pesanan Berhasil!</h1>
-          <p className="text-sm text-zinc-600 dark:text-zinc-400 max-w-sm mx-auto">
+          <p className="text-sm text-ink-muted dark:text-ink-muted max-w-sm mx-auto">
             Pesanan kamu sedang diproses. Kami akan kirim konfirmasi melalui email dalam beberapa saat.
           </p>
           <motion.div
-            className="rounded-2xl bg-white dark:bg-zinc-900 border border-primary/10 dark:border-zinc-800 p-4 text-left text-sm space-y-1.5 max-w-xs mx-auto shadow-sm"
+            className="rounded-2xl bg-white dark:bg-surface-alt-ink border border-brick/10 dark:border-ink/20 p-4 text-left text-sm space-y-1.5 max-w-xs mx-auto shadow-sm"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
@@ -63,7 +63,7 @@ export default function CheckoutPage() {
             description="Keranjang belanja kamu masih kosong. Isi dulu dengan kopi pilihanmu!"
             action={
               <Link href="/katalog">
-                <Button className="gap-2 border-2 border-ink shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] hover:shadow-[6px_6px_0px_0px_rgba(26,26,26,1)]">
+                <Button className="gap-2 border-2 border-ink card-shadow-hard hover:card-shadow-hard-hover">
                   <Coffee size={16} />
                   Lihat Katalog
                 </Button>
@@ -84,7 +84,7 @@ export default function CheckoutPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
         >
-          <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-primary to-accent text-white flex items-center justify-center">
+          <div className="h-9 w-9 rounded-xl bg-brick text-white flex items-center justify-center">
             <CreditCard size={18} />
           </div>
           <h1 className="tracking-display text-2xl sm:text-3xl font-black">Checkout</h1>
@@ -93,14 +93,14 @@ export default function CheckoutPage() {
         <div className="grid lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2 space-y-4">
             <motion.div
-              className="bg-white dark:bg-zinc-900 rounded-2xl border border-primary/10 dark:border-zinc-800 p-5 space-y-4 card-shadow"
+              className="bg-white dark:bg-surface-alt-ink rounded-2xl border border-brick/10 dark:border-ink/20 p-5 space-y-4 card-shadow-hard"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.05, type: "spring", stiffness: 100, damping: 15 }}
             >
               <div className="flex items-center gap-2">
-                <div className="h-6 w-6 rounded-lg bg-gradient-to-br from-primary/10 to-secondary/10 dark:bg-primary/20 flex items-center justify-center">
-                  <MapPin size={14} className="text-primary" />
+                <div className="h-6 w-6 rounded-lg bg-brick/10 dark:bg-brick/20 flex items-center justify-center">
+                  <MapPin size={14} className="text-brick" />
                 </div>
                 <h2 className="font-bold text-sm">Alamat Pengiriman</h2>
               </div>
@@ -116,14 +116,14 @@ export default function CheckoutPage() {
             </motion.div>
 
             <motion.div
-              className="bg-white dark:bg-zinc-900 rounded-2xl border border-secondary/15 dark:border-zinc-800 p-5 space-y-3 card-shadow"
+              className="bg-white dark:bg-surface-alt-ink rounded-2xl border border-brick/15 dark:border-ink/20 p-5 space-y-3 card-shadow-hard"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1, type: "spring", stiffness: 100, damping: 15 }}
             >
               <div className="flex items-center gap-2">
-                <div className="h-6 w-6 rounded-lg bg-secondary/10 dark:bg-secondary/20 flex items-center justify-center">
-                  <Package size={14} className="text-secondary" />
+                <div className="h-6 w-6 rounded-lg bg-brick/10 dark:bg-brick/20 flex items-center justify-center">
+                  <Package size={14} className="text-brick" />
                 </div>
                 <h2 className="font-bold text-sm">Metode Pengiriman</h2>
               </div>
@@ -136,13 +136,13 @@ export default function CheckoutPage() {
                   <motion.label
                     key={method.label}
                     whileHover={{ x: 2 }}
-                    className="flex items-center gap-3 p-3 rounded-xl border border-zinc-200 dark:border-zinc-700 cursor-pointer hover:bg-secondary/5 dark:hover:bg-zinc-800 transition-colors has-[:checked]:bg-secondary/5 has-[:checked]:border-secondary dark:has-[:checked]:bg-secondary/10"
+                    className="flex items-center gap-3 p-3 rounded-xl border border-ink/10 dark:border-ink/20 cursor-pointer hover:bg-brick/5 dark:hover:bg-surface-alt-ink transition-colors has-[:checked]:bg-brick/5 has-[:checked]:border-brick dark:has-[:checked]:bg-brick/10"
                   >
                     <input type="radio" name="shipping" defaultChecked={method.label === "Reguler"} className="h-4 w-4 accent-secondary" />
                     <div className="flex-1 flex items-center justify-between">
                       <div>
                         <span className="font-bold text-sm">{method.label}</span>
-                        <p className="text-xs text-zinc-500">{method.est}</p>
+                        <p className="text-xs text-ink-muted">{method.est}</p>
                       </div>
                       <span className="font-bold text-sm">Rp{method.price.toLocaleString("id-ID")}</span>
                     </div>
@@ -152,14 +152,14 @@ export default function CheckoutPage() {
             </motion.div>
 
             <motion.div
-              className="bg-white dark:bg-zinc-900 rounded-2xl border border-accent/15 dark:border-zinc-800 p-5 space-y-3 card-shadow"
+              className="bg-white dark:bg-surface-alt-ink rounded-2xl border border-olive/15 dark:border-ink/20 p-5 space-y-3 card-shadow-hard"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.15, type: "spring", stiffness: 100, damping: 15 }}
             >
               <div className="flex items-center gap-2">
-                <div className="h-6 w-6 rounded-lg bg-accent/10 dark:bg-accent/20 flex items-center justify-center">
-                  <CreditCard size={14} className="text-accent" />
+                <div className="h-6 w-6 rounded-lg bg-olive/10 dark:bg-olive/20 flex items-center justify-center">
+                  <CreditCard size={14} className="text-olive" />
                 </div>
                 <h2 className="font-bold text-sm">Pembayaran</h2>
               </div>
@@ -173,12 +173,12 @@ export default function CheckoutPage() {
                   <motion.label
                     key={pay.label}
                     whileHover={{ x: 2 }}
-                    className="flex items-center gap-3 p-3 rounded-xl border border-zinc-200 dark:border-zinc-700 cursor-pointer hover:bg-accent/5 dark:hover:bg-zinc-800 transition-colors has-[:checked]:bg-accent/5 has-[:checked]:border-accent dark:has-[:checked]:bg-accent/10"
+                    className="flex items-center gap-3 p-3 rounded-xl border border-ink/10 dark:border-ink/20 cursor-pointer hover:bg-olive/5 dark:hover:bg-surface-alt-ink transition-colors has-[:checked]:bg-olive/5 has-[:checked]:border-olive dark:has-[:checked]:bg-olive/10"
                   >
                     <input type="radio" name="payment" defaultChecked={pay.label === "Transfer BCA"} className="h-4 w-4 accent-accent" />
                     <div>
                       <span className="font-bold text-sm">{pay.label}</span>
-                      <p className="text-xs text-zinc-500">{pay.detail}</p>
+                      <p className="text-xs text-ink-muted">{pay.detail}</p>
                     </div>
                   </motion.label>
                 ))}
@@ -188,7 +188,7 @@ export default function CheckoutPage() {
 
           <div className="space-y-3">
             <motion.div
-              className="bg-white dark:bg-zinc-900 rounded-2xl border border-primary/10 dark:border-zinc-800 p-5 space-y-4 card-shadow"
+              className="bg-white dark:bg-surface-alt-ink rounded-2xl border border-brick/10 dark:border-ink/20 p-5 space-y-4 card-shadow-hard"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, type: "spring", stiffness: 100, damping: 15 }}
@@ -196,28 +196,28 @@ export default function CheckoutPage() {
               <h2 className="font-bold text-base">Ringkasan Pesanan</h2>
               <div className="space-y-2.5 text-sm">
                 {items.length === 0 ? (
-                  <p className="text-zinc-500 text-xs">Tidak ada item di keranjang</p>
+                  <p className="text-ink-muted text-xs">Tidak ada item di keranjang</p>
                 ) : (
                   items.map((item) => (
                     <div key={item.id + item.grind} className="flex justify-between">
-                      <span className="text-zinc-600 dark:text-zinc-400">{item.name} <span className="text-zinc-400">x{item.quantity}</span></span>
+                      <span className="text-ink-muted dark:text-ink-muted">{item.name} <span className="text-ink-muted">x{item.quantity}</span></span>
                       <span className="font-bold">Rp{(item.price * item.quantity).toLocaleString("id-ID")}</span>
                     </div>
                   ))
                 )}
               </div>
-                <hr className="border-t border-primary/10 dark:border-zinc-700" />
+                <hr className="border-t border-brick/10 dark:border-ink/20" />
               <div className="space-y-1.5 text-sm">
-                <div className="flex justify-between"><span className="text-zinc-500">Subtotal</span><span className="font-bold">Rp{subtotal.toLocaleString("id-ID")}</span></div>
-                <div className="flex justify-between"><span className="text-zinc-500">Ongkos Kirim</span><span className="font-bold">Rp{subtotal > 100000 ? 0 : 12000}</span></div>
-              <hr className="border-t border-primary/10 dark:border-zinc-700" />
-                <div className="flex justify-between text-lg"><span className="font-bold">Total</span><span className="font-black text-primary">Rp{(subtotal + (subtotal > 100000 ? 0 : 12000)).toLocaleString("id-ID")}</span></div>
+                <div className="flex justify-between"><span className="text-ink-muted">Subtotal</span><span className="font-bold">Rp{subtotal.toLocaleString("id-ID")}</span></div>
+                <div className="flex justify-between"><span className="text-ink-muted">Ongkos Kirim</span><span className="font-bold">Rp{subtotal > 100000 ? 0 : 12000}</span></div>
+              <hr className="border-t border-brick/10 dark:border-ink/20" />
+                <div className="flex justify-between text-lg"><span className="font-bold">Total</span><span className="font-black text-brick">Rp{(subtotal + (subtotal > 100000 ? 0 : 12000)).toLocaleString("id-ID")}</span></div>
               </div>
               <Button size="lg" className="w-full text-sm" onClick={() => {
                 clearCart()
                 setSubmitted(true)
               }} disabled={items.length === 0}>Konfirmasi Pesanan</Button>
-              <Link href="/keranjang" className="block text-center text-xs text-zinc-500 hover:text-primary font-medium">
+              <Link href="/keranjang" className="block text-center text-xs text-ink-muted hover:text-brick font-medium">
                 <ArrowLeft size={12} className="inline mr-1" />
                 Kembali ke Keranjang
               </Link>

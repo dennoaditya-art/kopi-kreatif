@@ -83,7 +83,7 @@ export function Drawer({ open, onClose, children, title, side = "right", classNa
             aria-label={title}
             tabIndex={-1}
             className={cn(
-              "relative flex h-full flex-col border-2 border-ink bg-white shadow-[8px_0px_0px_0px_rgba(26,26,26,1)] outline-none dark:bg-zinc-900",
+              "relative flex h-full flex-col border-2 border-ink bg-card outline-none",
               side === "left" ? "border-r-2" : "ml-auto border-l-2",
               width,
               className,
@@ -95,11 +95,11 @@ export function Drawer({ open, onClose, children, title, side = "right", classNa
           >
             <div className="flex items-center justify-between border-b-2 border-ink px-5 py-4">
               {title && (
-                <h2 className="text-base font-black text-ink dark:text-white">{title}</h2>
+                <h2 className="text-base font-black text-ink">{title}</h2>
               )}
               <button
                 onClick={onClose}
-                className="ml-auto flex h-8 w-8 items-center justify-center rounded-lg border-2 border-ink bg-white text-ink transition-all hover:bg-primary/20 active:translate-x-[1px] active:translate-y-[1px] dark:bg-zinc-900 dark:text-white"
+                className="ml-auto flex h-8 w-8 items-center justify-center rounded-lg border-2 border-ink bg-card text-ink transition-all hover:bg-brick/20 active:translate-x-[1px] active:translate-y-[1px]"
                 aria-label="Tutup"
               >
                 <X size={16} />

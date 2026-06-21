@@ -63,9 +63,9 @@ export default function KatalogPage() {
           transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
         >
           <h1 className="tracking-display text-3xl sm:text-4xl font-black">
-            Pilih Kopi <span className="text-primary">Favoritmu</span>
+            Pilih Kopi <span className="text-brick">Favoritmu</span>
           </h1>
-          <p className="text-sm text-zinc-600 dark:text-zinc-400 max-w-lg mt-1">
+          <p className="text-sm text-ink-muted dark:text-ink-muted max-w-lg mt-1">
             Dari Sabang sampai Merauke, setiap biji punya cerita.
           </p>
         </motion.div>
@@ -77,7 +77,7 @@ export default function KatalogPage() {
           transition={{ delay: 0.1, duration: 0.4 }}
         >
           <div className="relative flex-1 max-w-sm">
-            <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400" />
+            <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-ink-muted" />
             <Input
               type="text"
               placeholder="Cari kopi..."
@@ -89,7 +89,7 @@ export default function KatalogPage() {
           <select
             value={sort}
             onChange={(e) => setSort(e.target.value)}
-            className="rounded-xl border border-zinc-200 dark:border-zinc-700 px-3 py-2 text-xs font-bold bg-white dark:bg-zinc-900 cursor-pointer focus:ring-2 focus:ring-primary focus:outline-none h-10 shrink-0"
+            className="rounded-xl border border-ink/10 dark:border-ink/20 px-3 py-2 text-xs font-bold bg-white dark:bg-surface-alt-ink cursor-pointer focus:ring-2 focus:ring-brick focus:outline-none h-10 shrink-0"
           >
             <option value="">Urutkan: Terbaru</option>
             <option value="price-asc">Termurah</option>
@@ -109,8 +109,8 @@ export default function KatalogPage() {
             whileTap={{ scale: 0.95 }}
             className={`px-3 py-1.5 text-xs font-bold rounded-lg border transition-all ${
               !category
-                ? "bg-primary text-white border-primary shadow-sm"
-                : "bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-700 hover:bg-primary/5"
+                ? "bg-brick text-white border-brick shadow-sm"
+                : "bg-white dark:bg-surface-alt-ink border-ink/10 dark:border-ink/20 hover:bg-brick/5"
             }`}
           >
             Semua
@@ -122,8 +122,8 @@ export default function KatalogPage() {
               whileTap={{ scale: 0.95 }}
               className={`px-3 py-1.5 text-xs font-bold rounded-lg border transition-all capitalize ${
                 category === cat
-                  ? "bg-gradient-to-r from-primary to-primary-dark text-white border-primary shadow-sm"
-                  : "bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-700 hover:bg-primary/5"
+                  ? "bg-brick text-white border-brick shadow-sm"
+                  : "bg-white dark:bg-surface-alt-ink border-ink/10 dark:border-ink/20 hover:bg-brick/5"
               }`}
             >
               {cat.replace("-", " ")}
@@ -137,11 +137,11 @@ export default function KatalogPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.4 }}
         >
-          <p className="text-xs text-zinc-500 font-medium">
+          <p className="text-xs text-ink-muted font-medium">
             Menampilkan {filtered.length} dari {products.length} produk
           </p>
           <div className="hidden lg:flex items-center gap-2">
-            <span className="text-[11px] font-bold uppercase tracking-[0.1em] text-zinc-400">Roast:</span>
+            <span className="text-[11px] font-bold uppercase tracking-[0.1em] text-ink-muted">Roast:</span>
             {allRoasts.map((r) => (
               <motion.button
                 key={r}
@@ -149,8 +149,8 @@ export default function KatalogPage() {
                 whileTap={{ scale: 0.95 }}
                 className={`px-2.5 py-1 text-[11px] font-bold rounded-lg border transition-all ${
                   roast === r
-                    ? "bg-gradient-to-r from-secondary to-[#B87A4A] text-white border-secondary shadow-sm"
-                    : "bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-700 hover:bg-primary/5"
+                    ? "bg-brick text-white border-brick shadow-sm"
+                    : "bg-white dark:bg-surface-alt-ink border-ink/10 dark:border-ink/20 hover:bg-brick/5"
                 }`}
               >
                 {r}

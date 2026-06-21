@@ -13,7 +13,7 @@ export function Skeleton({ className }: { className?: string }) {
 
 export function ProductCardSkeleton() {
   return (
-    <div className="bg-white dark:bg-zinc-900 rounded-2xl border border-primary/10 dark:border-zinc-800 overflow-hidden card-shadow">
+    <div className="bg-card dark:bg-surface-alt-ink rounded-2xl border border-brick/10 dark:border-ink/20 overflow-hidden card-shadow-hard">
       <Skeleton className="aspect-[4/3] rounded-none" />
       <div className="p-4 space-y-3">
         <div className="flex justify-between gap-2">

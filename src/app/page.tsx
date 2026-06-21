@@ -1,4 +1,5 @@
 import { Hero } from "@/components/hero"
+import { StatsBanner } from "@/components/stats-banner"
 import { FeaturedProducts } from "@/components/featured-products"
 import { StorySection } from "@/components/story-section"
 import { CoffeeEducation } from "@/components/coffee-education"
@@ -10,6 +11,7 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+      <StatsBanner />
       <FeaturedProducts />
       <StorySection />
       <CoffeeEducation />

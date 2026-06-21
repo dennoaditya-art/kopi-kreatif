@@ -49,9 +49,7 @@ export default function KontakPage() {
   return (
     <div>
       {/* Header */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#F5EDE4] via-[#FDF6F0] to-[#F0EBE3] py-20 dark:from-zinc-900 dark:via-zinc-900 dark:to-zinc-950 sm:py-28">
-        <div className="pointer-events-none absolute -right-20 top-10 h-60 w-60 animate-blob rounded-full bg-secondary/10 blur-3xl dark:bg-secondary/[0.05]" />
-        <div className="pointer-events-none absolute -bottom-20 left-10 h-72 w-72 animate-blob rounded-full bg-accent/10 blur-3xl dark:bg-accent/[0.05]" style={{ animationDelay: "3s" }} />
+      <section className="relative overflow-hidden bg-paper py-20 sm:py-28">
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div
             className="mx-auto max-w-2xl text-center"
@@ -59,14 +57,14 @@ export default function KontakPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           >
-            <span className="card-shadow-hard mb-4 inline-flex items-center gap-2 rounded-full border-2 border-ink bg-ink px-4 py-1.5 text-xs font-bold text-white">
+            <span className="card-shadow-hard mb-4 inline-flex items-center gap-2 rounded-full border-2 border-ink bg-ink px-4 py-1.5 text-xs font-bold text-white dark:bg-white dark:text-surface-ink dark:border-ink/20">
               <MessageSquare size={12} />
               Hubungi Kami
             </span>
             <h1 className="text-4xl font-black leading-[1.05] tracking-display sm:text-5xl lg:text-6xl">
-              Ada yang bisa <span className="text-primary">kami bantu?</span>
+              Ada yang bisa <span className="text-brick">kami bantu?</span>
             </h1>
-            <p className="mx-auto mt-4 max-w-lg text-base leading-relaxed text-zinc-600 dark:text-zinc-400">
+            <p className="mx-auto mt-4 max-w-lg text-base leading-relaxed text-ink-muted dark:text-ink-muted">
               Tim kami siap mendengar pertanyaan, saran, atau sekadar ngobrol soal kopi.
             </p>
           </motion.div>
@@ -82,24 +80,24 @@ export default function KontakPage() {
               {contactInfo.map((info, i) => (
                 <motion.div
                   key={info.label}
-                  className="card-shadow-hard flex items-start gap-4 rounded-2xl border-2 border-ink bg-white p-5 dark:bg-zinc-900"
+                  className="card-shadow-hard flex items-start gap-4 rounded-2xl border-2 border-ink bg-white p-5 dark:bg-surface-alt-ink"
                   initial={reduce ? false : { opacity: 0, x: -16 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: i * 0.08 }}
                 >
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary shadow-[3px_3px_0px_0px_rgba(26,26,26,1)]">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brick card-shadow-hard">
                     <info.icon size={18} className="text-ink" />
                   </div>
                   <div>
-                    <p className="text-xs font-bold text-zinc-500">{info.label}</p>
+                    <p className="text-xs font-bold text-ink-muted">{info.label}</p>
                     <p className="text-sm font-bold text-ink dark:text-white">{info.value}</p>
                   </div>
                 </motion.div>
               ))}
 
               <motion.div
-                className="rounded-2xl border-2 border-ink bg-gradient-to-br from-ink to-[#3A2A20] p-6 text-white shadow-[6px_6px_0px_0px_rgba(26,26,26,1)]"
+                className="card-shadow-hard rounded-2xl border-2 border-ink bg-ink p-6 text-white dark:bg-card dark:text-ink dark:border-ink/20"
                 initial={reduce ? false : { opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -123,7 +121,7 @@ export default function KontakPage() {
             {/* Contact form */}
             <div className="lg:col-span-3">
               <motion.div
-                className="rounded-[2rem] border-2 border-ink bg-white p-8 shadow-[8px_8px_0px_0px_rgba(26,26,26,1)] dark:bg-zinc-900 sm:p-10"
+                className="rounded-[24px] border-2 border-ink bg-card p-8 card-shadow-hard sm:p-10"
                 initial={reduce ? false : { opacity: 0, x: 16 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -132,14 +130,14 @@ export default function KontakPage() {
                 {sent ? (
                   <div className="py-10 text-center">
                     <motion.div
-                      className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-secondary to-accent text-white shadow-[4px_4px_0px_0px_rgba(26,26,26,1)]"
+                      className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-brick text-white card-shadow-hard"
                       animate={reduce ? undefined : { scale: [1, 1.1, 1] }}
                       transition={{ duration: 0.4 }}
                     >
                       <Check size={28} />
                     </motion.div>
                     <h2 className="text-xl font-black text-ink dark:text-white">Pesan Terkirim!</h2>
-                    <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
+                    <p className="mt-2 text-sm text-ink-muted dark:text-ink-muted">
                       Terima kasih! Tim kami akan membalas pesan kamu dalam 1x24 jam.
                     </p>
                     <Button
@@ -163,7 +161,7 @@ export default function KontakPage() {
                             placeholder="Nama kamu"
                             value={form.name}
                             onChange={handleChange}
-                            className="h-12 border-2 border-ink bg-white text-ink placeholder:text-zinc-400 focus:ring-primary dark:bg-zinc-900 dark:text-white"
+                            className="h-12 border-2 border-ink bg-white text-ink placeholder:text-ink-muted focus:ring-brick dark:bg-surface-alt-ink dark:text-white"
                           />
                         </div>
                         <div className="space-y-1.5">
@@ -175,7 +173,7 @@ export default function KontakPage() {
                             placeholder="kamu@email.com"
                             value={form.email}
                             onChange={handleChange}
-                            className="h-12 border-2 border-ink bg-white text-ink placeholder:text-zinc-400 focus:ring-primary dark:bg-zinc-900 dark:text-white"
+                            className="h-12 border-2 border-ink bg-white text-ink placeholder:text-ink-muted focus:ring-brick dark:bg-surface-alt-ink dark:text-white"
                           />
                         </div>
                       </div>
@@ -188,7 +186,7 @@ export default function KontakPage() {
                           placeholder="Ada yang bisa kami bantu?"
                           value={form.subject}
                           onChange={handleChange}
-                          className="h-12 border-2 border-ink bg-white text-ink placeholder:text-zinc-400 focus:ring-primary dark:bg-zinc-900 dark:text-white"
+                          className="h-12 border-2 border-ink bg-white text-ink placeholder:text-ink-muted focus:ring-brick dark:bg-surface-alt-ink dark:text-white"
                         />
                       </div>
 
@@ -201,7 +199,7 @@ export default function KontakPage() {
                           placeholder="Tulis pesan kamu di sini..."
                           value={form.message}
                           onChange={handleChange}
-                          className="w-full rounded-xl border-2 border-ink bg-white px-4 py-3 text-sm text-ink placeholder:text-zinc-400 focus:ring-2 focus:ring-primary focus:outline-none dark:bg-zinc-900 dark:text-white"
+                          className="w-full rounded-xl border-2 border-ink bg-white px-4 py-3 text-sm text-ink placeholder:text-ink-muted focus:ring-2 focus:ring-brick focus:outline-none dark:bg-surface-alt-ink dark:text-white"
                         />
                       </div>
 
@@ -218,7 +216,7 @@ export default function KontakPage() {
                       <Button
                         type="submit"
                         disabled={loading}
-                        className="h-12 w-full border-2 border-ink text-base shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] hover:shadow-[6px_6px_0px_0px_rgba(26,26,26,1)]"
+                        className="h-12 w-full border-2 border-ink text-base card-shadow-hard hover:card-shadow-hard-hover"
                       >
                         {loading ? <Loader2 size={18} className="animate-spin" /> : <Send size={18} />}
                         {loading ? "Mengirim..." : "Kirim Pesan"}

@@ -29,7 +29,7 @@ export default function KeranjangPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
         >
-          <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-primary to-accent text-white flex items-center justify-center">
+          <div className="h-9 w-9 rounded-xl bg-brick text-white flex items-center justify-center">
             <ShoppingCart size={18} />
           </div>
           <h1 className="tracking-display text-2xl sm:text-3xl font-black">Keranjang</h1>
@@ -42,7 +42,7 @@ export default function KeranjangPage() {
             description="Belum ada kopi yang dipilih. Yuk jelajahi katalog dan temukan favoritmu!"
             action={
               <Link href="/katalog">
-                <Button className="gap-2 border-2 border-ink shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] hover:shadow-[6px_6px_0px_0px_rgba(26,26,26,1)]">
+                <Button className="gap-2 border-2 border-ink card-shadow-hard hover:card-shadow-hard-hover">
                   <Coffee size={16} />
                   Lihat Katalog
                 </Button>
@@ -63,9 +63,9 @@ export default function KeranjangPage() {
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: 20, height: 0 }}
                     transition={{ type: "spring", stiffness: 200, damping: 20 }}
-                    className="bg-white dark:bg-zinc-900 rounded-2xl border border-primary/10 dark:border-zinc-800 p-4 flex flex-col sm:flex-row gap-3 card-shadow hover:shadow-lg transition-shadow"
+                    className="bg-white dark:bg-surface-alt-ink rounded-2xl border border-brick/10 dark:border-ink/20 p-4 flex flex-col sm:flex-row gap-3 card-shadow-hard hover:shadow-lg transition-shadow"
                   >
-                  <div className="h-20 w-20 shrink-0 relative rounded-xl overflow-hidden bg-gradient-to-br from-primary/10 to-secondary/10 dark:bg-zinc-800">
+                  <div className="h-20 w-20 shrink-0 relative rounded-xl overflow-hidden bg-brick/10 dark:bg-surface-ink">
                     <Image
                       src={item.image}
                       alt={item.name}
@@ -78,7 +78,7 @@ export default function KeranjangPage() {
                     <div className="flex items-start justify-between gap-2">
                       <div>
                         <h3 className="font-bold text-sm">{item.name}</h3>
-                        <p className="text-xs text-zinc-500 font-medium">{item.grind} — {item.weight}</p>
+                        <p className="text-xs text-ink-muted font-medium">{item.grind} — {item.weight}</p>
                       </div>
                       <motion.button
                         onClick={() => removeItem(key)}
@@ -91,11 +91,11 @@ export default function KeranjangPage() {
                       </motion.button>
                     </div>
                     <div className="flex items-center justify-between gap-4">
-                      <div className="flex items-center border border-zinc-200 dark:border-zinc-700 rounded-lg h-9 bg-zinc-50 dark:bg-zinc-800/50">
+                      <div className="flex items-center border border-ink/10 dark:border-ink/20 rounded-lg h-9 bg-zinc-50 dark:bg-surface-ink/50">
                         <motion.button
                           onClick={() => updateQuantity(key, -1)}
                           whileTap={{ scale: 0.9 }}
-                          className="flex items-center justify-center h-full min-w-[36px] px-1.5 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-l-lg transition-colors"
+                          className="flex items-center justify-center h-full min-w-[36px] px-1.5 hover:bg-zinc-100 dark:hover:bg-surface-alt-ink rounded-l-lg transition-colors"
                           aria-label="Kurangi jumlah"
                         >
                           <Minus size={12} />
@@ -112,7 +112,7 @@ export default function KeranjangPage() {
                         <motion.button
                           onClick={() => updateQuantity(key, 1)}
                           whileTap={{ scale: 0.9 }}
-                          className="flex items-center justify-center h-full min-w-[36px] px-1.5 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-r-lg transition-colors"
+                          className="flex items-center justify-center h-full min-w-[36px] px-1.5 hover:bg-zinc-100 dark:hover:bg-surface-alt-ink rounded-r-lg transition-colors"
                           aria-label="Tambah jumlah"
                         >
                           <Plus size={12} />
@@ -120,7 +120,7 @@ export default function KeranjangPage() {
                       </div>
                       <div className="text-right">
                         <span className="font-black text-sm">Rp{(item.price * item.quantity).toLocaleString("id-ID")}</span>
-                        {item.originalPrice && <><br /><span className="text-xs text-zinc-400 line-through">Rp{item.originalPrice.toLocaleString("id-ID")}</span></>}
+                        {item.originalPrice && <><br /><span className="text-xs text-ink-muted line-through">Rp{item.originalPrice.toLocaleString("id-ID")}</span></>}
                       </div>
                     </div>
                   </div>
@@ -128,7 +128,7 @@ export default function KeranjangPage() {
                 )
               })}
               </AnimatePresence>
-              <Link href="/katalog" className="inline-flex items-center gap-1.5 text-xs font-bold text-primary hover:text-primary-dark transition-colors group">
+              <Link href="/katalog" className="inline-flex items-center gap-1.5 text-xs font-bold text-brick hover:text-brick-deep transition-colors group">
                 <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
                 Lanjut Belanja
               </Link>
@@ -136,7 +136,7 @@ export default function KeranjangPage() {
 
             <div className="space-y-3">
               <motion.div
-                className="bg-white dark:bg-zinc-900 rounded-2xl border border-primary/10 dark:border-zinc-800 p-5 space-y-4 card-shadow"
+                className="bg-white dark:bg-surface-alt-ink rounded-2xl border border-brick/10 dark:border-ink/20 p-5 space-y-4 card-shadow-hard"
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.15, type: "spring", stiffness: 100, damping: 15 }}
@@ -149,12 +149,12 @@ export default function KeranjangPage() {
                     animate={{ opacity: 1 }}
                     key={`subtotal-${subtotal}`}
                   >
-                    <span className="text-zinc-500">Subtotal</span>
+                    <span className="text-ink-muted">Subtotal</span>
                     <span className="font-bold">Rp{subtotal.toLocaleString("id-ID")}</span>
                   </motion.div>
                   {discount > 0 && (
                     <motion.div
-                      className="flex justify-between text-secondary"
+                      className="flex justify-between text-brick"
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: "auto" }}
                     >
@@ -163,10 +163,10 @@ export default function KeranjangPage() {
                     </motion.div>
                   )}
                   <div className="flex justify-between">
-                    <span className="text-zinc-500">Ongkos Kirim</span>
-                    <span className="font-bold">{shipping === 0 ? <span className="text-secondary font-black">GRATIS</span> : `Rp${shipping.toLocaleString("id-ID")}`}</span>
+                    <span className="text-ink-muted">Ongkos Kirim</span>
+                    <span className="font-bold">{shipping === 0 ? <span className="text-brick font-black">GRATIS</span> : `Rp${shipping.toLocaleString("id-ID")}`}</span>
                   </div>
-                  <hr className="border-t border-primary/10 dark:border-zinc-700" />
+                  <hr className="border-t border-brick/10 dark:border-ink/20" />
                   <motion.div
                     className="flex justify-between text-lg"
                     key={`total-${total}`}
@@ -174,17 +174,17 @@ export default function KeranjangPage() {
                     animate={{ scale: 1 }}
                   >
                     <span className="font-bold">Total</span>
-                    <span className="font-black text-primary">Rp{total.toLocaleString("id-ID")}</span>
+                    <span className="font-black text-brick">Rp{total.toLocaleString("id-ID")}</span>
                   </motion.div>
                 </div>
                 <div className="flex gap-2">
                   <Input type="text" placeholder="Kode promo" value={coupon} onChange={(e) => setCoupon(e.target.value)} className="text-sm h-10" />
-                  <Button size="sm" variant={couponApplied ? "secondary" : "outline"} onClick={() => setCouponApplied(!couponApplied)} disabled={!coupon && !couponApplied} className="gap-1 shrink-0 text-xs">
+                  <Button size="sm" variant={couponApplied ? "brick" : "outline"} onClick={() => setCouponApplied(!couponApplied)} disabled={!coupon && !couponApplied} className="gap-1 shrink-0 text-xs">
                     <Tag size={13} />
                     {couponApplied ? "Pakai" : "Gunakan"}
                   </Button>
                 </div>
-                {shipping > 0 && <p className="text-xs text-zinc-500 text-center">Gratis ongkir untuk belanja minimal Rp100.000</p>}
+                {shipping > 0 && <p className="text-xs text-ink-muted text-center">Gratis ongkir untuk belanja minimal Rp100.000</p>}
                 <Link href="/checkout"><Button className="w-full text-sm gap-2" size="lg">Lanjut ke Checkout</Button></Link>
               </motion.div>
             </div>
