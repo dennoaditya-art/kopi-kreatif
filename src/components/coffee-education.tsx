@@ -4,7 +4,6 @@ import Image from "next/image"
 import Link from "next/link"
 import { motion, useReducedMotion } from "motion/react"
 import { Bean, Droplets, MapPin, ChevronRight, Mountain, CloudSun, Trees, Sprout, Leaf, Factory, LocateFixed, Flame } from "lucide-react"
-import { cn } from "@/lib/utils"
 
 interface CoffeeType {
   name: string

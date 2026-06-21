@@ -32,11 +32,7 @@ function applyTheme(theme: Theme) {
 const ThemeContext = createContext<ThemeContextValue | null>(null)
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>("light")
-
-  useEffect(() => {
-    setThemeState(getInitialTheme())
-  }, [])
+  const [theme, setThemeState] = useState<Theme>(getInitialTheme)
 
   useEffect(() => {
     applyTheme(theme)
