@@ -1,7 +1,6 @@
 "use client"
 
-import { useState, useRef, useCallback } from "react"
-import Script from "next/script"
+import { useState, useRef, useCallback, useEffect } from "react"
 import { useParams } from "next/navigation"
 import Link from "next/link"
 import Image from "next/image"
@@ -98,14 +97,16 @@ export default function DetailProdukPage() {
     setTimeout(() => setAdded(false), 2000)
   }
 
+  useEffect(() => {
+    const el = document.createElement("script")
+    el.type = "application/ld+json"
+    el.text = JSON.stringify(productSchema)
+    document.head.appendChild(el)
+    return () => { el.remove() }
+  }, [])
+
   return (
     <div className="overflow-hidden">
-      <Script
-        id="product-schema"
-        type="application/ld+json"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
-      />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28 pb-8">
         <motion.div
           initial={reduce ? false : { opacity: 0, x: -10 }}
