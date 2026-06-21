@@ -31,7 +31,7 @@ export default function MasukPage() {
   }
 
   return (
-    <div className="flex min-h-dvh items-center justify-center px-4 py-16">
+    <div className="flex min-h-dvh items-center justify-center px-4 pt-24 pb-16">
       <motion.div
         className="w-full max-w-md"
         initial={reduce ? false : { opacity: 0, y: 24 }}
@@ -139,3 +139,4 @@ export default function MasukPage() {
     </div>
   )
 }
+

@@ -1,6 +1,6 @@
 export default function LoadingPage() {
   return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 pb-8">
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28 pb-8">
       <div className="space-y-8 animate-pulse">
         <div className="h-10 w-64 rounded-2xl bg-ink/5 dark:bg-white/5" />
         <div className="h-5 w-96 rounded-2xl bg-ink/5 dark:bg-white/5" />
@@ -20,3 +20,4 @@ export default function LoadingPage() {
     </div>
   )
 }
+

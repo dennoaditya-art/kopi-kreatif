@@ -21,7 +21,7 @@ export default function CheckoutPage() {
     return (
       <div>
           <motion.div
-            className="mx-auto max-w-xl px-4 pt-20 sm:pt-24 pb-16 text-center space-y-5"
+            className="mx-auto max-w-xl px-4 pt-24 sm:pt-28 pb-16 text-center space-y-5"
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ type: "spring", stiffness: 100, damping: 15 }}
@@ -59,7 +59,7 @@ export default function CheckoutPage() {
   if (items.length === 0 && !submitted) {
     return (
       <div>
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 pb-8 sm:pb-12">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28 pb-8 sm:pb-12">
           <EmptyState
             icon={<ShoppingCart size={32} />}
             title="Tidak ada item untuk di-checkout"
@@ -237,3 +237,4 @@ export default function CheckoutPage() {
     </div>
   )
 }
+

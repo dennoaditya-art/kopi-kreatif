@@ -55,7 +55,7 @@ export default function KatalogPage() {
 
   return (
     <div>
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 pb-8 sm:pb-12">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28 pb-8 sm:pb-12">
         <motion.div
           className="mb-8"
           initial={reduce ? false : { opacity: 0, y: -10 }}
@@ -196,3 +196,4 @@ export default function KatalogPage() {
     </div>
   )
 }
+

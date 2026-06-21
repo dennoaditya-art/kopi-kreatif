@@ -73,7 +73,7 @@ export default function DashboardPage() {
 
   return (
     <div>
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 pb-8 sm:pb-12">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28 pb-8 sm:pb-12">
         <div className="flex items-center justify-between gap-4 mb-8">
           <div className="flex items-center gap-3">
             <div className="h-9 w-9 rounded-xl bg-brick text-white flex items-center justify-center">
@@ -242,3 +242,4 @@ export default function DashboardPage() {
     </div>
   )
 }
+

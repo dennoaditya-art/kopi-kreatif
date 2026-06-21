@@ -27,7 +27,7 @@ export function Hero() {
   return (
     <section className="relative overflow-hidden bg-paper">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-12 gap-6 sm:gap-8 min-h-dvh items-start lg:items-center py-10 sm:py-16 lg:py-0">
+        <div className="grid lg:grid-cols-12 gap-6 sm:gap-8 min-h-dvh items-start lg:items-center pt-20 pb-10 sm:py-16 lg:py-0">
 
           {/* Left: text content */}
           <div className="lg:col-span-5 space-y-5 sm:space-y-6 z-10">
