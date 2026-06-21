@@ -103,7 +103,7 @@ export default function DetailProdukPage() {
       <Script
         id="product-schema"
         type="application/ld+json"
-        strategy="lazyOnload"
+        strategy="afterInteractive"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
       />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28 pb-8">
