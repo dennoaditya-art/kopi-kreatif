@@ -7,12 +7,13 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useCart } from "@/lib/cart-context"
 import { useToast } from "@/components/ui/toast"
-import { CreditCard, MapPin, Package, ArrowLeft, Check, ShoppingCart, Coffee } from "lucide-react"
+import { CreditCard, MapPin, Package, ArrowLeft, Check, ShoppingCart, Coffee, Loader2 } from "lucide-react"
 import { EmptyState } from "@/components/empty-state"
 
 export default function CheckoutPage() {
   const { items, subtotal, clearCart } = useCart()
   const [submitted, setSubmitted] = useState(false)
+  const [loading, setLoading] = useState(false)
   const reduce = useReducedMotion()
   const { toast } = useToast()
 
@@ -215,11 +216,16 @@ export default function CheckoutPage() {
               <hr className="border-t border-brick/10 dark:border-ink/20" />
                 <div className="flex justify-between text-lg"><span className="font-bold">Total</span><span className="font-black text-brick">Rp{(subtotal + (subtotal > 100000 ? 0 : 12000)).toLocaleString("id-ID")}</span></div>
               </div>
-              <Button size="lg" className="w-full text-sm" onClick={() => {
+              <Button size="lg" className="w-full text-sm gap-2" onClick={async () => {
+                setLoading(true)
+                await new Promise((r) => setTimeout(r, 1500))
                 clearCart()
                 toast("Pesanan berhasil dibuat! Konfirmasi dikirim via email.", "success")
+                setLoading(false)
                 setSubmitted(true)
-              }} disabled={items.length === 0}>Konfirmasi Pesanan</Button>
+              }} disabled={items.length === 0 || loading}>
+                {loading ? <><Loader2 size={18} className="animate-spin" /> Memproses...</> : "Konfirmasi Pesanan"}
+              </Button>
               <Link href="/keranjang" className="block text-center text-xs text-ink-muted hover:text-brick font-medium">
                 <ArrowLeft size={12} className="inline mr-1" />
                 Kembali ke Keranjang

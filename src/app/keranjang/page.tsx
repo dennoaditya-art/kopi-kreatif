@@ -8,13 +8,14 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useCart, itemKey } from "@/lib/cart-context"
 import { useToast } from "@/components/ui/toast"
-import { Trash2, Minus, Plus, ShoppingCart, ArrowLeft, Tag, Coffee } from "lucide-react"
+import { Trash2, Minus, Plus, ShoppingCart, ArrowLeft, Tag, Coffee, Loader2 } from "lucide-react"
 import { EmptyState } from "@/components/empty-state"
 
 export default function KeranjangPage() {
   const { items, updateQuantity, removeItem, subtotal } = useCart()
   const [coupon, setCoupon] = useState("")
   const [couponApplied, setCouponApplied] = useState(false)
+  const [couponLoading, setCouponLoading] = useState(false)
   const reduce = useReducedMotion()
   const { toast } = useToast()
 
@@ -181,13 +182,17 @@ export default function KeranjangPage() {
                 </div>
                 <div className="flex gap-2">
                   <Input type="text" placeholder="Kode promo" value={coupon} onChange={(e) => setCoupon(e.target.value)} className="text-sm h-10" />
-                  <Button size="sm" variant={couponApplied ? "brick" : "outline"} onClick={() => {
+                  <Button size="sm" variant={couponApplied ? "brick" : "outline"} onClick={async () => {
+                    if (couponLoading) return
+                    setCouponLoading(true)
+                    await new Promise((r) => setTimeout(r, 800))
                     const next = !couponApplied
                     setCouponApplied(next)
+                    setCouponLoading(false)
                     if (next) toast("Kode promo berhasil digunakan! Diskon 10%", "success")
-                  }} disabled={!coupon && !couponApplied} className="gap-1 shrink-0 text-xs">
-                    <Tag size={13} />
-                    {couponApplied ? "Pakai" : "Gunakan"}
+                  }} disabled={(!coupon && !couponApplied) || couponLoading} className="gap-1 shrink-0 text-xs">
+                    {couponLoading ? <Loader2 size={13} className="animate-spin" /> : <Tag size={13} />}
+                    {couponLoading ? "Memeriksa..." : couponApplied ? "Pakai" : "Gunakan"}
                   </Button>
                 </div>
                 {shipping > 0 && <p className="text-xs text-ink-muted text-center">Gratis ongkir untuk belanja minimal Rp100.000</p>}

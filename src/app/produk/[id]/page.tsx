@@ -12,7 +12,7 @@ import { Badge } from "@/components/ui/badge"
 import { ProductCard } from "@/components/product-card"
 import { FLAVOR_COLORS } from "@/components/product-card"
 import { useToast } from "@/components/ui/toast"
-import { Star, ShoppingCart, ArrowLeft, Minus, Plus, Check, Frown, Package as PackageIcon, Truck, Flame } from "lucide-react"
+import { Star, ShoppingCart, ArrowLeft, Minus, Plus, Check, Frown, Package as PackageIcon, Truck, Flame, Loader2 } from "lucide-react"
 
 export default function DetailProdukPage() {
   const params = useParams()
@@ -21,6 +21,7 @@ export default function DetailProdukPage() {
   const [quantity, setQuantity] = useState(1)
   const [selectedGrind, setSelectedGrind] = useState(product?.grind[0] || "")
   const [added, setAdded] = useState(false)
+  const [adding, setAdding] = useState(false)
   const reduce = useReducedMotion()
   const { toast } = useToast()
   const imageRef = useRef<HTMLDivElement>(null)
@@ -50,9 +51,36 @@ export default function DetailProdukPage() {
     )
   }
 
+  const productSchema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    description: product.description,
+    image: `https://kopi-kreatif.vercel.app${product.image}`,
+    sku: product.id,
+    mpn: product.id,
+    brand: { "@type": "Brand", name: "KOPI Nusantara" },
+    offers: {
+      "@type": "Offer",
+      price: product.price,
+      priceCurrency: "IDR",
+      availability: product.stock > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+      url: `https://kopi-kreatif.vercel.app/produk/${product.id}`,
+      priceValidUntil: "2027-12-31",
+    },
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: product.rating,
+      reviewCount: product.reviewCount,
+    },
+  }
+
   const related = products.filter((p) => p.category === product.category && p.id !== product.id).slice(0, 4)
 
-  const handleAddToCart = () => {
+  const handleAddToCart = async () => {
+    if (adding) return
+    setAdding(true)
+    await new Promise((r) => setTimeout(r, 600))
     addItem({
       id: product.id,
       name: product.name,
@@ -64,12 +92,17 @@ export default function DetailProdukPage() {
       image: product.image,
     })
     setAdded(true)
+    setAdding(false)
     toast(`${product.name} ditambahkan ke keranjang!`, "success")
     setTimeout(() => setAdded(false), 2000)
   }
 
   return (
     <div className="overflow-hidden">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
+      />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 pb-8">
         <motion.div
           initial={reduce ? false : { opacity: 0, x: -10 }}
@@ -266,8 +299,9 @@ export default function DetailProdukPage() {
                 size="lg"
                 className="w-full sm:w-auto text-sm gap-2"
                 onClick={handleAddToCart}
+                disabled={adding}
               >
-                {added ? <><motion.span initial={{ rotate: -45 }} animate={{ rotate: 0 }}><Check size={18} /></motion.span> Ditambahkan!</> : <><ShoppingCart size={18} /> Tambah ke Keranjang</>}
+                {adding ? <><Loader2 size={18} className="animate-spin" /> Menambahkan...</> : added ? <><motion.span initial={{ rotate: -45 }} animate={{ rotate: 0 }}><Check size={18} /></motion.span> Ditambahkan!</> : <><ShoppingCart size={18} /> Tambah ke Keranjang</>}
               </Button>
             </motion.div>
 

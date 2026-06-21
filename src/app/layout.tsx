@@ -54,6 +54,45 @@ export default function RootLayout({
     <html lang="id" className={`${geistSans.variable} ${geistMono.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "KOPI Nusantara",
+              url: "https://kopi-kreatif.vercel.app",
+              logo: "https://kopi-kreatif.vercel.app/preview.png",
+              description: "Premium coffee e-commerce template. Bubuk kopi Nusantara pilihan.",
+              contactPoint: {
+                "@type": "ContactPoint",
+                telephone: "+62-812-3456-7890",
+                contactType: "customer service",
+                availableLanguage: ["Indonesian", "English"],
+              },
+              sameAs: ["https://instagram.com/kopi-nusantara", "https://tiktok.com/@kopi-nusantara"],
+            }),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              name: "KOPI Nusantara",
+              url: "https://kopi-kreatif.vercel.app",
+              potentialAction: {
+                "@type": "SearchAction",
+                target: {
+                  "@type": "EntryPoint",
+                  urlTemplate: "https://kopi-kreatif.vercel.app/katalog?search={search_term_string}",
+                },
+                "query-input": "required name=search_term_string",
+              },
+            }),
+          }}
+        />
       </head>
       <body className="min-h-dvh flex flex-col antialiased">
         <ThemeProvider>
