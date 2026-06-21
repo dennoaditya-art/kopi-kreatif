@@ -7,6 +7,7 @@ import { motion, useReducedMotion, AnimatePresence } from "motion/react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useCart, itemKey } from "@/lib/cart-context"
+import { useToast } from "@/components/ui/toast"
 import { Trash2, Minus, Plus, ShoppingCart, ArrowLeft, Tag, Coffee } from "lucide-react"
 import { EmptyState } from "@/components/empty-state"
 
@@ -15,6 +16,7 @@ export default function KeranjangPage() {
   const [coupon, setCoupon] = useState("")
   const [couponApplied, setCouponApplied] = useState(false)
   const reduce = useReducedMotion()
+  const { toast } = useToast()
 
   const discount = couponApplied ? subtotal * 0.1 : 0
   const shipping = subtotal > 100000 ? 0 : 12000
@@ -179,7 +181,11 @@ export default function KeranjangPage() {
                 </div>
                 <div className="flex gap-2">
                   <Input type="text" placeholder="Kode promo" value={coupon} onChange={(e) => setCoupon(e.target.value)} className="text-sm h-10" />
-                  <Button size="sm" variant={couponApplied ? "brick" : "outline"} onClick={() => setCouponApplied(!couponApplied)} disabled={!coupon && !couponApplied} className="gap-1 shrink-0 text-xs">
+                  <Button size="sm" variant={couponApplied ? "brick" : "outline"} onClick={() => {
+                    const next = !couponApplied
+                    setCouponApplied(next)
+                    if (next) toast("Kode promo berhasil digunakan! Diskon 10%", "success")
+                  }} disabled={!coupon && !couponApplied} className="gap-1 shrink-0 text-xs">
                     <Tag size={13} />
                     {couponApplied ? "Pakai" : "Gunakan"}
                   </Button>

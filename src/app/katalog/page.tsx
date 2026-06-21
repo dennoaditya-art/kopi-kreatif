@@ -89,7 +89,7 @@ export default function KatalogPage() {
           <select
             value={sort}
             onChange={(e) => setSort(e.target.value)}
-            className="rounded-xl border border-ink/10 dark:border-ink/20 px-3 py-2 text-xs font-bold bg-white dark:bg-surface-alt-ink cursor-pointer focus:ring-2 focus:ring-brick focus:outline-none h-10 shrink-0"
+            className="rounded-xl border-2 border-ink px-3 py-2 text-xs font-bold bg-white dark:bg-surface-alt-ink text-ink cursor-pointer focus:ring-2 focus:ring-brick focus:outline-none h-10 shrink-0 card-shadow-hard"
           >
             <option value="">Urutkan: Terbaru</option>
             <option value="price-asc">Termurah</option>

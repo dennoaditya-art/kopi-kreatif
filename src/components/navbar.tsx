@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { motion, useScroll, useMotionValueEvent, useReducedMotion } from "motion/react"
+import { motion, AnimatePresence, useScroll, useMotionValueEvent, useReducedMotion } from "motion/react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { ShoppingCart, Menu, X, Coffee, Sun, Moon } from "lucide-react"
@@ -118,35 +118,58 @@ export function Navbar() {
         </div>
       </motion.div>
 
-      {open && (
-        <motion.nav
-          className="md:hidden border-t-2 border-ink bg-card px-4 py-4 space-y-3"
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: "auto" }}
-          transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-        >
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              onClick={() => setOpen(false)}
-              className="block text-sm font-bold text-ink-muted py-3 hover:text-brick transition-colors"
-            >
-              {link.label}
-            </Link>
-          ))}
-          <Link
-            href="/masuk"
-            onClick={() => setOpen(false)}
-            className="block text-sm font-bold text-ink-muted py-3 hover:text-brick transition-colors"
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            className="fixed inset-0 z-30 flex flex-col items-center justify-center gap-8 bg-paper/95 backdrop-blur-lg dark:bg-surface-ink/95 md:hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
           >
-            Masuk
-          </Link>
-          <Link href="/katalog" onClick={() => setOpen(false)}>
-            <Button className="w-full">Beli Sekarang</Button>
-          </Link>
-        </motion.nav>
-      )}
+            <button
+              onClick={() => setOpen(false)}
+              className="absolute top-4 right-4 h-11 w-11 flex items-center justify-center rounded-xl border-2 border-ink bg-card text-ink"
+              aria-label="Tutup menu"
+            >
+              <X size={20} />
+            </button>
+
+            <nav className="flex flex-col items-center gap-6">
+              {navLinks.map((link, i) => (
+                <motion.div
+                  key={link.href}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.08 + i * 0.06, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                >
+                  <Link
+                    href={link.href}
+                    onClick={() => setOpen(false)}
+                    className="text-2xl font-black text-ink hover:text-brick transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                </motion.div>
+              ))}
+            </nav>
+
+            <motion.div
+              className="flex flex-col items-center gap-3 w-full max-w-[200px]"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.08 + navLinks.length * 0.06, duration: 0.4 }}
+            >
+              <Link href="/masuk" onClick={() => setOpen(false)} className="text-sm font-bold text-ink-muted hover:text-brick transition-colors">
+                Masuk
+              </Link>
+              <Link href="/katalog" onClick={() => setOpen(false)} className="w-full">
+                <Button className="w-full text-base">Beli Sekarang</Button>
+              </Link>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.header>
   )
 }

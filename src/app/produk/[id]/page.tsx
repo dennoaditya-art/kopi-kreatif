@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useRef, useCallback } from "react"
 import { useParams } from "next/navigation"
 import Link from "next/link"
 import Image from "next/image"
@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { ProductCard } from "@/components/product-card"
 import { FLAVOR_COLORS } from "@/components/product-card"
+import { useToast } from "@/components/ui/toast"
 import { Star, ShoppingCart, ArrowLeft, Minus, Plus, Check, Frown, Package as PackageIcon, Truck, Flame } from "lucide-react"
 
 export default function DetailProdukPage() {
@@ -21,6 +22,17 @@ export default function DetailProdukPage() {
   const [selectedGrind, setSelectedGrind] = useState(product?.grind[0] || "")
   const [added, setAdded] = useState(false)
   const reduce = useReducedMotion()
+  const { toast } = useToast()
+  const imageRef = useRef<HTMLDivElement>(null)
+  const handleMouseMove = useCallback((e: React.MouseEvent) => {
+    const el = imageRef.current
+    if (!el) return
+    const rect = el.getBoundingClientRect()
+    const x = ((e.clientX - rect.left) / rect.width) * 100
+    const y = ((e.clientY - rect.top) / rect.height) * 100
+    el.style.setProperty("--mx", `${x}%`)
+    el.style.setProperty("--my", `${y}%`)
+  }, [])
 
   if (!product) {
     return (
@@ -52,6 +64,7 @@ export default function DetailProdukPage() {
       image: product.image,
     })
     setAdded(true)
+    toast(`${product.name} ditambahkan ke keranjang!`, "success")
     setTimeout(() => setAdded(false), 2000)
   }
 
@@ -71,20 +84,32 @@ export default function DetailProdukPage() {
 
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
           <motion.div
-            className="relative aspect-square rounded-2xl overflow-hidden bg-brick/5 dark:bg-surface-ink card-shadow-hard"
+            className="group relative aspect-square rounded-2xl overflow-hidden bg-brick/5 dark:bg-surface-ink card-shadow-hard cursor-crosshair"
             initial={reduce ? false : { opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           >
-            <Image
-              src={product.image}
-              alt={product.name}
-              fill
-              className="object-cover"
-              priority
-              sizes="(max-width: 1024px) 100vw, 50vw"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent rounded-2xl" />
+            <div
+              ref={imageRef}
+              onMouseMove={handleMouseMove}
+              className="relative h-full w-full overflow-hidden"
+            >
+              <Image
+                src={product.image}
+                alt={product.name}
+                fill
+                className="object-cover transition-all duration-700 ease-out group-hover:scale-150"
+                priority
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
+              <motion.div
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                style={{
+                  background: `radial-gradient(circle at var(--mx, 50%) var(--my, 50%), transparent 30%, rgba(0,0,0,0.15) 100%)`,
+                }}
+              />
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent rounded-2xl pointer-events-none" />
             <motion.div
               className="absolute top-3 right-3 bg-white/90 dark:bg-surface-ink/90 backdrop-blur-sm rounded-xl px-3 py-1.5 text-xs font-bold text-brick shadow-sm"
               animate={reduce ? undefined : { scale: [1, 1.05, 1] }}

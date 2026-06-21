@@ -6,6 +6,7 @@ import { motion, useReducedMotion } from "motion/react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useCart } from "@/lib/cart-context"
+import { useToast } from "@/components/ui/toast"
 import { CreditCard, MapPin, Package, ArrowLeft, Check, ShoppingCart, Coffee } from "lucide-react"
 import { EmptyState } from "@/components/empty-state"
 
@@ -13,6 +14,7 @@ export default function CheckoutPage() {
   const { items, subtotal, clearCart } = useCart()
   const [submitted, setSubmitted] = useState(false)
   const reduce = useReducedMotion()
+  const { toast } = useToast()
 
   if (submitted) {
     return (
@@ -215,6 +217,7 @@ export default function CheckoutPage() {
               </div>
               <Button size="lg" className="w-full text-sm" onClick={() => {
                 clearCart()
+                toast("Pesanan berhasil dibuat! Konfirmasi dikirim via email.", "success")
                 setSubmitted(true)
               }} disabled={items.length === 0}>Konfirmasi Pesanan</Button>
               <Link href="/keranjang" className="block text-center text-xs text-ink-muted hover:text-brick font-medium">

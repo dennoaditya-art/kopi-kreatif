@@ -4,6 +4,7 @@ import { useState } from "react"
 import { motion, useReducedMotion } from "motion/react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { useToast } from "@/components/ui/toast"
 import { Mail, MapPin, Phone, Send, MessageSquare, Clock, Loader2, Check } from "lucide-react"
 
 interface ContactForm {
@@ -22,6 +23,7 @@ const contactInfo = [
 
 export default function KontakPage() {
   const reduce = useReducedMotion()
+  const { toast } = useToast()
   const [loading, setLoading] = useState(false)
   const [sent, setSent] = useState(false)
   const [error, setError] = useState("")
@@ -42,6 +44,7 @@ export default function KontakPage() {
     setLoading(true)
     await new Promise((r) => setTimeout(r, 1500))
     setLoading(false)
+    toast("Pesan berhasil dikirim! Kami akan membalas dalam 1x24 jam.", "success")
     setSent(true)
   }
 

@@ -6,6 +6,8 @@ import { Footer } from "@/components/footer"
 import { CartProvider } from "@/lib/cart-context"
 import { ThemeProvider } from "@/lib/theme-context"
 import { ErrorBoundary } from "@/components/error-boundary"
+import { ToastProvider } from "@/components/ui/toast"
+import { ScrollToTop } from "@/components/scroll-to-top"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -56,11 +58,14 @@ export default function RootLayout({
       <body className="min-h-dvh flex flex-col antialiased">
         <ThemeProvider>
           <CartProvider>
-            <Navbar />
-            <ErrorBoundary>
-              <main className="flex-1">{children}</main>
-            </ErrorBoundary>
-            <Footer />
+            <ToastProvider>
+              <Navbar />
+              <ErrorBoundary>
+                <main className="flex-1">{children}</main>
+              </ErrorBoundary>
+              <ScrollToTop />
+              <Footer />
+            </ToastProvider>
           </CartProvider>
         </ThemeProvider>
       </body>
