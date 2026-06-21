@@ -34,7 +34,7 @@ export default function TentangPage() {
   return (
     <div>
       {/* Hero */}
-      <section className="relative overflow-hidden bg-paper">
+      <section className="relative overflow-hidden bg-paper pt-24 sm:pt-28 pb-12 sm:pb-16">
         <div className="pointer-events-none absolute -left-20 top-10 h-72 w-72 rounded-full bg-brick/10 dark:bg-brick/[0.05]" />
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div
