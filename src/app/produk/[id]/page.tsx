@@ -57,7 +57,7 @@ export default function DetailProdukPage() {
 
   return (
     <div className="overflow-hidden">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 pb-8">
         <motion.div
           initial={reduce ? false : { opacity: 0, x: -10 }}
           animate={{ opacity: 1, x: 0 }}

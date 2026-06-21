@@ -17,8 +17,8 @@ export default function CheckoutPage() {
   if (submitted) {
     return (
       <div>
-        <motion.div
-          className="mx-auto max-w-xl px-4 py-16 text-center space-y-5"
+          <motion.div
+            className="mx-auto max-w-xl px-4 pt-20 sm:pt-24 pb-16 text-center space-y-5"
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ type: "spring", stiffness: 100, damping: 15 }}

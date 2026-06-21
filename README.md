@@ -1,36 +1,108 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ☕ KOPI Nusantara — Neobrutalist Coffee E-Commerce Template
 
-## Getting Started
+> Premium Next.js template untuk brand kopi, roastery, dan F&B artisan.  
+> Desain neobrutalist berani dengan palette **Olive + Brick + Paper**.
 
-First, run the development server:
+![Preview](https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=1200&h=630&fit=crop)
+
+---
+
+## ✨ Fitur
+
+- **12 halaman lengkap** — landing, katalog, detail produk, keranjang, checkout, dashboard, auth, tentang, kontak
+- **Neobrutalist design system** — hard shadow 4px, border 2px ink, rounded-2xl, tipografi Geist
+- **Dark mode** — dual theme dengan CSS custom properties, deteksi sistem + toggle manual
+- **Cart system** — localStorage-based dengan `useSyncExternalStore`, kupon diskon, ongkir
+- **Product catalog** — filter roast level, search real-time, kategori tabs, layout bento grid
+- **Admin dashboard** — statistik pendapatan, tabel pesanan, stok produk
+- **Animasi** — Motion (motion/react), scroll reveal, auto-rotate gallery
+- **Responsive** — mobile-first, optimal di semua ukuran layar
+- **Aksesibilitas** — keyboard navigation, aria-label, focus trap modal/drawer, reduced motion
+- **TypeScript** — strict mode, interface untuk semua props
+
+---
+
+## 🚀 Mulai Cepat
 
 ```bash
+# Clone
+git clone https://github.com/dennoaditya-art/kopi-kreatif.git
+
+# Install
+npm install
+
+# Setup environment
+cp .env.example .env.local
+
+# Jalankan
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Buka [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🗺️ Halaman
 
-## Learn More
+| Route | Halaman |
+|-------|---------|
+| `/` | Landing — hero, stats, featured, story, edukasi, testimonial |
+| `/katalog` | Katalog produk — filter, search, grid |
+| `/produk/[id]` | Detail produk — grind, qty, rating, terkait |
+| `/keranjang` | Keranjang — qty, kupon, ringkasan |
+| `/checkout` | Checkout — alamat, kirim, bayar, konfirmasi |
+| `/masuk` | Login — validasi, error state |
+| `/daftar` | Register — validasi, success state |
+| `/dashboard` | Dashboard admin — login gate, stats, orders, stock |
+| `/tentang` | Tentang — story, timeline, values |
+| `/kontak` | Kontak — form + info |
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🎨 Design System
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**Palette:**
 
-## Deploy on Vercel
+| Token | Light | Dark |
+|-------|-------|------|
+| Paper | `#F8F6F0` | `#12100E` |
+| Card | `#FFFFFF` | `#1F1B17` |
+| Ink | `#1C1814` | `#EDE0D8` |
+| Brick | `#B85C3C` | `#B85C3C` |
+| Olive | `#7A8B5E` | `#5D6E42` |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+**Typography:** Geist (sans) + Geist Mono  
+**Shadows:** Hard offset only (`4px 4px 0px`) — no blur
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 🧱 Stack
+
+- [Next.js 16](https://nextjs.org) — App Router, Turbopack
+- [TypeScript](https://typescriptlang.org) — strict mode
+- [Tailwind CSS v4](https://tailwindcss.com) — `@theme inline` design tokens
+- [Motion](https://motion.dev) — animation
+- [Lucide React](https://lucide.dev) — icons
+- [shadcn/ui](https://ui.shadcn.com) — component primitives
+
+---
+
+## 📦 Produksi
+
+```bash
+npm run build
+npm start
+```
+
+Build output: static pages + 1 dynamic route (`/produk/[id]`).  
+Deploy one-click ke [Vercel](https://vercel.com).
+
+---
+
+## 📄 Lisensi
+
+MIT — lihat [LICENSE](LICENSE).
+
+---
+
+_Dibuat dengan ❤️ untuk kopi Indonesia._
