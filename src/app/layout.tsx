@@ -53,9 +53,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="id" className={`${geistSans.variable} ${geistMono.variable}`} suppressHydrationWarning>
-      <head>
-        <script
-          type="application/ld+json"
+      <body className="min-h-dvh flex flex-col antialiased">
+        <Script id="schema-org" type="application/ld+json" strategy="lazyOnload"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
@@ -74,8 +73,7 @@ export default function RootLayout({
             }),
           }}
         />
-        <script
-          type="application/ld+json"
+        <Script id="schema-website" type="application/ld+json" strategy="lazyOnload"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
@@ -93,8 +91,6 @@ export default function RootLayout({
             }),
           }}
         />
-      </head>
-      <body className="min-h-dvh flex flex-col antialiased">
         <ThemeProvider>
           <CartProvider>
             <ToastProvider>

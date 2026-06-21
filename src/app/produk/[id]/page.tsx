@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useRef, useCallback } from "react"
+import Script from "next/script"
 import { useParams } from "next/navigation"
 import Link from "next/link"
 import Image from "next/image"
@@ -99,8 +100,10 @@ export default function DetailProdukPage() {
 
   return (
     <div className="overflow-hidden">
-      <script
+      <Script
+        id="product-schema"
         type="application/ld+json"
+        strategy="lazyOnload"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
       />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28 pb-8">
