@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 import { notFound } from "next/navigation"
 import { blogPosts } from "@/lib/blog-data"
 import { Badge } from "@/components/ui/badge"
@@ -48,8 +49,8 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
             </div>
           </div>
 
-          <div className="aspect-[16/9] rounded-[16px] bg-brick/10 border-2 border-ink/10 flex items-center justify-center mb-10">
-            <span className="font-black text-6xl sm:text-8xl text-brick/20">K</span>
+          <div className="aspect-[16/9] rounded-[16px] border-2 border-ink/10 overflow-hidden bg-brick/10 relative mb-10">
+            <Image src={post.image} alt={post.title} fill className="object-cover" sizes="(max-width: 768px) 100vw, 768px" priority />
           </div>
 
           <div className="prose prose-sm sm:prose-base max-w-none">

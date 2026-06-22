@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 import { blogPosts } from "@/lib/blog-data"
 import { Badge } from "@/components/ui/badge"
 import { ArrowRight, Calendar, Clock } from "lucide-react"
@@ -25,8 +26,8 @@ export default function BlogPage() {
               className="group bg-card rounded-[16px] border-2 border-ink card-shadow-hard hover:card-shadow-hard-hover transition-all duration-200 p-5 sm:p-6 flex flex-col sm:flex-row gap-5 hover:-translate-y-1"
             >
               <div className="sm:w-48 lg:w-56 shrink-0">
-                <div className="aspect-[16/9] sm:aspect-[4/3] rounded-[12px] bg-brick/10 border-2 border-ink/10 flex items-center justify-center">
-                  <span className="font-black text-4xl text-brick/30">K</span>
+                <div className="aspect-[16/9] sm:aspect-[4/3] rounded-[12px] border-2 border-ink/10 overflow-hidden bg-brick/10 relative">
+                  <Image src={post.image} alt={post.title} fill className="object-cover" sizes="(max-width: 640px) 100vw, 200px" />
                 </div>
               </div>
               <div className="flex-1 min-w-0 space-y-2">
