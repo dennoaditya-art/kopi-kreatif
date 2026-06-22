@@ -10,9 +10,9 @@ import { ScrollReveal } from "@/components/scroll-reveal"
 export default function HomePage() {
   return (
     <>
-      <Hero />
+      <Hero variant="centered" />
       <StatsBanner />
-      <FeaturedProducts />
+      <FeaturedProducts variant="carousel" />
       <StorySection />
       <CoffeeEducation />
       <Testimonials />

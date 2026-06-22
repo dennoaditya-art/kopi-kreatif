@@ -12,6 +12,7 @@ import { useTheme } from "@/lib/theme-context"
 const navLinks = [
   { href: "/", label: "Beranda" },
   { href: "/katalog", label: "Katalog" },
+  { href: "/blog", label: "Blog" },
   { href: "/tentang", label: "Tentang" },
   { href: "/kontak", label: "Kontak" },
 ]
