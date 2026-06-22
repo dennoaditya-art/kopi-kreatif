@@ -58,7 +58,7 @@ export function FeaturedDefault({ header }: FeaturedDefaultProps) {
           </div>
         )}
 
-        <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4 lg:grid-rows-[auto_auto]">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4 lg:grid-rows-[auto_auto]">
           {BENTO_LAYOUT.map(({ span, index }) => {
             const product = featured[index]
             const isHero = index === 0
@@ -84,7 +84,7 @@ export function FeaturedDefault({ header }: FeaturedDefaultProps) {
                     isHero ? "" : "hover:-translate-y-1"
                   }`}
                 >
-                  <div className={`relative overflow-hidden ${isHero ? "min-h-[320px] sm:min-h-full" : "aspect-[1/1] sm:aspect-[4/3]"}`}>
+                  <div className={`relative overflow-hidden ${isHero ? "min-h-[220px] sm:min-h-full" : "aspect-[1/1] sm:aspect-[4/3]"}`}>
                     <Image
                       src={product.image}
                       alt={product.name}

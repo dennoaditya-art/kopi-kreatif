@@ -76,7 +76,7 @@ export function HeroSplit({ current, setCurrent, item }: HeroSplitProps) {
             </motion.div>
 
             <motion.div
-              className="flex gap-6 pt-2"
+              className="flex gap-4 sm:gap-6 pt-2 flex-wrap"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.6 }}
