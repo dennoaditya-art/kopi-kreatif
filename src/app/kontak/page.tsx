@@ -109,12 +109,14 @@ export default function KontakPage() {
                 <p className="mt-1 text-xs text-white/60">Dapatkan update terbaru seputar kopi Nusantara.</p>
                 <div className="mt-3 flex gap-2">
                   {["Instagram", "TikTok", "Facebook", "X"].map((s) => (
-                    <span
+                    <button
                       key={s}
+                      type="button"
                       className="rounded-xl border border-white/20 px-3 py-1.5 text-[11px] font-bold text-white/70 transition-colors hover:bg-white/10 hover:text-white"
+                      aria-label={`Ikuti kami di ${s}`}
                     >
                       {s}
-                    </span>
+                    </button>
                   ))}
                 </div>
               </motion.div>
@@ -252,35 +254,26 @@ export default function KontakPage() {
               { id: "pengiriman", q: "Berapa lama pengiriman?", a: "Reguler 3-5 hari kerja, Express 1-2 hari kerja, dan Same Day 6-8 jam (area terbatas). Gratis ongkir untuk pembelian minimal Rp100.000." },
               { id: "kebijakan-retur", q: "Bagaimana kebijakan retur?", a: "Produk yang belum dibuka dapat diretur dalam 7 hari setelah diterima. Hubungi kami melalui halaman ini untuk proses retur." },
               { id: "metode-pembayaran", q: "Apa saja metode pembayaran?", a: "Kami menerima Transfer Bank (BCA, Mandiri), GoPay, dan COD. Pembayaran akan dikonfirmasi otomatis setelah transfer." },
-            ].map((faq, i) => (
-              <motion.details
+            ].map((faq) => (
+              <details
                 key={faq.id}
                 id={faq.id}
-                className="group rounded-2xl border-2 border-ink bg-white dark:bg-surface-alt-ink overflow-hidden card-shadow-hard"
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.08 }}
+                className="group rounded-2xl border-2 border-ink bg-white dark:bg-surface-alt-ink overflow-hidden card-shadow-hard [&[open]>summary>span]:rotate-180"
               >
                 <summary className="flex items-center justify-between gap-4 px-5 py-4 cursor-pointer font-bold text-sm text-ink dark:text-white list-none select-none">
                   {faq.q}
                   <motion.span
-                    className="text-brick shrink-0"
+                    className="text-brick shrink-0 transition-transform duration-200"
                     animate={{ rotate: 0 }}
                     whileHover={{ rotate: 90 }}
                   >
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M6 9l6 6 6-6"/></svg>
                   </motion.span>
                 </summary>
-                <motion.div
-                  className="px-5 pb-4 text-sm text-ink-muted leading-relaxed"
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: "auto", opacity: 1 }}
-                  transition={{ duration: 0.3 }}
-                >
+                <div className="px-5 pb-4 text-sm text-ink-muted leading-relaxed">
                   {faq.a}
-                </motion.div>
-              </motion.details>
+                </div>
+              </details>
             ))}
           </div>
         </div>

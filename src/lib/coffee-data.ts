@@ -216,6 +216,31 @@ export const dashboardStats: DashboardStat[] = [
   { label: "Pelanggan Baru", value: "342", change: "+24.1%", isPositive: true },
 ]
 
+export const FLAVOR_COLORS: Record<string, string> = {
+  "Cokelat Hitam": "bg-brick/10 text-ink border-brick/20",
+  "Cokelat Susu": "bg-brick/10 text-ink border-brick/20",
+  "Dark Chocolate": "bg-brick/10 text-ink border-brick/20",
+  Karamel: "bg-brick/10 text-ink border-brick/20",
+  Rempah: "bg-brick/10 text-brick border-brick/20",
+  Jeruk: "bg-brick/10 text-ink border-brick/20",
+  Kacang: "bg-brick/10 text-ink border-brick/20",
+  "Kacang Almond": "bg-brick/10 text-ink border-brick/20",
+  "Kayu Manis": "bg-brick/10 text-ink border-brick/20",
+  Herbal: "bg-olive/10 text-olive border-olive/20",
+  Earthy: "bg-ink/5 text-ink-muted border-ink/10",
+  Lemon: "bg-brick/10 text-ink border-brick/20",
+  "Jeruk Bali": "bg-brick/10 text-brick border-brick/20",
+  "Gula Aren": "bg-brick/10 text-ink border-brick/20",
+  "Gula Bakar": "bg-brick/10 text-ink border-brick/20",
+  "Buah Tropis": "bg-olive/10 text-olive border-olive/20",
+  "Buah Merah": "bg-brick/10 text-brick border-brick/20",
+  "Buah Hitam": "bg-brick/10 text-brick border-brick/20",
+  Kakao: "bg-brick/10 text-ink border-brick/20",
+  Melati: "bg-olive/10 text-olive border-olive/20",
+  Madu: "bg-brick/5 text-ink border-brick/10",
+  Tembakau: "bg-brick/10 text-ink border-brick/20",
+}
+
 export const recentOrders = [
   { id: "#INV-001", customer: "Rina Wijaya", product: "Arabika Gayo", amount: 55000, status: "Selesai", date: "18 Jun 2026" },
   { id: "#INV-002", customer: "Bambang S.", product: "Robusta Temanggung", amount: 152000, status: "Dikirim", date: "17 Jun 2026" },

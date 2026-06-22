@@ -6,31 +6,7 @@ import { motion, useReducedMotion } from "motion/react"
 import { Badge } from "@/components/ui/badge"
 import { Star, ShoppingCart } from "lucide-react"
 import type { Product } from "@/lib/coffee-data"
-
-export const FLAVOR_COLORS: Record<string, string> = {
-  "Cokelat Hitam": "bg-brick/10 text-ink border-brick/20",
-  "Cokelat Susu": "bg-brick/10 text-ink border-brick/20",
-  "Dark Chocolate": "bg-brick/10 text-ink border-brick/20",
-  Karamel: "bg-brick/10 text-ink border-brick/20",
-  Rempah: "bg-brick/10 text-brick border-brick/20",
-  Jeruk: "bg-brick/10 text-ink border-brick/20",
-  Kacang: "bg-brick/10 text-ink border-brick/20",
-  "Kacang Almond": "bg-brick/10 text-ink border-brick/20",
-  "Kayu Manis": "bg-brick/10 text-ink border-brick/20",
-  Herbal: "bg-olive/10 text-olive border-olive/20",
-  Earthy: "bg-ink/5 text-ink-muted border-ink/10",
-  Lemon: "bg-brick/10 text-ink border-brick/20",
-  "Jeruk Bali": "bg-brick/10 text-brick border-brick/20",
-  "Gula Aren": "bg-brick/10 text-ink border-brick/20",
-  "Gula Bakar": "bg-brick/10 text-ink border-brick/20",
-  "Buah Tropis": "bg-olive/10 text-olive border-olive/20",
-  "Buah Merah": "bg-brick/10 text-brick border-brick/20",
-  "Buah Hitam": "bg-brick/10 text-brick border-brick/20",
-  Kakao: "bg-brick/10 text-ink border-brick/20",
-  Melati: "bg-olive/10 text-olive border-olive/20",
-  Madu: "bg-brick/5 text-ink border-brick/10",
-  Tembakau: "bg-brick/10 text-ink border-brick/20",
-}
+import { FLAVOR_COLORS } from "@/lib/coffee-data"
 
 function getFlavorColor(note: string) {
   return FLAVOR_COLORS[note] || "bg-ink/5 text-ink-muted border-ink/10"
@@ -70,7 +46,7 @@ export function ProductCard({ product }: { product: Product }) {
             </div>
           )}
 
-          <div className="absolute bottom-0 left-0 right-0 h-8 bg-ink/80 backdrop-blur-sm flex items-center overflow-hidden opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <div className="absolute bottom-0 left-0 right-0 h-8 bg-ink/80 backdrop-blur-sm flex items-center overflow-hidden opacity-0 group-hover:opacity-100 transition-opacity duration-300" aria-hidden="true">
             <span className="text-paper text-[11px] font-bold uppercase tracking-widest whitespace-nowrap animate-marquee">
               Tambah ke Keranjang &bull; Tambah ke Keranjang &bull; Tambah ke Keranjang &bull;
             </span>
@@ -109,15 +85,16 @@ export function ProductCard({ product }: { product: Product }) {
                 <span className="text-[10px] sm:text-[11px] text-ink-muted line-through">Rp{product.originalPrice.toLocaleString("id-ID")}</span>
               )}
             </div>
-            <motion.div
-              className="h-8 w-8 sm:h-9 sm:w-9 rounded-lg bg-ink text-paper flex items-center justify-center cursor-pointer border-2 border-ink card-shadow-hard"
+            <motion.button
+              className="h-9 w-9 sm:h-10 sm:w-10 rounded-lg bg-ink text-paper flex items-center justify-center border-2 border-ink card-shadow-hard"
               whileHover={reduce ? undefined : { scale: 1.2, rotate: 10 }}
               whileTap={reduce ? undefined : { scale: 0.9, rotate: -10 }}
               transition={{ type: "spring", stiffness: 400, damping: 8 }}
               aria-label="Tambah ke keranjang"
+              onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); /* add to cart */ } }}
             >
-              <ShoppingCart size={12} />
-            </motion.div>
+              <ShoppingCart size={14} />
+            </motion.button>
           </div>
 
           <div className="flex items-center gap-2 text-[11px] text-ink-muted font-medium">

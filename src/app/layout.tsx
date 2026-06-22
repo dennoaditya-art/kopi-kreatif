@@ -1,6 +1,5 @@
 import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
-import { ThemeInit } from "@/components/theme-init"
 import "./globals.css"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
@@ -35,15 +34,13 @@ export const metadata: Metadata = {
   },
 }
 
-const themeScript = `try{var t=localStorage.getItem('kopi-theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.classList.add('dark')}catch(e){}`
-
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
   return (
-    <html lang="id" className={`${geistSans.variable} ${geistMono.variable}`} suppressHydrationWarning>
+    <html lang="id" className={`${geistSans.variable} ${geistMono.variable}`}>
       <body className="min-h-dvh flex flex-col antialiased">
         <div itemScope itemType="https://schema.org/Organization" style={{ display: "none" }}>
           <meta itemProp="name" content="KOPI Nusantara" />
@@ -75,7 +72,6 @@ export default function RootLayout({
             </ToastProvider>
           </CartProvider>
         </ThemeProvider>
-        <ThemeInit script={themeScript} />
       </body>
     </html>
   )

@@ -13,7 +13,7 @@ export const SITE_CONFIG = {
     standardFee: 12000,
   },
   dashboard: {
-    accessCode: "admin123",
+    accessCode: process.env.NEXT_PUBLIC_DASHBOARD_PASS || "change-me-in-production",
   },
 } as const
 

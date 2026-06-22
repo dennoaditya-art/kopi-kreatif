@@ -108,13 +108,13 @@ export default function CheckoutPage() {
                 <h2 className="font-bold text-sm">Alamat Pengiriman</h2>
               </div>
               <div className="grid sm:grid-cols-2 gap-3">
-                <Input placeholder="Nama Lengkap" defaultValue="Rina Wijaya" className="text-sm h-10" />
-                <Input type="tel" placeholder="No. Telepon" defaultValue="081234567890" className="text-sm h-10" />
+                <Input aria-label="Nama Lengkap" placeholder="Nama Lengkap" defaultValue="Rina Wijaya" className="text-sm h-10" />
+                <Input type="tel" aria-label="No. Telepon" placeholder="No. Telepon" defaultValue="081234567890" className="text-sm h-10" />
                 <div className="sm:col-span-2">
-                  <Input placeholder="Alamat Lengkap" defaultValue="Jl. Kopi Nikmat No. 123, RT 05 RW 03" className="text-sm h-10" />
+                  <Input aria-label="Alamat Lengkap" placeholder="Alamat Lengkap" defaultValue="Jl. Kopi Nikmat No. 123, RT 05 RW 03" className="text-sm h-10" />
                 </div>
-                <Input placeholder="Kota" defaultValue="Jakarta Selatan" className="text-sm h-10" />
-                <Input placeholder="Kode Pos" defaultValue="12950" className="text-sm h-10" />
+                <Input aria-label="Kota" placeholder="Kota" defaultValue="Jakarta Selatan" className="text-sm h-10" />
+                <Input aria-label="Kode Pos" placeholder="Kode Pos" defaultValue="12950" className="text-sm h-10" />
               </div>
             </motion.div>
 

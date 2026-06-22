@@ -171,9 +171,9 @@ export default function DaftarPage() {
             <label className="flex items-start gap-2 text-xs font-medium text-ink-muted dark:text-ink-muted">
               <input type="checkbox" className="mt-0.5 h-4 w-4 rounded border-2 border-ink accent-brick" />
               Saya setuju dengan{" "}
-              <span className="font-bold text-brick underline-offset-2 hover:underline">Syarat & Ketentuan</span>
+              <button type="button" className="font-bold text-brick underline-offset-2 hover:underline" aria-label="Baca Syarat & Ketentuan">Syarat & Ketentuan</button>
               {" "}dan{" "}
-              <span className="font-bold text-brick underline-offset-2 hover:underline">Kebijakan Privasi</span>
+              <button type="button" className="font-bold text-brick underline-offset-2 hover:underline" aria-label="Baca Kebijakan Privasi">Kebijakan Privasi</button>
             </label>
 
             {error && (

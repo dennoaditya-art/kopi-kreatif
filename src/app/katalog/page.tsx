@@ -91,7 +91,7 @@ export default function KatalogPage() {
             value={sort}
             onChange={(e) => setSort(e.target.value)}
             aria-label="Urutkan produk"
-            className="rounded-xl border-2 border-ink px-3 py-2 text-xs font-bold bg-white dark:bg-surface-alt-ink text-ink cursor-pointer focus:ring-2 focus:ring-brick focus:outline-none h-10 shrink-0 card-shadow-hard"
+            className="rounded-xl border-2 border-ink px-3 py-2 text-xs font-bold bg-card dark:bg-surface-alt-ink text-ink cursor-pointer focus:ring-2 focus:ring-brick focus:outline-none h-10 shrink-0 card-shadow-hard"
           >
             <option value="">Urutkan: Terbaru</option>
             <option value="price-asc">Termurah</option>
@@ -109,10 +109,11 @@ export default function KatalogPage() {
           <motion.button
             onClick={() => setCategory("")}
             whileTap={{ scale: 0.95 }}
+            aria-pressed={!category}
             className={`px-3 py-1.5 text-xs font-bold rounded-lg border transition-all ${
               !category
                 ? "bg-brick text-white border-brick shadow-sm"
-                : "bg-white dark:bg-surface-alt-ink border-ink/10 dark:border-ink/20 hover:bg-brick/5"
+                : "bg-card dark:bg-surface-alt-ink border-ink/10 dark:border-ink/20 hover:bg-brick/5"
             }`}
           >
             Semua
@@ -122,10 +123,11 @@ export default function KatalogPage() {
               key={cat}
               onClick={() => setCategory(cat)}
               whileTap={{ scale: 0.95 }}
+              aria-pressed={category === cat}
               className={`px-3 py-1.5 text-xs font-bold rounded-lg border transition-all capitalize ${
                 category === cat
                   ? "bg-brick text-white border-brick shadow-sm"
-                  : "bg-white dark:bg-surface-alt-ink border-ink/10 dark:border-ink/20 hover:bg-brick/5"
+                  : "bg-card dark:bg-surface-alt-ink border-ink/10 dark:border-ink/20 hover:bg-brick/5"
               }`}
             >
               {cat.replace("-", " ")}
@@ -148,11 +150,12 @@ export default function KatalogPage() {
               <motion.button
                 key={r}
                 onClick={() => setRoast(roast === r ? "" : r)}
+                aria-pressed={roast === r}
                 whileTap={{ scale: 0.95 }}
                 className={`px-2.5 py-1 text-[11px] font-bold rounded-lg border transition-all ${
                   roast === r
                     ? "bg-brick text-white border-brick shadow-sm"
-                    : "bg-white dark:bg-surface-alt-ink border-ink/10 dark:border-ink/20 hover:bg-brick/5"
+                    : "bg-card dark:bg-surface-alt-ink border-ink/10 dark:border-ink/20 hover:bg-brick/5"
                 }`}
               >
                 {r}

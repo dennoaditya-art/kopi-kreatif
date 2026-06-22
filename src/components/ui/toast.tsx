@@ -1,6 +1,6 @@
 "use client"
 
-import { createContext, useContext, useState, useCallback, type ReactNode } from "react"
+import { createContext, useContext, useState, useCallback, useEffect, type ReactNode } from "react"
 import { createPortal } from "react-dom"
 import { motion, AnimatePresence } from "motion/react"
 import { cn } from "@/lib/utils"
@@ -32,11 +32,17 @@ const colors = {
   info: "bg-ink text-paper dark:bg-white dark:text-surface-ink",
 }
 
+let toastCounter = 0
+
 export function ToastProvider({ children }: { children: ReactNode }) {
   const [toasts, setToasts] = useState<Toast[]>([])
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => { setMounted(true) }, [])
 
   const toast = useCallback((message: string, type: ToastType = "info") => {
-    const id = Math.random().toString(36).slice(2, 9)
+    toastCounter++
+    const id = `toast-${toastCounter}`
     setToasts((prev) => [...prev, { id, message, type }])
     setTimeout(() => {
       setToasts((prev) => prev.filter((t) => t.id !== id))
@@ -50,7 +56,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
   return (
     <ToastContext.Provider value={{ toast }}>
       {children}
-      {typeof window !== "undefined" && createPortal(
+      {mounted && createPortal(
         <div className="fixed top-24 right-4 sm:right-6 z-[100] flex flex-col gap-2 max-w-sm w-full" aria-live="polite">
           <AnimatePresence>
             {toasts.map((t) => {

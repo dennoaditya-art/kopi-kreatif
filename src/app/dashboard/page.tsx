@@ -7,6 +7,7 @@ import { dashboardStats, recentOrders, products } from "@/lib/coffee-data"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
+import { SITE_CONFIG } from "@/config"
 import { LayoutDashboard, Package, Users, TrendingUp, Download, Plus, MoreHorizontal, Lock, LogIn } from "lucide-react"
 
 const statusColors: Record<string, "success" | "default" | "brick" | "destructive"> = {
@@ -23,7 +24,7 @@ export default function DashboardPage() {
   const reduce = useReducedMotion()
 
   function handleAuth() {
-    if (pass === process.env.NEXT_PUBLIC_DASHBOARD_PASS) {
+    if (pass === SITE_CONFIG.dashboard.accessCode) {
       setAuthed(true)
     } else {
       setError(true)

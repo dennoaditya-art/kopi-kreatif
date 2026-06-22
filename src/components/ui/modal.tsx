@@ -30,7 +30,7 @@ export function Modal({ open, onClose, children, title, className, size = "md" }
   useEffect(() => {
     if (open) {
       previousFocusRef.current = document.activeElement as HTMLElement
-      setTimeout(() => dialogRef.current?.focus(), 50)
+      requestAnimationFrame(() => dialogRef.current?.focus())
     } else {
       previousFocusRef.current?.focus()
     }

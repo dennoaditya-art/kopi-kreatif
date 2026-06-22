@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useSyncExternalStore } from "react"
 import Link from "next/link"
 import { motion, AnimatePresence, useScroll, useMotionValueEvent, useReducedMotion } from "motion/react"
 import { cn } from "@/lib/utils"
@@ -23,6 +23,11 @@ export function Navbar() {
   const { totalItems } = useCart()
   const reduce = useReducedMotion()
   const { theme, toggle: toggleTheme } = useTheme()
+  const mounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  )
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     setScrolled(latest > 20)
@@ -99,9 +104,9 @@ export function Navbar() {
           <button
             onClick={toggleTheme}
             className="flex h-9 w-9 items-center justify-center rounded-[12px] border-2 border-ink bg-card text-ink transition-all duration-200 hover:bg-brick/20 hover:text-brick active:translate-x-[1px] active:translate-y-[1px]"
-            aria-label={theme === "light" ? "Mode gelap" : "Mode terang"}
+            aria-label={mounted ? (theme === "light" ? "Mode gelap" : "Mode terang") : "Toggle tema"}
           >
-            {theme === "light" ? <Moon size={16} /> : <Sun size={16} />}
+            {!mounted ? <div className="h-4 w-4" /> : theme === "light" ? <Moon size={16} /> : <Sun size={16} />}
           </button>
           <Link href="/katalog" className="hidden sm:block">
             <Button size="sm">

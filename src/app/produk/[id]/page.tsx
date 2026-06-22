@@ -5,12 +5,11 @@ import { useParams } from "next/navigation"
 import Link from "next/link"
 import Image from "next/image"
 import { motion, useReducedMotion } from "motion/react"
-import { products } from "@/lib/coffee-data"
+import { products, FLAVOR_COLORS } from "@/lib/coffee-data"
 import { useCart } from "@/lib/cart-context"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { ProductCard } from "@/components/product-card"
-import { FLAVOR_COLORS } from "@/components/product-card"
 import { useToast } from "@/components/ui/toast"
 import { Star, ShoppingCart, ArrowLeft, Minus, Plus, Check, Frown, Package as PackageIcon, Truck, Flame, Loader2 } from "lucide-react"
 
@@ -234,6 +233,7 @@ export default function DetailProdukPage() {
                   <motion.button
                     key={g}
                     onClick={() => setSelectedGrind(g)}
+                    aria-pressed={selectedGrind === g}
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.4 + gi * 0.05 }}
@@ -242,7 +242,7 @@ export default function DetailProdukPage() {
                     className={`px-3 py-1.5 text-xs font-bold rounded-lg border transition-all ${
                       selectedGrind === g
                         ? "bg-brick text-white border-brick shadow-md"
-                        : "bg-white dark:bg-surface-alt-ink border-ink/10 dark:border-ink/20 hover:bg-brick/5 dark:hover:bg-surface-alt-ink"
+                        : "bg-card dark:bg-surface-alt-ink border-ink/10 dark:border-ink/20 hover:bg-brick/5 dark:hover:bg-surface-alt-ink"
                     }`}
                   >
                     {g}
@@ -257,7 +257,7 @@ export default function DetailProdukPage() {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
             >
-              <div className="flex items-center border border-ink/10 dark:border-ink/20 rounded-xl h-11 bg-zinc-50 dark:bg-surface-ink/50">
+              <div className="flex items-center border border-ink/10 dark:border-ink/20 rounded-xl h-11 bg-card dark:bg-surface-ink/50">
                 <motion.button
                   onClick={() => setQuantity(Math.max(1, quantity - 1))}
                   whileTap={{ scale: 0.9 }}

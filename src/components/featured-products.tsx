@@ -122,7 +122,7 @@ export function FeaturedProducts() {
                           <h3 className="font-bold text-sm leading-tight group-hover:text-brick transition-colors text-ink">
                             {product.name}
                           </h3>
-                          <p className="text-[12px] text-ink/60 font-medium">{product.tagline}</p>
+                          <p className="text-[12px] text-ink-muted font-medium">{product.tagline}</p>
                         </div>
                         <div className="flex items-center gap-1 text-xs font-bold shrink-0 bg-brick/10 px-1.5 py-0.5 rounded-lg border border-brick/20">
                           <Star size={10} fill="currentColor" className="text-brick" />
@@ -135,13 +135,13 @@ export function FeaturedProducts() {
                           Rp{product.price.toLocaleString("id-ID")}
                         </span>
                         {product.originalPrice && (
-                          <span className="text-[11px] text-ink/50 line-through">
+                          <span className="text-[11px] text-ink-muted line-through">
                             Rp{product.originalPrice.toLocaleString("id-ID")}
                           </span>
                         )}
                       </div>
 
-                      <div className="flex items-center gap-2 text-[11px] text-ink/60 font-medium">
+                      <div className="flex items-center gap-2 text-[11px] text-ink-muted font-medium">
                         <span>{product.weight}</span>
                         <span className="w-1 h-1 rounded-full bg-ink/20" />
                         <span className="font-bold">{product.roastLevel}</span>

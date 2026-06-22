@@ -185,7 +185,7 @@ export default function TentangPage() {
             </h2>
           </motion.div>
           <div className="relative space-y-0">
-            <div className="absolute left-[19px] top-0 h-full w-0.5 bg-ink/10 dark:bg-white/10" />
+            <div className="absolute left-[19px] top-0 h-full w-0.5 bg-ink/30 dark:bg-white/10" />
             {timeline.map((t, i) => (
               <motion.div
                 key={t.year}
@@ -195,7 +195,7 @@ export default function TentangPage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: i * 0.1 }}
               >
-                <div className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border-2 border-ink bg-white text-xs font-black text-ink card-shadow-hard dark:bg-surface-alt-ink dark:text-white">
+                <div className="relative z-10 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border-2 border-ink bg-white text-xs font-black text-ink card-shadow-hard dark:bg-surface-alt-ink dark:text-white">
                   {t.year.slice(2)}
                 </div>
                 <div className="pt-1">

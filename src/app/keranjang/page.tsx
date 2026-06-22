@@ -94,14 +94,14 @@ export default function KeranjangPage() {
                       </motion.button>
                     </div>
                     <div className="flex items-center justify-between gap-4">
-                      <div className="flex items-center border border-ink/10 dark:border-ink/20 rounded-lg h-9 bg-zinc-50 dark:bg-surface-ink/50">
+                      <div className="flex items-center border border-ink/10 dark:border-ink/20 rounded-lg h-9 bg-card dark:bg-surface-ink/50">
                         <motion.button
                           onClick={() => updateQuantity(key, -1)}
                           whileTap={{ scale: 0.9 }}
-                          className="flex items-center justify-center h-full min-w-[36px] px-1.5 hover:bg-zinc-100 dark:hover:bg-surface-alt-ink rounded-l-lg transition-colors"
+                          className="flex items-center justify-center h-full min-w-[44px] px-1.5 hover:bg-zinc-100 dark:hover:bg-surface-alt-ink rounded-l-lg transition-colors"
                           aria-label="Kurangi jumlah"
                         >
-                          <Minus size={12} />
+                          <Minus size={14} />
                         </motion.button>
                         <motion.span
                           key={item.quantity}
@@ -115,10 +115,10 @@ export default function KeranjangPage() {
                         <motion.button
                           onClick={() => updateQuantity(key, 1)}
                           whileTap={{ scale: 0.9 }}
-                          className="flex items-center justify-center h-full min-w-[36px] px-1.5 hover:bg-zinc-100 dark:hover:bg-surface-alt-ink rounded-r-lg transition-colors"
+                          className="flex items-center justify-center h-full min-w-[44px] px-1.5 hover:bg-zinc-100 dark:hover:bg-surface-alt-ink rounded-r-lg transition-colors"
                           aria-label="Tambah jumlah"
                         >
-                          <Plus size={12} />
+                          <Plus size={14} />
                         </motion.button>
                       </div>
                       <div className="text-right">

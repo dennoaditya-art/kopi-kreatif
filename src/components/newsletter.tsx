@@ -36,6 +36,7 @@ export function Newsletter() {
               <Input
                 type="email"
                 placeholder="Masukkan email kamu"
+                aria-label="Email untuk newsletter"
                 className="flex-1 h-12 text-sm"
               />
               <Button className="whitespace-nowrap font-bold text-sm h-12 shrink-0 bg-brick text-ink hover:bg-brick-deep">
