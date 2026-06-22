@@ -27,7 +27,7 @@ export function Hero() {
   return (
     <section className="relative overflow-hidden bg-paper">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-12 gap-6 sm:gap-8 min-h-dvh items-start lg:items-center pt-20 pb-10 sm:py-16 lg:py-0">
+        <div className="grid lg:grid-cols-12 gap-6 sm:gap-8 min-h-[70dvh] sm:min-h-dvh items-start lg:items-center pt-20 pb-10 sm:py-16 lg:py-0">
 
           {/* Left: text content */}
           <div className="lg:col-span-5 space-y-5 sm:space-y-6 z-10">
@@ -159,8 +159,8 @@ export function Hero() {
                     onClick={() => setCurrent(i)}
                     className={`transition-all rounded-full border-2 border-ink ${
                       i === current
-                        ? "w-8 h-3 bg-brick"
-                        : "w-3 h-3 bg-card hover:bg-brick/50"
+                        ? "w-8 h-4 bg-brick"
+                        : "w-4 h-4 bg-card hover:bg-brick/50"
                     }`}
                     aria-label={`Produk ${i + 1}`}
                   />

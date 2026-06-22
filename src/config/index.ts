@@ -17,8 +17,3 @@ export const SITE_CONFIG = {
   },
 } as const
 
-export const Z_INDEX = {
-  navbar: 50,
-  modal: 60,
-  grain: 70,
-} as const

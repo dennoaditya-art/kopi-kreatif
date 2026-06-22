@@ -152,7 +152,7 @@ export default function KatalogPage() {
                 onClick={() => setRoast(roast === r ? "" : r)}
                 aria-pressed={roast === r}
                 whileTap={{ scale: 0.95 }}
-                className={`px-2.5 py-1 text-[11px] font-bold rounded-lg border transition-all ${
+                className={`px-3 py-1.5 text-xs font-bold rounded-lg border transition-all ${
                   roast === r
                     ? "bg-brick text-white border-brick shadow-sm"
                     : "bg-card dark:bg-surface-alt-ink border-ink/10 dark:border-ink/20 hover:bg-brick/5"

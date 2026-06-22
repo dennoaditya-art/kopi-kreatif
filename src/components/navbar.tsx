@@ -38,7 +38,7 @@ export function Navbar() {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
         scrolled
-          ? "top-3 mx-3 max-w-[calc(100%-1.5rem)] lg:mx-auto lg:left-0 lg:right-0 lg:max-w-7xl rounded-[16px] bg-card/85 backdrop-blur-xl border-2 border-ink card-shadow-hard"
+          ? "top-3 mx-4 max-w-[calc(100%-2rem)] lg:mx-auto lg:left-0 lg:right-0 lg:max-w-7xl rounded-[16px] bg-card/85 backdrop-blur-xl border-2 border-ink card-shadow-hard"
           : "bg-transparent"
       )}
       initial={reduce ? false : { y: -100 }}
@@ -103,7 +103,7 @@ export function Navbar() {
           </Link>
           <button
             onClick={toggleTheme}
-            className="flex h-9 w-9 items-center justify-center rounded-[12px] border-2 border-ink bg-card text-ink transition-all duration-200 hover:bg-brick/20 hover:text-brick active:translate-x-[1px] active:translate-y-[1px]"
+            className="flex h-11 w-11 items-center justify-center rounded-[12px] border-2 border-ink bg-card text-ink transition-all duration-200 hover:bg-brick/20 hover:text-brick active:translate-x-[1px] active:translate-y-[1px]"
             aria-label={mounted ? (theme === "light" ? "Mode gelap" : "Mode terang") : "Toggle tema"}
           >
             {!mounted ? <div className="h-4 w-4" /> : theme === "light" ? <Moon size={16} /> : <Sun size={16} />}
@@ -115,7 +115,7 @@ export function Navbar() {
           </Link>
           <button
             onClick={() => setOpen(!open)}
-            className="md:hidden p-2 rounded-[12px] border-2 border-ink bg-card text-ink"
+            className="md:hidden flex h-11 w-11 items-center justify-center rounded-[12px] border-2 border-ink bg-card text-ink"
             aria-label={open ? "Tutup menu" : "Buka menu"}
           >
             {open ? <X size={20} /> : <Menu size={20} />}

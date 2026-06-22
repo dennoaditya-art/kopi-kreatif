@@ -27,7 +27,7 @@ export default function CheckoutPage() {
           transition={{ type: "spring", stiffness: 100, damping: 15 }}
         >
           <motion.div
-            className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-brick text-white shadow-lg shadow-secondary/20"
+            className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-brick text-white border-2 border-ink card-shadow-hard"
             animate={reduce ? undefined : { rotate: [0, 5, -5, 0], scale: [1, 1.1, 1] }}
             transition={{ duration: 0.5 }}
           >
@@ -38,7 +38,7 @@ export default function CheckoutPage() {
             Pesanan kamu sedang diproses. Kami akan kirim konfirmasi melalui email dalam beberapa saat.
           </p>
           <motion.div
-            className="rounded-2xl bg-white dark:bg-surface-alt-ink border border-brick/10 dark:border-ink/20 p-4 text-left text-sm space-y-1.5 max-w-xs mx-auto shadow-sm"
+            className="rounded-2xl bg-white dark:bg-surface-alt-ink border border-brick/10 dark:border-ink/20 p-4 text-left text-sm space-y-1.5 max-w-xs mx-auto"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}

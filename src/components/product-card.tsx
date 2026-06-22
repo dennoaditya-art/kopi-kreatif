@@ -46,14 +46,14 @@ export function ProductCard({ product }: { product: Product }) {
             </div>
           )}
 
-          <div className="absolute bottom-0 left-0 right-0 h-8 bg-ink/80 backdrop-blur-sm flex items-center overflow-hidden opacity-0 group-hover:opacity-100 transition-opacity duration-300" aria-hidden="true">
+          <div className="absolute bottom-0 left-0 right-0 h-8 bg-ink/80 backdrop-blur-sm items-center overflow-hidden opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden sm:flex" aria-hidden="true">
             <span className="text-paper text-[11px] font-bold uppercase tracking-widest whitespace-nowrap animate-marquee">
               Tambah ke Keranjang &bull; Tambah ke Keranjang &bull; Tambah ke Keranjang &bull;
             </span>
           </div>
         </div>
 
-        <div className="p-3 sm:p-4 space-y-2 sm:space-y-3">
+        <div className="p-3.5 sm:p-4 space-y-2.5 sm:space-y-3">
           <div className="flex items-start justify-between gap-2">
             <div className="min-w-0">
               <h3 className="font-bold text-sm leading-tight truncate group-hover:text-brick transition-colors text-ink">{product.name}</h3>
@@ -86,7 +86,7 @@ export function ProductCard({ product }: { product: Product }) {
               )}
             </div>
             <motion.button
-              className="h-9 w-9 sm:h-10 sm:w-10 rounded-lg bg-ink text-paper flex items-center justify-center border-2 border-ink card-shadow-hard"
+              className="h-10 w-10 rounded-lg bg-ink text-paper flex items-center justify-center border-2 border-ink card-shadow-hard"
               whileHover={reduce ? undefined : { scale: 1.2, rotate: 10 }}
               whileTap={reduce ? undefined : { scale: 0.9, rotate: -10 }}
               transition={{ type: "spring", stiffness: 400, damping: 8 }}

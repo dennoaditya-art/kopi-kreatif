@@ -137,7 +137,7 @@ export default function TentangPage() {
       </section>
 
       {/* Values */}
-      <section className="bg-surface-alt/60 py-16 dark:bg-surface-alt-ink/30 sm:py-20">
+      <section className="bg-surface-alt-ink/60 py-16 dark:bg-surface-alt-ink/30 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div
             className="mb-10 text-center"

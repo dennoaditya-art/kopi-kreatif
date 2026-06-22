@@ -66,7 +66,7 @@ export default function KeranjangPage() {
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: 20, height: 0 }}
                     transition={{ type: "spring", stiffness: 200, damping: 20 }}
-                    className="bg-white dark:bg-surface-alt-ink rounded-2xl border border-brick/10 dark:border-ink/20 p-4 flex flex-col sm:flex-row gap-3 card-shadow-hard hover:shadow-lg transition-shadow"
+                    className="bg-white dark:bg-surface-alt-ink rounded-2xl border border-brick/10 dark:border-ink/20 p-4 flex flex-col sm:flex-row gap-3 card-shadow-hard hover:card-shadow-hard-hover transition-shadow"
                   >
                   <div className="h-20 w-20 shrink-0 relative rounded-xl overflow-hidden bg-brick/10 dark:bg-surface-ink">
                     <Image
@@ -98,7 +98,7 @@ export default function KeranjangPage() {
                         <motion.button
                           onClick={() => updateQuantity(key, -1)}
                           whileTap={{ scale: 0.9 }}
-                          className="flex items-center justify-center h-full min-w-[44px] px-1.5 hover:bg-zinc-100 dark:hover:bg-surface-alt-ink rounded-l-lg transition-colors"
+                          className="flex items-center justify-center h-full min-w-[44px] px-1.5 hover:bg-ink/5 dark:hover:bg-surface-alt-ink rounded-l-lg transition-colors"
                           aria-label="Kurangi jumlah"
                         >
                           <Minus size={14} />
@@ -115,7 +115,7 @@ export default function KeranjangPage() {
                         <motion.button
                           onClick={() => updateQuantity(key, 1)}
                           whileTap={{ scale: 0.9 }}
-                          className="flex items-center justify-center h-full min-w-[44px] px-1.5 hover:bg-zinc-100 dark:hover:bg-surface-alt-ink rounded-r-lg transition-colors"
+                          className="flex items-center justify-center h-full min-w-[44px] px-1.5 hover:bg-ink/5 dark:hover:bg-surface-alt-ink rounded-r-lg transition-colors"
                           aria-label="Tambah jumlah"
                         >
                           <Plus size={14} />

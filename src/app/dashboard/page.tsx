@@ -107,7 +107,7 @@ export default function DashboardPage() {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.08, type: "spring", stiffness: 100, damping: 15 }}
                 whileHover={{ y: -3, scale: 1.02 }}
-                className={`bg-white dark:bg-surface-alt-ink rounded-2xl border border-brick/10 dark:border-ink/20 p-4 card-shadow-hard hover:shadow-lg transition-all duration-300`}
+                className={`bg-white dark:bg-surface-alt-ink rounded-2xl border border-brick/10 dark:border-ink/20 p-4 card-shadow-hard hover:card-shadow-hard-hover transition-all duration-300`}
               >
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-2">
@@ -229,7 +229,7 @@ export default function DashboardPage() {
                     key={item.label}
                     whileHover={{ x: 3, scale: 1.01 }}
                     whileTap={{ scale: 0.98 }}
-                    className="w-full flex items-center gap-3 p-2.5 rounded-xl border border-ink/10 dark:border-ink/20 hover:bg-brick/5 dark:hover:from-zinc-800 dark:hover:to-transparent transition-all text-left"
+                    className="w-full flex items-center gap-3 p-2.5 rounded-xl border border-ink/10 dark:border-ink/20 hover:bg-brick/5 dark:hover:from-surface-ink dark:hover:to-transparent transition-all text-left"
                   >
                     <item.icon size={15} className="text-brick shrink-0" />
                     <span className="text-xs font-bold">{item.label}</span>

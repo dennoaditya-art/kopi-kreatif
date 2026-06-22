@@ -261,7 +261,7 @@ export default function DetailProdukPage() {
                 <motion.button
                   onClick={() => setQuantity(Math.max(1, quantity - 1))}
                   whileTap={{ scale: 0.9 }}
-                  className="flex items-center justify-center h-full min-w-[44px] px-2 hover:bg-zinc-100 dark:hover:bg-surface-alt-ink transition-colors rounded-l-xl"
+                  className="flex items-center justify-center h-full min-w-[44px] px-2 hover:bg-ink/5 dark:hover:bg-surface-alt-ink transition-colors rounded-l-xl"
                   aria-label="Kurangi jumlah"
                 >
                   <Minus size={14} />
@@ -278,7 +278,7 @@ export default function DetailProdukPage() {
                 <motion.button
                   onClick={() => setQuantity(Math.min(product.stock, quantity + 1))}
                   whileTap={{ scale: 0.9 }}
-                  className="flex items-center justify-center h-full min-w-[44px] px-2 hover:bg-zinc-100 dark:hover:bg-surface-alt-ink transition-colors rounded-r-xl"
+                  className="flex items-center justify-center h-full min-w-[44px] px-2 hover:bg-ink/5 dark:hover:bg-surface-alt-ink transition-colors rounded-r-xl"
                   aria-label="Tambah jumlah"
                 >
                   <Plus size={14} />
