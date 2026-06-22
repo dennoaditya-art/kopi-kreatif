@@ -5,7 +5,7 @@ import { motion } from "motion/react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
-import { Coffee, Star, ShoppingCart, Heart, Search } from "lucide-react"
+import { Coffee, Star, ShoppingCart, Heart, Search, ExternalLink } from "lucide-react"
 
 const COLORS = [
   { name: "paper", hex: "#F8F6F0", dark: "#12100E", token: "bg-paper" },
@@ -260,6 +260,21 @@ export default function StyleGuidePage() {
           </div>
         </div>
       </div>
+
+      <motion.a
+        href="https://lynk.id/kopi-kreatif"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-4 right-4 z-50 inline-flex items-center gap-2 bg-brick text-ink px-4 py-2.5 rounded-[16px] border-2 border-ink card-shadow-hard text-xs font-bold hover:card-shadow-hard-hover hover:-translate-y-0.5 transition-all"
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 1, type: "spring", stiffness: 200, damping: 15 }}
+        aria-label="Beli template Kopi Nusantara"
+      >
+        <Coffee size={14} />
+        Beli Template
+        <ExternalLink size={12} />
+      </motion.a>
     </div>
   )
 }
