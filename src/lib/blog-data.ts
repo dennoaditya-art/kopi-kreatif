@@ -31,7 +31,7 @@ export const blogPosts: BlogPost[] = [
     date: "8 Juni 2026",
     readTime: "5 menit",
     category: "Edukasi",
-    image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&h=450&fit=crop",
+    image: "https://images.unsplash.com/photo-1504630083234-14187a9df0f5?w=800&h=450&fit=crop",
   },
   {
     slug: "perbedaan-roast-level",
@@ -42,7 +42,7 @@ export const blogPosts: BlogPost[] = [
     date: "1 Juni 2026",
     readTime: "4 menit",
     category: "Edukasi",
-    image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&h=450&fit=crop",
+    image: "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=800&h=450&fit=crop",
   },
   {
     slug: "kopi-untuk-kesehatan",
@@ -53,6 +53,6 @@ export const blogPosts: BlogPost[] = [
     date: "25 Mei 2026",
     readTime: "5 menit",
     category: "Kesehatan",
-    image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&h=450&fit=crop",
+    image: "https://images.unsplash.com/photo-1511920170033-f8396924c348?w=800&h=450&fit=crop",
   },
 ]
