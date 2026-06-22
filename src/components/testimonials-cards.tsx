@@ -3,11 +3,13 @@
 import { motion, useReducedMotion } from "motion/react"
 import { testimonials } from "@/lib/coffee-data"
 import { Star } from "lucide-react"
+import { useI18n } from "@/lib/i18n/context"
 
 const INITIALS_BG = ["bg-brick text-ink", "bg-olive text-white", "bg-ink text-paper", "bg-brick text-white"]
 
 export function TestimonialsCards() {
   const reduce = useReducedMotion()
+  const { t } = useI18n()
 
   return (
     <section className="py-16 sm:py-20 bg-paper-alt relative overflow-hidden">
@@ -20,10 +22,10 @@ export function TestimonialsCards() {
           transition={{ duration: 0.5 }}
         >
           <h2 className="text-3xl sm:text-4xl font-black text-ink">
-            Kata <span className="text-brick">Mereka</span>
+            {t("testimonials.title_start")} <span className="text-brick">{t("testimonials.title_end")}</span>
           </h2>
           <p className="text-sm text-ink-muted mt-1">
-            Yang suka ngopi, yang baru jatuh cinta sama kopi — semuanya punya cerita.
+            {t("testimonials.desc")}
           </p>
         </motion.div>
 

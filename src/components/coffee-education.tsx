@@ -4,6 +4,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { motion, useReducedMotion } from "motion/react"
 import { Bean, Droplets, MapPin, ChevronRight, Mountain, CloudSun, Trees, Sprout, Leaf, Factory, LocateFixed, Flame } from "lucide-react"
+import { useI18n } from "@/lib/i18n/context"
 
 interface CoffeeType {
   name: string
@@ -53,6 +54,7 @@ const origins: Origin[] = [
 
 export function CoffeeEducation() {
   const reduce = useReducedMotion()
+  const { t } = useI18n()
 
   return (
     <section className="relative overflow-hidden bg-paper py-16 sm:py-20">
@@ -66,14 +68,13 @@ export function CoffeeEducation() {
         >
           <span className="card-shadow-hard inline-flex items-center gap-2 rounded-[16px] border-2 border-ink bg-ink px-4 py-1.5 text-xs font-bold text-paper">
             <Bean size={12} aria-hidden="true" />
-            Edukasi Kopi
+            {t("coffee_education.badge")}
           </span>
           <h2 className="text-3xl font-black leading-[1.05] sm:text-4xl lg:text-5xl text-ink mt-3">
-            Jenis & Asal <span className="text-brick">Kopi Nusantara</span>
+            {t("coffee_education.title_start")} <span className="text-brick">{t("coffee_education.title_end")}</span>
           </h2>
           <p className="mt-2 max-w-2xl text-sm leading-relaxed text-ink-muted sm:text-base">
-            Indonesia adalah salah satu penghasil kopi terbesar di dunia. Dari Sabang sampai Merauke,
-            setiap daerah punya karakter dan cita rasa yang unik.
+            {t("coffee_education.desc")}
           </p>
         </motion.div>
 
@@ -88,7 +89,7 @@ export function CoffeeEducation() {
             <div className="card-shadow-hard relative overflow-hidden rounded-[24px] border-2 border-ink">
               <div className="relative aspect-[4/5] sm:aspect-[3/4]">
                 <Image
-                  src="https://images.unsplash.com/photo-1504630083234-14187a9df0f5?w=600&h=450&fit=crop"
+                  src="https://images.unsplash.com/photo-1511920170033-f8396924c348?w=600&h=450&fit=crop"
                   alt="Tangan petani kopi memeriksa biji kopi pilihan"
                   fill
                   className="object-cover"
@@ -100,11 +101,11 @@ export function CoffeeEducation() {
               <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
                 <span className="mb-3 inline-flex items-center gap-2 rounded-[16px] border-2 border-ink bg-brick px-3 py-1.5 text-xs font-bold text-ink">
                   <Droplets size={12} aria-hidden="true" />
-                  Dari Petani
+                  {t("coffee_education.badge_dari_petani")}
                 </span>
-                <h3 className="text-xl font-black text-white sm:text-2xl">Tangan-tangan Penuh Cita Rasa</h3>
+                <h3 className="text-xl font-black text-white sm:text-2xl">{t("coffee_education.img_heading")}</h3>
                 <p className="mt-1 max-w-sm text-xs leading-relaxed text-white/70 sm:text-sm">
-                  Setiap biji kopi melewati perjalanan panjang dari tangan petani hingga ke cangkir kamu.
+                  {t("coffee_education.img_desc")}
                 </p>
               </div>
             </div>
@@ -114,7 +115,7 @@ export function CoffeeEducation() {
               animate={reduce ? undefined : { y: [0, -6, 0] }}
               transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
             >
-              <p className="text-[10px] font-bold uppercase tracking-widest text-white/70">Petani Binaan</p>
+              <p className="text-[10px] font-bold uppercase tracking-widest text-white/70">{t("coffee_education.petani_binaan")}</p>
               <p className="text-lg font-black">1.200+</p>
             </motion.div>
           </motion.div>
@@ -173,9 +174,9 @@ export function CoffeeEducation() {
         >
           <div className="flex items-center justify-between">
             <h3 className="text-xl font-black text-ink sm:text-2xl">
-              Daerah Asal <span className="text-brick">Pilihan</span>
+              {t("coffee_education.daerah_asal")} <span className="text-brick">{t("coffee_education.pilihan")}</span>
             </h3>
-            <span className="text-xs font-bold text-ink-muted">8 region utama</span>
+            <span className="text-xs font-bold text-ink-muted">{t("coffee_education.region_utama")}</span>
           </div>
 
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
@@ -215,7 +216,7 @@ export function CoffeeEducation() {
               href="/katalog"
               className="card-shadow-hard inline-flex items-center gap-2 rounded-[16px] border-2 border-ink bg-brick px-5 py-2.5 text-sm font-bold text-ink transition-all hover:card-shadow-hard-hover active:translate-x-[2px] active:translate-y-[2px] active:shadow-none"
             >
-              Jelajahi Semua Varian
+              {t("coffee_education.cta")}
               <ChevronRight size={14} aria-hidden="true" />
             </Link>
           </motion.div>

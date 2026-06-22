@@ -25,6 +25,16 @@ export default function DashboardPage() {
   const { t } = useI18n()
   const reduce = useReducedMotion()
 
+  function statusLabel(s: string) {
+    const labels: Record<string, string> = {
+      Selesai: t("dashboard.status_selesai"),
+      Dikirim: t("dashboard.status_dikirim"),
+      Diproses: t("dashboard.status_diproses"),
+      Dibatalkan: t("dashboard.status_dibatalkan"),
+    }
+    return labels[s] || s
+  }
+
   function handleAuth() {
     if (pass === SITE_CONFIG.dashboard.accessCode) {
       setAuthed(true)
@@ -64,7 +74,7 @@ export default function DashboardPage() {
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               className="text-xs text-red-500 font-medium"
-            >Kode akses salah</motion.p>}
+            >{t("dashboard.kode_salah")}</motion.p>}
           </div>
           <Button onClick={handleAuth} className="gap-2">
             <LogIn size={16} /> {t("auth.masuk_btn")}
@@ -84,15 +94,15 @@ export default function DashboardPage() {
             </div>
             <div>
               <h1 className="tracking-display text-2xl sm:text-3xl font-black">{t("dashboard.title")}</h1>
-              <p className="text-xs text-ink-muted font-medium">Kelola toko kopi kamu</p>
+              <p className="text-xs text-ink-muted font-medium">{t("dashboard.subtitle")}</p>
             </div>
           </div>
           <div className="flex items-center gap-2">
             <Button variant="outline" size="sm" className="gap-1.5 text-xs">
-              <Download size={14} /> Laporan
+              <Download size={14} /> {t("dashboard.laporan")}
             </Button>
             <Button size="sm" className="gap-1.5 text-xs">
-              <Plus size={14} /> Produk Baru
+              <Plus size={14} /> {t("dashboard.produk_baru")}
             </Button>
           </div>
         </div>
@@ -143,12 +153,12 @@ export default function DashboardPage() {
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="border-b border-brick/10 dark:border-ink/20 text-left">
-                      <th className="pb-2.5 font-bold text-[11px] uppercase tracking-[0.08em] text-ink-muted">Invoice</th>
+                      <th className="pb-2.5 font-bold text-[11px] uppercase tracking-[0.08em] text-ink-muted">{t("dashboard.invoice")}</th>
                       <th className="pb-2.5 font-bold text-[11px] uppercase tracking-[0.08em] text-ink-muted">{t("dashboard.total_pelanggan")}</th>
                       <th className="pb-2.5 font-bold text-[11px] uppercase tracking-[0.08em] text-ink-muted hidden sm:table-cell">{t("hero.produk")}</th>
-                      <th className="pb-2.5 font-bold text-[11px] uppercase tracking-[0.08em] text-ink-muted">Total</th>
-                      <th className="pb-2.5 font-bold text-[11px] uppercase tracking-[0.08em] text-ink-muted">Status</th>
-                      <th className="pb-2.5 font-bold text-[11px] uppercase tracking-[0.08em] text-ink-muted hidden sm:table-cell">Tanggal</th>
+                      <th className="pb-2.5 font-bold text-[11px] uppercase tracking-[0.08em] text-ink-muted">{t("keranjang.total")}</th>
+                      <th className="pb-2.5 font-bold text-[11px] uppercase tracking-[0.08em] text-ink-muted">{t("dashboard.status")}</th>
+                      <th className="pb-2.5 font-bold text-[11px] uppercase tracking-[0.08em] text-ink-muted hidden sm:table-cell">{t("dashboard.tanggal")}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -159,7 +169,7 @@ export default function DashboardPage() {
                         <td className="py-2.5 text-xs hidden sm:table-cell">{order.product}</td>
                         <td className="py-2.5 font-bold text-xs">Rp{order.amount.toLocaleString("id-ID")}</td>
                         <td className="py-2.5">
-                          <Badge variant={statusColors[order.status] || "default"} className="text-[10px]">{order.status}</Badge>
+                          <Badge variant={statusColors[order.status] || "default"} className="text-[10px]">{statusLabel(order.status)}</Badge>
                         </td>
                         <td className="py-2.5 text-xs text-ink-muted hidden sm:table-cell">{order.date}</td>
                       </tr>
@@ -180,7 +190,7 @@ export default function DashboardPage() {
             >
               <div className="flex items-center justify-between mb-3">
                 <h2 className="font-bold text-sm">{t("dashboard.total_produk")}</h2>
-                <Button variant="ghost" size="sm" aria-label="Menu"><MoreHorizontal size={16} /></Button>
+                <Button variant="ghost" size="sm" aria-label={t("aria.menu")}><MoreHorizontal size={16} /></Button>
               </div>
               <div className="space-y-2.5">
                 {products.slice(0, 5).map((product, pi) => (
@@ -220,12 +230,12 @@ export default function DashboardPage() {
               viewport={{ once: true }}
               transition={{ delay: 0.25, type: "spring", stiffness: 100, damping: 15 }}
             >
-                <h2 className="font-bold text-sm mb-3">Aktivitas Cepat</h2>
+                <h2 className="font-bold text-sm mb-3">{t("dashboard.aktivitas_cepat")}</h2>
               <div className="space-y-1.5">
                 {[
-                  { icon: Package, label: "Tambah Produk" },
-                  { icon: Users, label: "Atur Pelanggan" },
-                  { icon: TrendingUp, label: "Lihat Analitik" },
+                  { icon: Package, label: t("dashboard.tambah_produk") },
+                  { icon: Users, label: t("dashboard.atur_pelanggan") },
+                  { icon: TrendingUp, label: t("dashboard.lihat_analitik") },
                 ].map((item) => (
                   <motion.button
                     key={item.label}

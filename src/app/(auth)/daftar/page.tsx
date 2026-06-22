@@ -25,10 +25,10 @@ export default function DaftarPage() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setError("")
-    if (!form.name.trim()) { setError(`${t("auth.nama")} harus diisi`); return }
-    if (!form.email.trim()) { setError(`${t("auth.email")} harus diisi`); return }
-    if (form.password.length < 6) { setError("Password minimal 6 karakter"); return }
-    if (form.password !== form.confirm) { setError("Konfirmasi password tidak cocok"); return }
+    if (!form.name.trim()) { setError(`${t("auth.nama")} ${t("kontak.harus_diisi")}`); return }
+    if (!form.email.trim()) { setError(`${t("auth.email")} ${t("kontak.harus_diisi")}`); return }
+    if (form.password.length < 6) { setError(t("auth.password_minimal")); return }
+    if (form.password !== form.confirm) { setError(t("auth.password_tidak_cocok")); return }
     setLoading(true)
     await new Promise((r) => setTimeout(r, 1500))
     setLoading(false)
@@ -52,9 +52,9 @@ export default function DaftarPage() {
             >
               <Check size={32} />
             </motion.div>
-            <h1 className="text-2xl font-black text-ink dark:text-white">Pendaftaran Berhasil!</h1>
+            <h1 className="text-2xl font-black text-ink dark:text-white">{t("auth.pendaftaran_berhasil")}</h1>
             <p className="mt-2 text-sm text-ink-muted dark:text-ink-muted">
-              Akun kamu berhasil dibuat. Yuk, mulai jelajahi kopi Nusantara.
+              {t("auth.akun_berhasil")}
             </p>
             <div className="mt-6 flex flex-col gap-3">
               <Link href="/masuk">
@@ -100,7 +100,7 @@ export default function DaftarPage() {
               <Coffee size={24} />
             </motion.div>
             <h1 className="text-2xl font-black text-ink dark:text-white">{t("auth.daftar_title")}</h1>
-            <p className="mt-1 text-sm text-ink-muted dark:text-ink-muted">Gabung dan nikmati kopi terbaik Nusantara</p>
+            <p className="mt-1 text-sm text-ink-muted dark:text-ink-muted">{t("auth.gabung_desc")}</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -139,7 +139,7 @@ export default function DaftarPage() {
                   id="password"
                   name="password"
                   type={showPassword ? "text" : "password"}
-                  placeholder="Minimal 6 karakter"
+                  placeholder={t("auth.password_placeholder")}
                   value={form.password}
                   onChange={handleChange}
                   className="h-12 border-2 border-ink bg-white pr-11 text-ink placeholder:text-ink-muted focus:ring-brick dark:bg-surface-alt-ink dark:text-white"
@@ -149,7 +149,7 @@ export default function DaftarPage() {
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-ink-muted hover:text-ink dark:hover:text-white"
-                  aria-label={showPassword ? "Sembunyikan password" : "Tampilkan password"}
+                  aria-label={showPassword ? t("aria.sembunyikan_password") : t("aria.tampilkan_password")}
                 >
                   {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                 </button>
@@ -157,12 +157,12 @@ export default function DaftarPage() {
             </div>
 
             <div className="space-y-1.5">
-              <label htmlFor="confirm" className="text-xs font-bold text-ink dark:text-white">Konfirmasi Password</label>
+              <label htmlFor="confirm" className="text-xs font-bold text-ink dark:text-white">{t("auth.konfirmasi_password")}</label>
               <Input
                 id="confirm"
                 name="confirm"
                 type="password"
-                placeholder="Ulangi password"
+                placeholder={t("auth.ulangi_password")}
                 value={form.confirm}
                 onChange={handleChange}
                 className="h-12 border-2 border-ink bg-white text-ink placeholder:text-ink-muted focus:ring-brick dark:bg-surface-alt-ink dark:text-white"
@@ -172,10 +172,10 @@ export default function DaftarPage() {
 
             <label className="flex items-start gap-2 text-xs font-medium text-ink-muted dark:text-ink-muted">
               <input type="checkbox" className="mt-0.5 h-4 w-4 rounded border-2 border-ink accent-brick" />
-              Saya setuju dengan{" "}
-              <button type="button" className="font-bold text-brick underline-offset-2 hover:underline" aria-label="Baca Syarat & Ketentuan">Syarat & Ketentuan</button>
-              {" "}dan{" "}
-              <button type="button" className="font-bold text-brick underline-offset-2 hover:underline" aria-label="Baca Kebijakan Privasi">Kebijakan Privasi</button>
+              {t("auth.setuju")}{" "}
+              <button type="button" className="font-bold text-brick underline-offset-2 hover:underline" aria-label={t("auth.syarat")}>{t("auth.syarat")}</button>
+              {" "}{t("auth.dan")}{" "}
+              <button type="button" className="font-bold text-brick underline-offset-2 hover:underline" aria-label={t("auth.privasi")}>{t("auth.privasi")}</button>
             </label>
 
             {error && (

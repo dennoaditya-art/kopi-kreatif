@@ -29,10 +29,10 @@ export function Newsletter() {
               <Mail size={24} />
             </motion.div>
             <h2 className="text-3xl sm:text-4xl font-black text-paper">
-              {t("footer.newsletter")}
+              {t("newsletter.heading")}
             </h2>
             <p className="text-sm text-paper/70 leading-relaxed max-w-sm mx-auto">
-              {t("footer.newsletter")}
+              {t("newsletter.desc")}
             </p>
             <div className="flex flex-col sm:flex-row gap-3 max-w-sm mx-auto">
               <Input
@@ -45,7 +45,7 @@ export function Newsletter() {
                 {t("footer.newsletter_btn")}
               </Button>
             </div>
-            <p className="text-[11px] text-paper/50 font-medium">Berhenti kapan saja.</p>
+            <p className="text-[11px] text-paper/50 font-medium">{t("newsletter.berhenti")}</p>
           </div>
         </motion.div>
       </div>

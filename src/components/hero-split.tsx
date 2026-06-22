@@ -20,7 +20,7 @@ export function HeroSplit({ current, setCurrent, item }: HeroSplitProps) {
   return (
     <section className="relative overflow-hidden bg-paper">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 min-h-[70dvh] sm:min-h-dvh items-center pt-20 pb-10 sm:py-16 lg:py-0">
+        <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 min-h-[70dvh] sm:min-h-dvh items-center pt-28 pb-16 sm:pt-32 sm:pb-20 lg:pt-36 lg:pb-24">
 
           <div className="space-y-6 sm:space-y-8 z-10">
             <motion.div
@@ -83,15 +83,15 @@ export function HeroSplit({ current, setCurrent, item }: HeroSplitProps) {
             >
               <div>
                 <p className="font-black text-2xl text-ink">50+</p>
-                <p className="text-xs text-ink-muted font-bold uppercase tracking-wider">Varian Kopi</p>
+                <p className="text-xs text-ink-muted font-bold uppercase tracking-wider">{t("hero.varian_kopi")}</p>
               </div>
               <div>
                 <p className="font-black text-2xl text-brick">12rb+</p>
-                <p className="text-xs text-ink-muted font-bold uppercase tracking-wider">Pelanggan</p>
+                <p className="text-xs text-ink-muted font-bold uppercase tracking-wider">{t("hero.pelanggan")}</p>
               </div>
               <div>
                 <p className="font-black text-2xl text-ink">5.0</p>
-                <p className="text-xs text-ink-muted font-bold uppercase tracking-wider">Rating Rata-rata</p>
+                <p className="text-xs text-ink-muted font-bold uppercase tracking-wider">{t("hero.rating_rata")}</p>
               </div>
             </motion.div>
           </div>

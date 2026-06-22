@@ -2,13 +2,13 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import { blogPosts } from "@/lib/blog-data"
+import { getBlogPosts } from "@/lib/blog-data"
 import { Badge } from "@/components/ui/badge"
 import { ArrowRight, Calendar, Clock } from "lucide-react"
 import { useI18n } from "@/lib/i18n/context"
 
 export default function BlogPage() {
-  const { t } = useI18n()
+  const { t, locale } = useI18n()
   return (
     <div className="min-h-dvh bg-paper">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 sm:py-24">
@@ -23,7 +23,7 @@ export default function BlogPage() {
         </div>
 
         <div className="grid gap-6 sm:gap-8">
-          {blogPosts.map((post) => (
+          {getBlogPosts(locale).map((post) => (
             <Link
               key={post.slug}
               href={`/blog/${post.slug}`}

@@ -39,7 +39,7 @@ export function FeaturedDefault({ header }: FeaturedDefaultProps) {
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
             >
               <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-ink">
-                Pilihan <span className="text-brick">Terbaik</span>
+                {t("featured.title_start")} <span className="text-brick">{t("featured.title_end")}</span>
               </h2>
               <p className="text-sm text-ink-muted mt-1">{t("katalog.desc")}</p>
             </motion.div>

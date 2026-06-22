@@ -78,7 +78,7 @@ export default function DetailProdukPage() {
           <Frown size={22} />
         </motion.div>
               <h1 className="text-xl font-bold">{t("checkout.kosong_title")}</h1>
-        <Link href="/katalog"><Button>Kembali ke {t("nav.katalog")}</Button></Link>
+        <Link href="/katalog"><Button>{t("umum.kembali_ke")} {t("nav.katalog")}</Button></Link>
       </div>
     )
   }
@@ -115,7 +115,7 @@ export default function DetailProdukPage() {
         >
           <Link href="/katalog" className="inline-flex items-center gap-1.5 text-xs font-bold text-brick hover:text-brick-deep mb-5 transition-colors group">
             <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
-            Kembali ke {t("nav.katalog")}
+            {t("umum.kembali_ke")} {t("nav.katalog")}
           </Link>
         </motion.div>
 
@@ -192,7 +192,7 @@ export default function DetailProdukPage() {
             <p className="text-sm text-ink-muted dark:text-ink-muted leading-relaxed">{product.description}</p>
 
             <div className="space-y-1.5">
-              <span className="text-[11px] font-bold uppercase tracking-[0.1em] text-ink-muted">Flavor Notes</span>
+              <span className="text-[11px] font-bold uppercase tracking-[0.1em] text-ink-muted">{t("produk.flavor_notes")}</span>
               <div className="flex flex-wrap gap-1.5">
                 {product.flavorNotes.map((note, ni) => {
                   const fc = FLAVOR_COLORS[note] || "bg-card text-ink/70 border-ink/10 dark:bg-surface-ink dark:text-ink/70"
@@ -216,20 +216,20 @@ export default function DetailProdukPage() {
                 className="bg-brick/5 dark:bg-surface-ink rounded-xl border border-brick/10 dark:border-ink/20 p-3 card-shadow-hard"
                 whileHover={{ y: -2, scale: 1.02 }}
               >
-                <span className="text-[11px] font-bold uppercase tracking-[0.1em] text-ink-muted">Roast Level</span>
+                <span className="text-[11px] font-bold uppercase tracking-[0.1em] text-ink-muted">{t("produk.roast_level")}</span>
                 <p className="font-bold text-sm mt-0.5 text-brick">{product.roastLevel}</p>
               </motion.div>
               <motion.div
                 className="bg-brick/5 dark:bg-surface-ink rounded-xl border border-brick/15 dark:border-ink/20 p-3 card-shadow-hard"
                 whileHover={{ y: -2, scale: 1.02 }}
               >
-                <span className="text-[11px] font-bold uppercase tracking-[0.1em] text-ink-muted">Origin</span>
+                <span className="text-[11px] font-bold uppercase tracking-[0.1em] text-ink-muted">{t("produk.origin_label")}</span>
                   <p className="font-bold text-sm mt-0.5 text-brick">{product.origin}</p>
               </motion.div>
             </div>
 
             <div className="space-y-1.5">
-              <span className="text-[11px] font-bold uppercase tracking-[0.1em] text-ink-muted">Grind</span>
+              <span className="text-[11px] font-bold uppercase tracking-[0.1em] text-ink-muted">{t("produk.grind_label")}</span>
               <div className="flex flex-wrap gap-1.5">
                 {product.grind.map((g, gi) => (
                   <motion.button
@@ -334,7 +334,7 @@ export default function DetailProdukPage() {
                 className="flex items-center gap-1 text-olive font-semibold"
                 whileHover={{ scale: 1.05 }}
               >
-                <Flame size={12} /> Fresh roasted
+                <Flame size={12} /> {t("produk.fresh_roasted")}
               </motion.span>
             </motion.div>
           </motion.div>
@@ -349,7 +349,7 @@ export default function DetailProdukPage() {
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           >
             <h2 className="tracking-display text-xl sm:text-2xl font-black mb-5">
-              {t("hero.produk")} <span className="text-brick">Terkait</span>
+              {t("hero.produk")} <span className="text-brick">{t("produk.terkait")}</span>
             </h2>
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
               {related.map((p, i) => (

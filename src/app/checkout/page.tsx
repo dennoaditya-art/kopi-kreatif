@@ -45,13 +45,13 @@ export default function CheckoutPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
           >
-            <p><span className="font-bold">No. Pesanan:</span> #INV-20260618</p>
-            <p><span className="font-bold">Estimasi:</span> 3-5 hari kerja</p>
+            <p><span className="font-bold">{t("checkout.no_pesanan")}</span> #INV-20260618</p>
+            <p><span className="font-bold">{t("checkout.estimasi")}</span> 3-5 hari kerja</p>
             <p><span className="font-bold">{t("checkout.pembayaran")}:</span> Transfer Bank BCA</p>
           </motion.div>
           <div className="flex gap-3 justify-center">
-            <Link href="/"><Button variant="outline">Kembali ke {t("nav.beranda")}</Button></Link>
-            <Link href="/katalog"><Button>Belanja Lagi</Button></Link>
+            <Link href="/"><Button variant="outline">{t("umum.kembali_ke")} {t("nav.beranda")}</Button></Link>
+            <Link href="/katalog"><Button>{t("checkout.belanja_lagi")}</Button></Link>
           </div>
         </motion.div>
       </div>
@@ -111,7 +111,7 @@ export default function CheckoutPage() {
               </div>
               <div className="grid sm:grid-cols-2 gap-3">
                 <Input aria-label={t("checkout.nama")} placeholder={t("checkout.nama")} defaultValue="Rina Wijaya" className="text-sm h-10" />
-                <Input type="tel" aria-label="No. Telepon" placeholder="No. Telepon" defaultValue="081234567890" className="text-sm h-10" />
+                <Input type="tel" aria-label={t("checkout.no_telepon")} placeholder={t("checkout.no_telepon")} defaultValue="081234567890" className="text-sm h-10" />
                 <div className="sm:col-span-2">
                   <Input aria-label={t("checkout.alamat")} placeholder={t("checkout.alamat")} defaultValue="Jl. Kopi Nikmat No. 123, RT 05 RW 03" className="text-sm h-10" />
                 </div>
@@ -173,7 +173,7 @@ export default function CheckoutPage() {
                   { label: "Transfer BCA", detail: "Virtual Account" },
                   { label: "Transfer Mandiri", detail: "Virtual Account" },
                   { label: "GoPay", detail: "E-Wallet" },
-                  { label: "COD", detail: "Bayar di Tempat" },
+                  { label: "COD", detail: t("checkout.cod") },
                 ].map((pay) => (
                   <motion.label
                     key={pay.label}

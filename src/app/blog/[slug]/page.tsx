@@ -1,21 +1,20 @@
+"use client"
+
+import { use } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { notFound } from "next/navigation"
-import { blogPosts } from "@/lib/blog-data"
+import { getBlogPost } from "@/lib/blog-data"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft, Calendar, Clock, User } from "lucide-react"
-import { T } from "@/lib/i18n/t"
+import { useI18n } from "@/lib/i18n/context"
 
-export function generateStaticParams() {
-  return blogPosts.map((post) => ({ slug: post.slug }))
-}
+export default function BlogDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = use(params)
+  const { t, locale } = useI18n()
+  const post = getBlogPost(slug, locale)
 
-export default async function BlogDetailPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params
-  const post = blogPosts.find((p) => p.slug === slug)
-
-  if (!post) notFound()
+  if (!post) return <div className="min-h-dvh bg-paper flex items-center justify-center"><p className="text-ink-muted">{t("umum.error")}</p></div>
 
   return (
     <div className="min-h-dvh bg-paper">
@@ -24,7 +23,7 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
           href="/blog"
           className="inline-flex items-center gap-1.5 text-sm font-bold text-ink-muted hover:text-ink transition-colors mb-8"
         >
-          <ArrowLeft size={14} /> <T k="blog.kembali" />
+          <ArrowLeft size={14} /> {t("blog.kembali")}
         </Link>
 
         <article>
@@ -64,10 +63,10 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
         </article>
 
         <div className="mt-16 pt-8 border-t border-ink/10 text-center">
-          <p className="text-sm text-ink-muted mb-4"><T k="blog.lainnya" /></p>
+          <p className="text-sm text-ink-muted mb-4">{t("blog.lainnya")}</p>
           <Link href="/blog">
             <Button variant="outline" className="gap-2">
-              <T k="blog.lihat_semua" /> <ArrowLeft size={14} className="rotate-180" />
+              {t("blog.lihat_semua")} <ArrowLeft size={14} className="rotate-180" />
             </Button>
           </Link>
         </div>

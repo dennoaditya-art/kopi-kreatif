@@ -135,7 +135,7 @@ export default function KeranjangPage() {
               </AnimatePresence>
               <Link href="/katalog" className="inline-flex items-center gap-1.5 text-xs font-bold text-brick hover:text-brick-deep transition-colors group">
                 <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
-                Lanjut Belanja
+                {t("keranjang.lanjut_belanja")}
               </Link>
             </div>
 
@@ -194,10 +194,10 @@ export default function KeranjangPage() {
                     if (next) toast(t("keranjang.diterapkan"), "success")
                   }} disabled={(!coupon && !couponApplied) || couponLoading} className="gap-1 shrink-0 text-xs">
                     {couponLoading ? <Loader2 size={13} className="animate-spin" /> : <Tag size={13} />}
-                    {couponLoading ? t("umum.loading") : couponApplied ? t("keranjang.terapkan") : t("keranjang.terapkan")}
+                    {couponLoading ? t("umum.loading") : couponApplied ? t("keranjang.diterapkan") : t("keranjang.terapkan")}
                   </Button>
                 </div>
-                {shipping > 0 && <p className="text-xs text-ink-muted text-center">Gratis ongkir untuk belanja minimal Rp100.000</p>}
+                {shipping > 0 && <p className="text-xs text-ink-muted text-center">{t("keranjang.gratis_ongkir")}</p>}
                 <Link href="/checkout"><Button className="w-full text-sm gap-2" size="lg">{t("keranjang.checkout")}</Button></Link>
               </motion.div>
             </div>

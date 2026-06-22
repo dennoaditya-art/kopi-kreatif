@@ -5,6 +5,7 @@ import { createPortal } from "react-dom"
 import { motion, AnimatePresence } from "motion/react"
 import { cn } from "@/lib/utils"
 import { X } from "lucide-react"
+import { useI18n } from "@/lib/i18n/context"
 
 interface DrawerProps {
   open: boolean
@@ -31,6 +32,7 @@ const sideVariants = {
 }
 
 export function Drawer({ open, onClose, children, title, side = "right", className }: DrawerProps) {
+  const { t } = useI18n()
   const drawerRef = useRef<HTMLDivElement>(null)
   const previousFocusRef = useRef<HTMLElement | null>(null)
 
@@ -115,7 +117,7 @@ export function Drawer({ open, onClose, children, title, side = "right", classNa
               <button
                 onClick={onClose}
                 className="ml-auto flex h-8 w-8 items-center justify-center rounded-lg border-2 border-ink bg-card text-ink transition-all hover:bg-brick/20 active:translate-x-[1px] active:translate-y-[1px]"
-                aria-label="Tutup"
+                aria-label={t("aria.tutup")}
               >
                 <X size={16} />
               </button>

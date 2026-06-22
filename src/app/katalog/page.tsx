@@ -65,7 +65,7 @@ export default function KatalogPage() {
           transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
         >
           <h1 className="tracking-display text-3xl sm:text-4xl font-black">
-            {t("katalog.title")} <span className="text-brick">Favoritmu</span>
+            {t("katalog.title")} <span className="text-brick">{t("katalog.favoritmu")}</span>
           </h1>
           <p className="text-sm text-ink-muted dark:text-ink-muted max-w-lg mt-1">
             {t("katalog.desc")}
@@ -144,7 +144,7 @@ export default function KatalogPage() {
           transition={{ delay: 0.2, duration: 0.4 }}
         >
           <p className="text-xs text-ink-muted font-medium shrink-0">
-            Menampilkan {filtered.length} dari {products.length} produk
+            {t("katalog.menampilkan")} {filtered.length} {t("katalog.dari")} {products.length}
           </p>
           <div className="flex items-center flex-wrap gap-2">
             <span className="text-[11px] font-bold uppercase tracking-[0.1em] text-ink-muted">{t("katalog.filter_roast")}:</span>
@@ -169,8 +169,8 @@ export default function KatalogPage() {
         {filtered.length === 0 ? (
           <EmptyState
             icon={<SearchX size={32} />}
-            title="Kopi tidak ditemukan"
-            description="Coba kata kunci lain atau atur ulang filter untuk melihat semua produk."
+            title={t("katalog.tidak_ditemukan")}
+            description={t("katalog.tidak_ditemukan_desc")}
             action={
               <Button
                 variant="outline"
@@ -179,7 +179,7 @@ export default function KatalogPage() {
                 className="gap-2 border-2 border-ink"
               >
                 <RotateCcw size={14} />
-                Atur Ulang Filter
+                {t("katalog.atur_ulang")}
               </Button>
             }
           />

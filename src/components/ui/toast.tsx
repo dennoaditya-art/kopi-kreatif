@@ -5,6 +5,7 @@ import { createPortal } from "react-dom"
 import { motion, AnimatePresence } from "motion/react"
 import { cn } from "@/lib/utils"
 import { Check, X, AlertCircle, Info } from "lucide-react"
+import { useI18n } from "@/lib/i18n/context"
 
 type ToastType = "success" | "error" | "info"
 
@@ -35,6 +36,7 @@ const colors = {
 let toastCounter = 0
 
 export function ToastProvider({ children }: { children: ReactNode }) {
+  const { t } = useI18n()
   const [toasts, setToasts] = useState<Toast[]>([])
   const mounted = useSyncExternalStore(
     () => () => {},
@@ -61,11 +63,11 @@ export function ToastProvider({ children }: { children: ReactNode }) {
       {mounted && createPortal(
         <div className="fixed top-24 right-4 sm:right-6 z-[100] flex flex-col gap-2 max-w-sm w-full" aria-live="polite">
           <AnimatePresence>
-            {toasts.map((t) => {
-              const Icon = icons[t.type]
+            {toasts.map((toast) => {
+              const Icon = icons[toast.type]
               return (
                 <motion.div
-                  key={t.id}
+                  key={toast.id}
                   layout
                   initial={{ opacity: 0, x: 40, scale: 0.95 }}
                   animate={{ opacity: 1, x: 0, scale: 1 }}
@@ -73,15 +75,15 @@ export function ToastProvider({ children }: { children: ReactNode }) {
                   transition={{ type: "spring", stiffness: 200, damping: 20 }}
                   className={cn(
                     "flex items-center gap-3 rounded-2xl border-2 border-ink px-4 py-3 card-shadow-hard",
-                    colors[t.type],
+                    colors[toast.type],
                   )}
                 >
                   <Icon size={18} className="shrink-0" />
-                  <p className="text-sm font-bold flex-1">{t.message}</p>
+                  <p className="text-sm font-bold flex-1">{toast.message}</p>
                   <button
-                    onClick={() => remove(t.id)}
+                    onClick={() => remove(toast.id)}
                     className="shrink-0 p-1 rounded-lg hover:opacity-70 transition-opacity"
-                    aria-label="Tutup"
+                    aria-label={t("aria.tutup")}
                   >
                     <X size={16} />
                   </button>

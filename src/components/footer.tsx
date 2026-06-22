@@ -48,13 +48,13 @@ export function Footer() {
           </div>
 
           <div className="space-y-3">
-            <h3 className="font-bold text-ink text-sm">Bantuan</h3>
+            <h3 className="font-bold text-ink text-sm">{t("footer.bantuan")}</h3>
           <ul className="space-y-2">
             {[
-              { label: "Cara Memesan", href: "/kontak#cara-memesan" },
-              { label: "Pengiriman", href: "/kontak#pengiriman" },
-              { label: "Kebijakan Retur", href: "/kontak#kebijakan-retur" },
-              { label: "FAQ", href: "/kontak#faq" },
+              { label: t("footer.cara_memesan"), href: "/kontak#cara-memesan" },
+              { label: t("footer.pengiriman"), href: "/kontak#pengiriman" },
+              { label: t("footer.kebijakan_retur"), href: "/kontak#kebijakan-retur" },
+              { label: t("footer.faq"), href: "/kontak#faq" },
             ].map((item) => (
               <li key={item.label}><Link href={item.href} className="text-sm hover:text-brick transition-colors">{item.label}</Link></li>
             ))}

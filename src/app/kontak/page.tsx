@@ -15,13 +15,6 @@ interface ContactForm {
   message: string
 }
 
-const contactInfo = [
-  { icon: MapPin, label: "Alamat", value: "Jl. Kopi Nusantara No. 45, Yogyakarta, 55123" },
-  { icon: Mail, label: "Email", value: "halo@kopi-nusantara.com" },
-  { icon: Phone, label: "Telepon", value: "+62 812 3456 7890" },
-  { icon: Clock, label: "Jam Operasional", value: "Sen–Sab, 08:00–17:00 WIB" },
-]
-
 export default function KontakPage() {
   const reduce = useReducedMotion()
   const { toast } = useToast()
@@ -31,6 +24,13 @@ export default function KontakPage() {
   const [form, setForm] = useState<ContactForm>({ name: "", email: "", subject: "", message: "" })
   const { t } = useI18n()
 
+  const contactInfo = [
+    { icon: MapPin, label: t("kontak.alamat"), value: "Jl. Kopi Nusantara No. 45, Yogyakarta, 55123" },
+    { icon: Mail, label: t("kontak.email"), value: "halo@kopi-nusantara.com" },
+    { icon: Phone, label: t("kontak.telepon"), value: "+62 812 3456 7890" },
+    { icon: Clock, label: t("kontak.jam_operasional"), value: t("kontak.jam_value") },
+  ]
+
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
     setError("")
@@ -39,10 +39,10 @@ export default function KontakPage() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setError("")
-    if (!form.name.trim()) { setError(`${t("kontak.nama")} harus diisi`); return }
-    if (!form.email.trim()) { setError(`${t("kontak.email")} harus diisi`); return }
-    if (!form.subject.trim()) { setError(`${t("kontak.subjek")} harus diisi`); return }
-    if (!form.message.trim()) { setError(`${t("kontak.pesan")} harus diisi`); return }
+    if (!form.name.trim()) { setError(`${t("kontak.nama")} ${t("kontak.harus_diisi")}`); return }
+    if (!form.email.trim()) { setError(`${t("kontak.email")} ${t("kontak.harus_diisi")}`); return }
+    if (!form.subject.trim()) { setError(`${t("kontak.subjek")} ${t("kontak.harus_diisi")}`); return }
+    if (!form.message.trim()) { setError(`${t("kontak.pesan")} ${t("kontak.harus_diisi")}`); return }
     setLoading(true)
     await new Promise((r) => setTimeout(r, 1500))
     setLoading(false)
@@ -66,7 +66,7 @@ export default function KontakPage() {
               {t("kontak.title")}
             </span>
             <h1 className="text-4xl font-black leading-[1.05] tracking-display sm:text-5xl lg:text-6xl">
-              Ada yang bisa <span className="text-brick">kami bantu?</span>
+              {t("kontak.hero_title")}
             </h1>
             <p className="mx-auto mt-4 max-w-lg text-base leading-relaxed text-ink-muted dark:text-ink-muted">
               {t("kontak.desc")}
@@ -115,7 +115,7 @@ export default function KontakPage() {
                       key={s}
                       type="button"
                       className="rounded-xl border border-white/20 px-3 py-1.5 text-[11px] font-bold text-white/70 transition-colors hover:bg-white/10 hover:text-white"
-                      aria-label={`Ikuti kami di ${s}`}
+                      aria-label={`${t("kontak.ikuti_kami_aria")} ${s}`}
                     >
                       {s}
                     </button>
@@ -252,10 +252,10 @@ export default function KontakPage() {
           </motion.div>
           <div className="space-y-4">
             {[
-              { id: "cara-memesan", q: "Bagaimana cara memesan?", a: "Pilih produk favorit dari katalog, atur jumlah dan grind sesuai selera, lalu klik Tambah ke Keranjang. Setelah selesai, lanjut ke halaman Checkout dan isi data pengiriman." },
-              { id: "pengiriman", q: "Berapa lama pengiriman?", a: "Reguler 3-5 hari kerja, Express 1-2 hari kerja, dan Same Day 6-8 jam (area terbatas). Gratis ongkir untuk pembelian minimal Rp100.000." },
-              { id: "kebijakan-retur", q: "Bagaimana kebijakan retur?", a: "Produk yang belum dibuka dapat diretur dalam 7 hari setelah diterima. Hubungi kami melalui halaman ini untuk proses retur." },
-              { id: "metode-pembayaran", q: "Apa saja metode pembayaran?", a: "Kami menerima Transfer Bank (BCA, Mandiri), GoPay, dan COD. Pembayaran akan dikonfirmasi otomatis setelah transfer." },
+              { id: "cara-memesan", q: t("kontak.faq_1_q"), a: t("kontak.faq_1_a") },
+              { id: "pengiriman", q: t("kontak.faq_2_q"), a: t("kontak.faq_2_a") },
+              { id: "kebijakan-retur", q: t("kontak.faq_3_q"), a: t("kontak.faq_3_a") },
+              { id: "metode-pembayaran", q: t("kontak.faq_4_q"), a: t("kontak.faq_4_a") },
             ].map((faq) => (
               <details
                 key={faq.id}

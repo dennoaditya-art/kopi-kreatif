@@ -24,12 +24,12 @@ export default function MasukPage() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setError("")
-    if (!form.email.trim()) { setError(`${t("auth.email")} harus diisi`); return }
-    if (!form.password.trim()) { setError(`${t("auth.password")} harus diisi`); return }
+    if (!form.email.trim()) { setError(`${t("auth.email")} ${t("kontak.harus_diisi")}`); return }
+    if (!form.password.trim()) { setError(`${t("auth.password")} ${t("kontak.harus_diisi")}`); return }
     setLoading(true)
     await new Promise((r) => setTimeout(r, 1200))
     setLoading(false)
-    setError("Email atau password salah")
+    setError(t("auth.error_salah"))
   }
 
   return (
@@ -57,7 +57,7 @@ export default function MasukPage() {
             >
               <Coffee size={24} />
             </motion.div>
-            <h1 className="text-2xl font-black text-ink dark:text-white">Selamat Datang</h1>
+            <h1 className="text-2xl font-black text-ink dark:text-white">{t("auth.selamat_datang")}</h1>
             <p className="mt-1 text-sm text-ink-muted dark:text-ink-muted">{t("auth.masuk_title")}</p>
           </div>
 
@@ -93,7 +93,7 @@ export default function MasukPage() {
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-ink-muted hover:text-ink dark:hover:text-white"
-                  aria-label={showPassword ? "Sembunyikan password" : "Tampilkan password"}
+                  aria-label={showPassword ? t("aria.sembunyikan_password") : t("aria.tampilkan_password")}
                 >
                   {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                 </button>
@@ -103,10 +103,10 @@ export default function MasukPage() {
             <div className="flex items-center justify-between">
               <label className="flex items-center gap-2 text-xs font-medium text-ink-muted dark:text-ink-muted">
                 <input type="checkbox" className="h-4 w-4 rounded border-2 border-ink accent-brick" />
-                Ingat saya
+                {t("auth.ingat_saya")}
               </label>
               <button type="button" className="text-xs font-bold text-brick underline-offset-2 hover:underline">
-                Lupa password?
+                {t("auth.lupa_password")}
               </button>
             </div>
 

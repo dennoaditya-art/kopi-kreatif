@@ -2,16 +2,18 @@
 
 import { motion, useReducedMotion } from "motion/react"
 import { Sprout, Leaf, MapPin, BadgeCheck } from "lucide-react"
-
-const values = [
-  { icon: Sprout, title: "Petani Lokal", desc: "Bekerja langsung dengan petani kopi di seluruh Nusantara untuk hasil terbaik." },
-  { icon: Leaf, title: "Fresh Roasted", desc: "Dipanggang setiap minggu dalam batch kecil untuk menjaga kesegaran maksimal." },
-  { icon: MapPin, title: "Single Origin", desc: "Setiap varian berasal dari satu daerah, menjaga keunikan karakter rasanya." },
-  { icon: BadgeCheck, title: "Jaminan Kualitas", desc: "Setiap batch diuji secara ketat sebelum dikirim ke pelanggan." },
-]
+import { useI18n } from "@/lib/i18n/context"
 
 export function StorySection() {
   const reduce = useReducedMotion()
+  const { t } = useI18n()
+
+  const values = [
+  { icon: Sprout, title: t("story.value_1_title"), desc: t("story.value_1_desc") },
+  { icon: Leaf, title: t("story.value_2_title"), desc: t("story.value_2_desc") },
+  { icon: MapPin, title: t("story.value_3_title"), desc: t("story.value_3_desc") },
+  { icon: BadgeCheck, title: t("story.value_4_title"), desc: t("story.value_4_desc") },
+]
 
   return (
     <section id="tentang" className="py-16 sm:py-20 bg-paper-alt relative">
@@ -27,15 +29,14 @@ export function StorySection() {
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           >
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black leading-[1.05] text-ink">
-              Dari Petani, <span className="text-brick">Untukmu</span>
+              {t("story.title_start")} <span className="text-brick">{t("story.title_end")}</span>
             </h2>
             <p className="text-ink-muted leading-relaxed text-sm sm:text-base">
-              Kami percaya kopi yang enak dimulai dari hubungan yang baik dengan petani.
-              Kami bekerja langsung dengan petani kopi di berbagai daerah Indonesia.
+              {t("story.desc")}
             </p>
             <div className="inline-block rounded-[16px] bg-brick-deep border-2 border-ink card-shadow-hard px-6 py-4">
               <p className="text-2xl font-black text-on-brick-deep">&gt; 15+</p>
-              <p className="text-xs font-bold text-on-brick-deep opacity-80">Daerah asal biji kopi di seluruh Indonesia</p>
+              <p className="text-xs font-bold text-on-brick-deep opacity-80">{t("story.daerah")}</p>
             </div>
           </motion.div>
 

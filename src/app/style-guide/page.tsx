@@ -172,22 +172,22 @@ export default function StyleGuidePage() {
               <div className="space-y-4 max-w-md">
                 <div>
                   <p className="text-[11px] font-bold text-ink-muted font-mono mb-2">Default</p>
-                  <Input placeholder="Cari kopi..." />
+                  <Input placeholder={t("umum.cari")} />
                 </div>
                 <div>
                   <p className="text-[11px] font-bold text-ink-muted font-mono mb-2">With icon</p>
                   <div className="relative">
                     <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-muted" />
-                    <Input placeholder="Cari kopi..." className="pl-9" />
+                    <Input placeholder={t("umum.cari")} className="pl-9" />
                   </div>
                 </div>
                 <div>
                   <p className="text-[11px] font-bold text-ink-muted font-mono mb-2">Focus</p>
-                  <Input placeholder="Ketik di sini..." className="focus-visible:ring-2 focus-visible:ring-brick" />
+                  <Input placeholder={t("umum.cari")} className="focus-visible:ring-2 focus-visible:ring-brick" />
                 </div>
                 <div>
                   <p className="text-[11px] font-bold text-ink-muted font-mono mb-2">Disabled</p>
-                  <Input placeholder="Disabled..." disabled />
+                  <Input placeholder={t("umum.cari")} disabled />
                 </div>
               </div>
             </section>

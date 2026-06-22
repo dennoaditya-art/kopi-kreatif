@@ -1,15 +1,17 @@
 "use client"
 
 import { motion, useReducedMotion } from "motion/react"
-
-const stats = [
-  { val: "15+", label: "Daerah Kopi" },
-  { val: "4.9", label: "Rating" },
-  { val: "200+", label: "Varian" },
-]
+import { useI18n } from "@/lib/i18n/context"
 
 export function StatsBanner() {
   const reduce = useReducedMotion()
+  const { t } = useI18n()
+
+  const stats = [
+  { val: "15+", label: t("stats_banner.daerah_kopi") },
+  { val: "4.9", label: t("stats_banner.rating") },
+  { val: "200+", label: t("stats_banner.varian") },
+]
 
   return (
     <section className="py-12 bg-paper border-b-2 border-ink/5">

@@ -47,7 +47,7 @@ export default function TentangPage() {
           >
             <span className="card-shadow-hard mb-4 inline-flex items-center gap-2 rounded-full border-2 border-ink bg-ink px-4 py-1.5 text-xs font-bold text-white dark:bg-white dark:text-surface-ink dark:border-ink/20">
               <Heart size={12} />
-              Cerita Kami
+              {t("tentang.badge")}
             </span>
             <h1 className="text-4xl font-black leading-[1.05] tracking-display sm:text-5xl lg:text-6xl">
               {t("tentang.title")}
@@ -92,7 +92,7 @@ export default function TentangPage() {
               transition={{ duration: 0.6 }}
             >
               <h2 className="text-3xl font-black leading-[1.1] tracking-display sm:text-4xl">
-                Perjalanan <span className="text-brick">KOPI</span>
+                {t("tentang.perjalanan_title")} <span className="text-brick">KOPI</span>
               </h2>
               <p className="text-sm leading-relaxed text-ink-muted dark:text-ink-muted/80">
                 KOPI Nusantara lahir dari kegelisahan melihat petani kopi lokal kurang mendapatkan tempat
@@ -106,7 +106,7 @@ export default function TentangPage() {
               </p>
               <Link href="/katalog">
                 <Button className="gap-2">
-                  Mulai Jelajahi
+                  {t("tentang.mulai_jelajahi")}
                   <ArrowRight size={16} />
                 </Button>
               </Link>
@@ -182,7 +182,7 @@ export default function TentangPage() {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl font-black tracking-display sm:text-4xl">
-              Perjalanan <span className="text-brick">Kami</span>
+              {t("tentang.timeline_title")} <span className="text-brick">Kami</span>
             </h2>
           </motion.div>
           <div className="relative space-y-0">
@@ -220,7 +220,7 @@ export default function TentangPage() {
           >
             <Coffee size={32} className="mx-auto text-on-brick-deep" />
             <h2 className="text-3xl font-black text-on-brick-deep tracking-display sm:text-4xl">
-              Jadi Bagian dari Cerita
+              {t("tentang.cta_title")}
             </h2>
             <p className="mx-auto max-w-md text-sm leading-relaxed text-on-brick-deep">
               Setiap pembelianmu adalah dukungan langsung untuk petani kopi Nusantara.
@@ -230,7 +230,7 @@ export default function TentangPage() {
                 size="lg"
                 className="border-2 border-ink bg-ink text-white dark:bg-card dark:text-ink dark:border-ink/20 card-shadow-hard hover:card-shadow-hard-hover"
               >
-                Belanja Sekarang
+                {t("tentang.belanja_sekarang")}
               </Button>
             </Link>
           </motion.div>

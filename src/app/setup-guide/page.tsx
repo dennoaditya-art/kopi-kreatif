@@ -74,7 +74,7 @@ export default function SetupGuidePage() {
     <div className="min-h-dvh bg-paper">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-20 sm:py-24">
         <div className="text-center mb-12">
-          <Badge variant="olive" className="mb-4">Panduan</Badge>
+          <Badge variant="olive" className="mb-4">{t("setup_guide.title")}</Badge>
           <h1 className="text-[clamp(2rem,5vw,3.5rem)] font-black leading-[0.95] tracking-[-0.03em] text-ink">
             {t("setup_guide.title")}
           </h1>

@@ -3,10 +3,12 @@
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence, useReducedMotion } from "motion/react"
 import { ArrowUp } from "lucide-react"
+import { useI18n } from "@/lib/i18n/context"
 
 export function ScrollToTop() {
   const [visible, setVisible] = useState(false)
   const reduce = useReducedMotion()
+  const { t } = useI18n()
 
   useEffect(() => {
     const onScroll = () => setVisible(window.scrollY > 400)
@@ -25,7 +27,7 @@ export function ScrollToTop() {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.8, y: 10 }}
           transition={{ type: "spring", stiffness: 200, damping: 15 }}
-          aria-label="Kembali ke atas"
+          aria-label={t("aria.scroll_to_top")}
         >
           <ArrowUp size={18} />
         </motion.button>

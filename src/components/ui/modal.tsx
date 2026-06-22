@@ -5,6 +5,7 @@ import { createPortal } from "react-dom"
 import { motion, AnimatePresence } from "motion/react"
 import { cn } from "@/lib/utils"
 import { X } from "lucide-react"
+import { useI18n } from "@/lib/i18n/context"
 
 interface ModalProps {
   open: boolean
@@ -24,6 +25,7 @@ const sizeClasses = {
 }
 
 export function Modal({ open, onClose, children, title, className, size = "md" }: ModalProps) {
+  const { t } = useI18n()
   const dialogRef = useRef<HTMLDivElement>(null)
   const previousFocusRef = useRef<HTMLElement | null>(null)
 
@@ -105,7 +107,7 @@ export function Modal({ open, onClose, children, title, className, size = "md" }
               <button
                 onClick={onClose}
                 className="ml-auto flex h-8 w-8 items-center justify-center rounded-lg border-2 border-ink bg-card text-ink transition-all hover:bg-brick/20 active:translate-x-[1px] active:translate-y-[1px]"
-                aria-label="Tutup"
+                aria-label={t("aria.tutup")}
               >
                 <X size={16} />
               </button>
