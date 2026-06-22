@@ -5,6 +5,7 @@ import { blogPosts } from "@/lib/blog-data"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft, Calendar, Clock, User } from "lucide-react"
+import { T } from "@/lib/i18n/t"
 
 export function generateStaticParams() {
   return blogPosts.map((post) => ({ slug: post.slug }))
@@ -23,7 +24,7 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
           href="/blog"
           className="inline-flex items-center gap-1.5 text-sm font-bold text-ink-muted hover:text-ink transition-colors mb-8"
         >
-          <ArrowLeft size={14} /> Kembali ke Blog
+          <ArrowLeft size={14} /> <T k="blog.kembali" />
         </Link>
 
         <article>
@@ -63,10 +64,10 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
         </article>
 
         <div className="mt-16 pt-8 border-t border-ink/10 text-center">
-          <p className="text-sm text-ink-muted mb-4">Artikel menarik lainnya?</p>
+          <p className="text-sm text-ink-muted mb-4"><T k="blog.lainnya" /></p>
           <Link href="/blog">
             <Button variant="outline" className="gap-2">
-              Lihat Semua Artikel <ArrowLeft size={14} className="rotate-180" />
+              <T k="blog.lihat_semua" /> <ArrowLeft size={14} className="rotate-180" />
             </Button>
           </Link>
         </div>

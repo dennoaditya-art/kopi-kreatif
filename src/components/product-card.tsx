@@ -3,6 +3,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { motion, useReducedMotion } from "motion/react"
+import { useI18n } from "@/lib/i18n/context"
 import { Badge } from "@/components/ui/badge"
 import { Star, ShoppingCart } from "lucide-react"
 import type { Product } from "@/lib/coffee-data"
@@ -13,6 +14,7 @@ function getFlavorColor(note: string) {
 }
 
 export function ProductCard({ product }: { product: Product }) {
+  const { t } = useI18n()
   const reduce = useReducedMotion()
 
   return (
@@ -48,7 +50,7 @@ export function ProductCard({ product }: { product: Product }) {
 
           <div className="absolute bottom-0 left-0 right-0 h-8 bg-ink/80 backdrop-blur-sm items-center overflow-hidden opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden sm:flex" aria-hidden="true">
             <span className="text-paper text-[11px] font-bold uppercase tracking-widest whitespace-nowrap animate-marquee">
-              Tambah ke Keranjang &bull; Tambah ke Keranjang &bull; Tambah ke Keranjang &bull;
+              {t("produk.tambah")} &bull; {t("produk.tambah")} &bull; {t("produk.tambah")} &bull;
             </span>
           </div>
         </div>
@@ -90,7 +92,7 @@ export function ProductCard({ product }: { product: Product }) {
               whileHover={reduce ? undefined : { scale: 1.2, rotate: 10 }}
               whileTap={reduce ? undefined : { scale: 0.9, rotate: -10 }}
               transition={{ type: "spring", stiffness: 400, damping: 8 }}
-              aria-label="Tambah ke keranjang"
+              aria-label={t("produk.tambah")}
               onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); /* add to cart */ } }}
             >
               <ShoppingCart size={14} />

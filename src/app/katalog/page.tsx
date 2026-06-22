@@ -8,6 +8,7 @@ import { Search, SearchX, RotateCcw } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { EmptyState } from "@/components/empty-state"
+import { useI18n } from "@/lib/i18n/context"
 
 const allCategories = Array.from(new Set(products.map((p) => p.category)))
 const allRoasts = Array.from(new Set(products.map((p) => p.roastLevel)))
@@ -33,6 +34,7 @@ export default function KatalogPage() {
   const [roast, setRoast] = useState("")
   const [sort, setSort] = useState("")
   const reduce = useReducedMotion()
+  const { t } = useI18n()
 
   const filtered = useMemo(() => {
     let result = [...products]
@@ -63,10 +65,10 @@ export default function KatalogPage() {
           transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
         >
           <h1 className="tracking-display text-3xl sm:text-4xl font-black">
-            Pilih Kopi <span className="text-brick">Favoritmu</span>
+            {t("katalog.title")} <span className="text-brick">Favoritmu</span>
           </h1>
           <p className="text-sm text-ink-muted dark:text-ink-muted max-w-lg mt-1">
-            Dari Sabang sampai Merauke, setiap biji punya cerita.
+            {t("katalog.desc")}
           </p>
         </motion.div>
 
@@ -80,8 +82,8 @@ export default function KatalogPage() {
             <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-ink-muted" />
             <Input
               type="text"
-              placeholder="Cari kopi..."
-              aria-label="Cari produk kopi"
+              placeholder={t("katalog.search_placeholder")}
+              aria-label={t("katalog.search_placeholder")}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="pl-9 text-sm h-10 w-full"
@@ -90,13 +92,13 @@ export default function KatalogPage() {
           <select
             value={sort}
             onChange={(e) => setSort(e.target.value)}
-            aria-label="Urutkan produk"
+            aria-label={t("katalog.sort")}
             className="rounded-xl border-2 border-ink px-3 py-2 text-xs font-bold bg-card dark:bg-surface-alt-ink text-ink cursor-pointer focus:ring-2 focus:ring-brick focus:outline-none h-10 shrink-0 card-shadow-hard"
           >
-            <option value="">Urutkan: Terbaru</option>
-            <option value="price-asc">Termurah</option>
-            <option value="price-desc">Termahal</option>
-            <option value="rating">Rating</option>
+            <option value="">{t("katalog.sort")}</option>
+            <option value="price-asc">{t("katalog.sort_price_asc")}</option>
+            <option value="price-desc">{t("katalog.sort_price_desc")}</option>
+            <option value="rating">{t("katalog.sort_rating")}</option>
           </select>
         </motion.div>
 
@@ -116,7 +118,7 @@ export default function KatalogPage() {
                 : "bg-card dark:bg-surface-alt-ink border-ink/10 dark:border-ink/20 hover:bg-brick/5"
             }`}
           >
-            Semua
+            {t("katalog.all")}
           </motion.button>
           {allCategories.map((cat) => (
             <motion.button
@@ -145,7 +147,7 @@ export default function KatalogPage() {
             Menampilkan {filtered.length} dari {products.length} produk
           </p>
           <div className="flex items-center flex-wrap gap-2">
-            <span className="text-[11px] font-bold uppercase tracking-[0.1em] text-ink-muted">Roast:</span>
+            <span className="text-[11px] font-bold uppercase tracking-[0.1em] text-ink-muted">{t("katalog.filter_roast")}:</span>
             {allRoasts.map((r) => (
               <motion.button
                 key={r}

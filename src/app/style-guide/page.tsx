@@ -1,5 +1,6 @@
 "use client"
 
+import { useI18n } from "@/lib/i18n/context"
 import { useState } from "react"
 import { motion } from "motion/react"
 import { Button } from "@/components/ui/button"
@@ -29,18 +30,19 @@ const TYPE_SCALE = [
   { name: "Micro", class: "text-[10px] font-bold leading-[1.2] tracking-[0.08em]", text: "FRESH ROASTED" },
 ]
 
-const NAV_SECTIONS = [
-  { id: "colors", label: "Colors" },
-  { id: "typography", label: "Typography" },
-  { id: "buttons", label: "Buttons" },
-  { id: "badges", label: "Badges" },
-  { id: "inputs", label: "Inputs" },
-  { id: "shadows", label: "Shadows" },
-  { id: "cards", label: "Cards" },
-]
-
 export default function StyleGuidePage() {
+  const { t } = useI18n()
   const [activeSection, setActiveSection] = useState("colors")
+
+  const NAV_SECTIONS = [
+    { id: "colors", label: t("style_guide.colors") },
+    { id: "typography", label: t("style_guide.typography") },
+    { id: "buttons", label: t("style_guide.buttons") },
+    { id: "badges", label: t("style_guide.badges") },
+    { id: "inputs", label: t("style_guide.inputs") },
+    { id: "shadows", label: t("style_guide.shadows") },
+    { id: "cards", label: t("style_guide.cards") },
+  ]
 
   return (
     <div className="min-h-dvh bg-paper">
@@ -50,8 +52,8 @@ export default function StyleGuidePage() {
             <Coffee size={18} className="text-ink" />
           </div>
           <div>
-            <h1 className="font-black text-2xl text-ink">Style Guide</h1>
-            <p className="text-sm text-ink-muted">Kopi Nusantara — Design System Reference</p>
+            <h1 className="font-black text-2xl text-ink">{t("style_guide.title")}</h1>
+            <p className="text-sm text-ink-muted">{t("style_guide.desc")}</p>
           </div>
         </div>
 
@@ -72,7 +74,7 @@ export default function StyleGuidePage() {
             ))}
             <div className="border-t border-ink/10 my-4 pt-4 space-y-1">
               <a href="/katalog" className="block px-3 py-2 text-sm font-bold text-ink-muted hover:text-ink transition-colors">
-                ← Kembali
+                ← {t("style_guide.kembali")}
               </a>
             </div>
           </nav>
@@ -80,7 +82,7 @@ export default function StyleGuidePage() {
           <div className="flex-1 min-w-0 space-y-16">
             {/* Colors */}
             <section id="colors">
-              <h2 className="font-black text-2xl text-ink mb-2">Colors</h2>
+              <h2 className="font-black text-2xl text-ink mb-2">{t("style_guide.colors")}</h2>
               <p className="text-sm text-ink-muted mb-6">Palette &quot;Olive + Brick + Paper&quot; — neobrutalist coffee e-commerce.</p>
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
                 {COLORS.map((c) => (
@@ -103,7 +105,7 @@ export default function StyleGuidePage() {
 
             {/* Typography */}
             <section id="typography">
-              <h2 className="font-black text-2xl text-ink mb-2">Typography</h2>
+              <h2 className="font-black text-2xl text-ink mb-2">{t("style_guide.typography")}</h2>
               <p className="text-sm text-ink-muted mb-6">Geist (sans) + Geist Mono (mono) — 8-level type scale.</p>
               <div className="space-y-4">
                 {TYPE_SCALE.map((t) => (
@@ -120,7 +122,7 @@ export default function StyleGuidePage() {
 
             {/* Buttons */}
             <section id="buttons">
-              <h2 className="font-black text-2xl text-ink mb-2">Buttons</h2>
+              <h2 className="font-black text-2xl text-ink mb-2">{t("style_guide.buttons")}</h2>
               <p className="text-sm text-ink-muted mb-6">5 variants × 4 sizes + icon. Border 2px, hard shadow, hover lift.</p>
               <div className="space-y-8">
                 {[
@@ -147,7 +149,7 @@ export default function StyleGuidePage() {
 
             {/* Badges */}
             <section id="badges">
-              <h2 className="font-black text-2xl text-ink mb-2">Badges</h2>
+              <h2 className="font-black text-2xl text-ink mb-2">{t("style_guide.badges")}</h2>
               <p className="text-sm text-ink-muted mb-6">6 variants. Rounded-full, uppercase tracking-widest, font-mono 10px.</p>
               <div className="flex flex-wrap gap-3">
                 {[
@@ -165,7 +167,7 @@ export default function StyleGuidePage() {
 
             {/* Inputs */}
             <section id="inputs">
-              <h2 className="font-black text-2xl text-ink mb-2">Inputs</h2>
+              <h2 className="font-black text-2xl text-ink mb-2">{t("style_guide.inputs")}</h2>
               <p className="text-sm text-ink-muted mb-6">Height 44px, rounded-xl, border 2px ink. Focus ring brick.</p>
               <div className="space-y-4 max-w-md">
                 <div>
@@ -192,7 +194,7 @@ export default function StyleGuidePage() {
 
             {/* Shadows */}
             <section id="shadows">
-              <h2 className="font-black text-2xl text-ink mb-2">Shadows</h2>
+              <h2 className="font-black text-2xl text-ink mb-2">{t("style_guide.shadows")}</h2>
               <p className="text-sm text-ink-muted mb-6">Hard offset — no blur. Signature neobrutalist shadow system.</p>
               <div className="flex flex-wrap gap-6">
                 <div className="w-40 h-32 rounded-[16px] border-2 border-ink bg-card card-shadow-hard flex items-center justify-center">
@@ -218,7 +220,7 @@ export default function StyleGuidePage() {
 
             {/* Cards */}
             <section id="cards">
-              <h2 className="font-black text-2xl text-ink mb-2">Cards</h2>
+              <h2 className="font-black text-2xl text-ink mb-2">{t("style_guide.cards")}</h2>
               <p className="text-sm text-ink-muted mb-6">Rounded-2xl (16px), border-2 ink, hard shadow, bg-card.</p>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <motion.div
@@ -269,10 +271,10 @@ export default function StyleGuidePage() {
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 1, type: "spring", stiffness: 200, damping: 15 }}
-        aria-label="Beli template Kopi Nusantara"
+        aria-label={t("style_guide.beli")}
       >
         <Coffee size={14} />
-        Beli Template
+        {t("style_guide.beli")}
         <ExternalLink size={12} />
       </motion.a>
     </div>

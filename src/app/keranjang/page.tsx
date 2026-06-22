@@ -10,6 +10,7 @@ import { useCart, itemKey } from "@/lib/cart-context"
 import { useToast } from "@/components/ui/toast"
 import { Trash2, Minus, Plus, ShoppingCart, ArrowLeft, Tag, Coffee, Loader2 } from "lucide-react"
 import { EmptyState } from "@/components/empty-state"
+import { useI18n } from "@/lib/i18n/context"
 
 export default function KeranjangPage() {
   const { items, updateQuantity, removeItem, subtotal } = useCart()
@@ -17,6 +18,7 @@ export default function KeranjangPage() {
   const [couponApplied, setCouponApplied] = useState(false)
   const [couponLoading, setCouponLoading] = useState(false)
   const reduce = useReducedMotion()
+  const { t } = useI18n()
   const { toast } = useToast()
 
   const discount = couponApplied ? subtotal * 0.1 : 0
@@ -35,19 +37,19 @@ export default function KeranjangPage() {
           <div className="h-9 w-9 rounded-xl bg-brick text-white flex items-center justify-center">
             <ShoppingCart size={18} />
           </div>
-          <h1 className="tracking-display text-2xl sm:text-3xl font-black">Keranjang</h1>
+          <h1 className="tracking-display text-2xl sm:text-3xl font-black">{t("keranjang.title")}</h1>
         </motion.div>
 
         {items.length === 0 ? (
           <EmptyState
             icon={<ShoppingCart size={32} />}
-            title="Keranjang masih kosong"
-            description="Belum ada kopi yang dipilih. Yuk jelajahi katalog dan temukan favoritmu!"
+            title={t("keranjang.kosong_title")}
+            description={t("keranjang.kosong_desc")}
             action={
               <Link href="/katalog">
                 <Button className="gap-2 border-2 border-ink card-shadow-hard hover:card-shadow-hard-hover">
                   <Coffee size={16} />
-                  Lihat Katalog
+                  {t("keranjang.lihat_katalog")}
                 </Button>
               </Link>
             }
@@ -88,7 +90,7 @@ export default function KeranjangPage() {
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
                         className="p-1 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors rounded-lg"
-                        aria-label="Hapus item"
+                        aria-label={t("aria.hapus_item")}
                       >
                         <Trash2 size={14} className="text-red-400" />
                       </motion.button>
@@ -99,7 +101,7 @@ export default function KeranjangPage() {
                           onClick={() => updateQuantity(key, -1)}
                           whileTap={{ scale: 0.9 }}
                           className="flex items-center justify-center h-full min-w-[44px] px-1.5 hover:bg-ink/5 dark:hover:bg-surface-alt-ink rounded-l-lg transition-colors"
-                          aria-label="Kurangi jumlah"
+                          aria-label={t("aria.kurangi")}
                         >
                           <Minus size={14} />
                         </motion.button>
@@ -116,7 +118,7 @@ export default function KeranjangPage() {
                           onClick={() => updateQuantity(key, 1)}
                           whileTap={{ scale: 0.9 }}
                           className="flex items-center justify-center h-full min-w-[44px] px-1.5 hover:bg-ink/5 dark:hover:bg-surface-alt-ink rounded-r-lg transition-colors"
-                          aria-label="Tambah jumlah"
+                          aria-label={t("aria.tambah")}
                         >
                           <Plus size={14} />
                         </motion.button>
@@ -144,7 +146,7 @@ export default function KeranjangPage() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.15, type: "spring", stiffness: 100, damping: 15 }}
               >
-                <h2 className="font-bold text-base">Ringkasan Belanja</h2>
+                <h2 className="font-bold text-base">{t("checkout.ringkasan")}</h2>
                 <div className="space-y-2.5 text-sm">
                   <motion.div
                     className="flex justify-between"
@@ -152,7 +154,7 @@ export default function KeranjangPage() {
                     animate={{ opacity: 1 }}
                     key={`subtotal-${subtotal}`}
                   >
-                    <span className="text-ink-muted">Subtotal</span>
+                    <span className="text-ink-muted">{t("keranjang.subtotal")}</span>
                     <span className="font-bold">Rp{subtotal.toLocaleString("id-ID")}</span>
                   </motion.div>
                   {discount > 0 && (
@@ -161,13 +163,13 @@ export default function KeranjangPage() {
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: "auto" }}
                     >
-                      <span>Diskon (10%)</span>
+                      <span>{t("keranjang.diskon")} (10%)</span>
                       <span className="font-bold">-Rp{discount.toLocaleString("id-ID")}</span>
                     </motion.div>
                   )}
                   <div className="flex justify-between">
-                    <span className="text-ink-muted">Ongkos Kirim</span>
-                    <span className="font-bold">{shipping === 0 ? <span className="text-brick font-black">GRATIS</span> : `Rp${shipping.toLocaleString("id-ID")}`}</span>
+                    <span className="text-ink-muted">{t("keranjang.ongkir")}</span>
+                    <span className="font-bold">{shipping === 0 ? <span className="text-brick font-black">{t("keranjang.gratis")}</span> : `Rp${shipping.toLocaleString("id-ID")}`}</span>
                   </div>
                   <hr className="border-t border-brick/10 dark:border-ink/20" />
                   <motion.div
@@ -176,12 +178,12 @@ export default function KeranjangPage() {
                     initial={{ scale: 1.05 }}
                     animate={{ scale: 1 }}
                   >
-                    <span className="font-bold">Total</span>
+                    <span className="font-bold">{t("keranjang.total")}</span>
                     <span className="font-black text-brick">Rp{total.toLocaleString("id-ID")}</span>
                   </motion.div>
                 </div>
                 <div className="flex gap-2">
-                  <Input type="text" placeholder="Kode promo" value={coupon} onChange={(e) => setCoupon(e.target.value)} className="text-sm h-10" />
+                  <Input type="text" placeholder={t("keranjang.kupon")} value={coupon} onChange={(e) => setCoupon(e.target.value)} className="text-sm h-10" />
                   <Button size="sm" variant={couponApplied ? "brick" : "outline"} onClick={async () => {
                     if (couponLoading) return
                     setCouponLoading(true)
@@ -189,14 +191,14 @@ export default function KeranjangPage() {
                     const next = !couponApplied
                     setCouponApplied(next)
                     setCouponLoading(false)
-                    if (next) toast("Kode promo berhasil digunakan! Diskon 10%", "success")
+                    if (next) toast(t("keranjang.diterapkan"), "success")
                   }} disabled={(!coupon && !couponApplied) || couponLoading} className="gap-1 shrink-0 text-xs">
                     {couponLoading ? <Loader2 size={13} className="animate-spin" /> : <Tag size={13} />}
-                    {couponLoading ? "Memeriksa..." : couponApplied ? "Pakai" : "Gunakan"}
+                    {couponLoading ? t("umum.loading") : couponApplied ? t("keranjang.terapkan") : t("keranjang.terapkan")}
                   </Button>
                 </div>
                 {shipping > 0 && <p className="text-xs text-ink-muted text-center">Gratis ongkir untuk belanja minimal Rp100.000</p>}
-                <Link href="/checkout"><Button className="w-full text-sm gap-2" size="lg">Lanjut ke Checkout</Button></Link>
+                <Link href="/checkout"><Button className="w-full text-sm gap-2" size="lg">{t("keranjang.checkout")}</Button></Link>
               </motion.div>
             </div>
           </div>

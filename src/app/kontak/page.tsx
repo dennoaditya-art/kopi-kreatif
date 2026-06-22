@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useToast } from "@/components/ui/toast"
 import { Mail, MapPin, Phone, Send, MessageSquare, Clock, Loader2, Check } from "lucide-react"
+import { useI18n } from "@/lib/i18n/context"
 
 interface ContactForm {
   name: string
@@ -28,6 +29,7 @@ export default function KontakPage() {
   const [sent, setSent] = useState(false)
   const [error, setError] = useState("")
   const [form, setForm] = useState<ContactForm>({ name: "", email: "", subject: "", message: "" })
+  const { t } = useI18n()
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
@@ -37,14 +39,14 @@ export default function KontakPage() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setError("")
-    if (!form.name.trim()) { setError("Nama harus diisi"); return }
-    if (!form.email.trim()) { setError("Email harus diisi"); return }
-    if (!form.subject.trim()) { setError("Subjek harus diisi"); return }
-    if (!form.message.trim()) { setError("Pesan harus diisi"); return }
+    if (!form.name.trim()) { setError(`${t("kontak.nama")} harus diisi`); return }
+    if (!form.email.trim()) { setError(`${t("kontak.email")} harus diisi`); return }
+    if (!form.subject.trim()) { setError(`${t("kontak.subjek")} harus diisi`); return }
+    if (!form.message.trim()) { setError(`${t("kontak.pesan")} harus diisi`); return }
     setLoading(true)
     await new Promise((r) => setTimeout(r, 1500))
     setLoading(false)
-    toast("Pesan berhasil dikirim! Kami akan membalas dalam 1x24 jam.", "success")
+    toast(`${t("kontak.terkirim")} ${t("kontak.terkirim_desc")}`, "success")
     setSent(true)
   }
 
@@ -61,13 +63,13 @@ export default function KontakPage() {
           >
             <span className="card-shadow-hard mb-4 inline-flex items-center gap-2 rounded-full border-2 border-ink bg-ink px-4 py-1.5 text-xs font-bold text-white dark:bg-white dark:text-surface-ink dark:border-ink/20">
               <MessageSquare size={12} />
-              Hubungi Kami
+              {t("kontak.title")}
             </span>
             <h1 className="text-4xl font-black leading-[1.05] tracking-display sm:text-5xl lg:text-6xl">
               Ada yang bisa <span className="text-brick">kami bantu?</span>
             </h1>
             <p className="mx-auto mt-4 max-w-lg text-base leading-relaxed text-ink-muted dark:text-ink-muted">
-              Tim kami siap mendengar pertanyaan, saran, atau sekadar ngobrol soal kopi.
+              {t("kontak.desc")}
             </p>
           </motion.div>
         </div>
@@ -105,8 +107,8 @@ export default function KontakPage() {
                 viewport={{ once: true }}
                 transition={{ delay: 0.3 }}
               >
-                <h3 className="font-black">Ikuti Kami</h3>
-                <p className="mt-1 text-xs text-white/60">Dapatkan update terbaru seputar kopi Nusantara.</p>
+                <h3 className="font-black">{t("kontak.ikuti_kami")}</h3>
+                <p className="mt-1 text-xs text-white/60">{t("footer.newsletter")}</p>
                 <div className="mt-3 flex gap-2">
                   {["Instagram", "TikTok", "Facebook", "X"].map((s) => (
                     <button
@@ -140,36 +142,36 @@ export default function KontakPage() {
                     >
                       <Check size={28} />
                     </motion.div>
-                    <h2 className="text-xl font-black text-ink dark:text-white">Pesan Terkirim!</h2>
+                    <h2 className="text-xl font-black text-ink dark:text-white">{t("kontak.terkirim")}</h2>
                     <p className="mt-2 text-sm text-ink-muted dark:text-ink-muted">
-                      Terima kasih! Tim kami akan membalas pesan kamu dalam 1x24 jam.
+                      {t("kontak.terkirim_desc")}
                     </p>
                     <Button
                       variant="outline"
                       className="mt-6 border-2 border-ink"
                       onClick={() => { setSent(false); setForm({ name: "", email: "", subject: "", message: "" }) }}
                     >
-                      Kirim Pesan Lagi
+                      {t("kontak.kirim")}
                     </Button>
                   </div>
                 ) : (
                   <>
-                    <h2 className="mb-6 text-xl font-black text-ink dark:text-white">Kirim Pesan</h2>
+                    <h2 className="mb-6 text-xl font-black text-ink dark:text-white">{t("kontak.form_title")}</h2>
                     <form onSubmit={handleSubmit} className="space-y-4" noValidate>
                       <div className="grid gap-4 sm:grid-cols-2">
                         <div className="space-y-1.5">
-                          <label htmlFor="name" className="text-xs font-bold text-ink dark:text-white">Nama Lengkap</label>
+                          <label htmlFor="name" className="text-xs font-bold text-ink dark:text-white">{t("kontak.nama")}</label>
                           <Input
                             id="name"
                             name="name"
-                            placeholder="Nama kamu"
+                            placeholder={t("kontak.nama")}
                             value={form.name}
                             onChange={handleChange}
                             className="h-12 border-2 border-ink bg-white text-ink placeholder:text-ink-muted focus:ring-brick dark:bg-surface-alt-ink dark:text-white"
                           />
                         </div>
                         <div className="space-y-1.5">
-                          <label htmlFor="email" className="text-xs font-bold text-ink dark:text-white">Email</label>
+                          <label htmlFor="email" className="text-xs font-bold text-ink dark:text-white">{t("kontak.email")}</label>
                           <Input
                             id="email"
                             name="email"
@@ -183,11 +185,11 @@ export default function KontakPage() {
                       </div>
 
                       <div className="space-y-1.5">
-                        <label htmlFor="subject" className="text-xs font-bold text-ink dark:text-white">Subjek</label>
+                        <label htmlFor="subject" className="text-xs font-bold text-ink dark:text-white">{t("kontak.subjek")}</label>
                         <Input
                           id="subject"
                           name="subject"
-                          placeholder="Ada yang bisa kami bantu?"
+                          placeholder={t("kontak.desc")}
                           value={form.subject}
                           onChange={handleChange}
                           className="h-12 border-2 border-ink bg-white text-ink placeholder:text-ink-muted focus:ring-brick dark:bg-surface-alt-ink dark:text-white"
@@ -195,12 +197,12 @@ export default function KontakPage() {
                       </div>
 
                       <div className="space-y-1.5">
-                        <label htmlFor="message" className="text-xs font-bold text-ink dark:text-white">Pesan</label>
+                        <label htmlFor="message" className="text-xs font-bold text-ink dark:text-white">{t("kontak.pesan")}</label>
                         <textarea
                           id="message"
                           name="message"
                           rows={5}
-                          placeholder="Tulis pesan kamu di sini..."
+                          placeholder={t("kontak.pesan")}
                           value={form.message}
                           onChange={handleChange}
                           className="w-full rounded-xl border-2 border-ink bg-white px-4 py-3 text-sm text-ink placeholder:text-ink-muted focus:ring-2 focus:ring-brick focus:outline-none dark:bg-surface-alt-ink dark:text-white"
@@ -223,7 +225,7 @@ export default function KontakPage() {
                         className="h-12 w-full border-2 border-ink text-base card-shadow-hard hover:card-shadow-hard-hover"
                       >
                         {loading ? <Loader2 size={18} className="animate-spin" /> : <Send size={18} />}
-                        {loading ? "Mengirim..." : "Kirim Pesan"}
+                        {loading ? t("umum.loading") : t("kontak.kirim")}
                       </Button>
                     </form>
                   </>
@@ -245,7 +247,7 @@ export default function KontakPage() {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl font-black tracking-display sm:text-4xl" id="faq">
-              Pertanyaan <span className="text-brick">Umum</span>
+              {t("kontak.faq_title")}
             </h2>
           </motion.div>
           <div className="space-y-4">

@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { SITE_CONFIG } from "@/config"
 import { LayoutDashboard, Package, Users, TrendingUp, Download, Plus, MoreHorizontal, Lock, LogIn } from "lucide-react"
+import { useI18n } from "@/lib/i18n/context"
 
 const statusColors: Record<string, "success" | "default" | "brick" | "destructive"> = {
   Selesai: "success",
@@ -21,6 +22,7 @@ export default function DashboardPage() {
   const [authed, setAuthed] = useState(false)
   const [pass, setPass] = useState("")
   const [error, setError] = useState(false)
+  const { t } = useI18n()
   const reduce = useReducedMotion()
 
   function handleAuth() {
@@ -47,12 +49,12 @@ export default function DashboardPage() {
           >
             <Lock size={24} />
           </motion.div>
-          <h1 className="tracking-display text-2xl font-black">Akses Dashboard</h1>
-          <p className="text-sm text-ink-muted">Masukkan kode akses untuk melanjutkan</p>
+          <h1 className="tracking-display text-2xl font-black">{t("dashboard.akses_ditolak")}</h1>
+          <p className="text-sm text-ink-muted">{t("dashboard.masukkan_kode")}</p>
           <div className="space-y-2">
             <Input
               type="password"
-              placeholder="Kode akses"
+              placeholder={t("dashboard.masukkan_kode")}
               value={pass}
               onChange={(e) => { setPass(e.target.value); setError(false) }}
               onKeyDown={(e) => { if (e.key === "Enter") handleAuth() }}
@@ -65,7 +67,7 @@ export default function DashboardPage() {
             >Kode akses salah</motion.p>}
           </div>
           <Button onClick={handleAuth} className="gap-2">
-            <LogIn size={16} /> Masuk
+            <LogIn size={16} /> {t("auth.masuk_btn")}
           </Button>
         </motion.div>
       </div>
@@ -81,7 +83,7 @@ export default function DashboardPage() {
               <LayoutDashboard size={18} />
             </div>
             <div>
-              <h1 className="tracking-display text-2xl sm:text-3xl font-black">Dashboard</h1>
+              <h1 className="tracking-display text-2xl sm:text-3xl font-black">{t("dashboard.title")}</h1>
               <p className="text-xs text-ink-muted font-medium">Kelola toko kopi kamu</p>
             </div>
           </div>
@@ -134,16 +136,16 @@ export default function DashboardPage() {
               transition={{ delay: 0.15, type: "spring", stiffness: 100, damping: 15 }}
             >
               <div className="flex items-center justify-between mb-4">
-                <h2 className="font-bold text-sm">Pesanan Terbaru</h2>
-                <Button variant="ghost" size="sm" className="text-xs">Lihat Semua</Button>
+                <h2 className="font-bold text-sm">{t("dashboard.pesanan_terbaru")}</h2>
+                <Button variant="ghost" size="sm" className="text-xs">{t("blog.lihat_semua")}</Button>
               </div>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="border-b border-brick/10 dark:border-ink/20 text-left">
                       <th className="pb-2.5 font-bold text-[11px] uppercase tracking-[0.08em] text-ink-muted">Invoice</th>
-                      <th className="pb-2.5 font-bold text-[11px] uppercase tracking-[0.08em] text-ink-muted">Pelanggan</th>
-                      <th className="pb-2.5 font-bold text-[11px] uppercase tracking-[0.08em] text-ink-muted hidden sm:table-cell">Produk</th>
+                      <th className="pb-2.5 font-bold text-[11px] uppercase tracking-[0.08em] text-ink-muted">{t("dashboard.total_pelanggan")}</th>
+                      <th className="pb-2.5 font-bold text-[11px] uppercase tracking-[0.08em] text-ink-muted hidden sm:table-cell">{t("hero.produk")}</th>
                       <th className="pb-2.5 font-bold text-[11px] uppercase tracking-[0.08em] text-ink-muted">Total</th>
                       <th className="pb-2.5 font-bold text-[11px] uppercase tracking-[0.08em] text-ink-muted">Status</th>
                       <th className="pb-2.5 font-bold text-[11px] uppercase tracking-[0.08em] text-ink-muted hidden sm:table-cell">Tanggal</th>
@@ -177,7 +179,7 @@ export default function DashboardPage() {
               transition={{ delay: 0.2, type: "spring", stiffness: 100, damping: 15 }}
             >
               <div className="flex items-center justify-between mb-3">
-                <h2 className="font-bold text-sm">Stok Produk</h2>
+                <h2 className="font-bold text-sm">{t("dashboard.total_produk")}</h2>
                 <Button variant="ghost" size="sm" aria-label="Menu"><MoreHorizontal size={16} /></Button>
               </div>
               <div className="space-y-2.5">

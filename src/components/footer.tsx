@@ -1,7 +1,11 @@
+"use client"
+
 import Link from "next/link"
 import { Input } from "@/components/ui/input"
+import { useI18n } from "@/lib/i18n/context"
 
 export function Footer() {
+  const { t } = useI18n()
   return (
     <footer className="border-t-2 border-ink/10 bg-paper text-ink-muted">
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
@@ -11,7 +15,7 @@ export function Footer() {
               <span className="bg-ink text-paper rounded-[12px] px-2 py-1 border-2 border-ink">KOPI</span>
             </div>
             <p className="text-sm leading-relaxed text-ink-muted">
-              Menghadirkan cita rasa kopi Nusantara terbaik langsung ke pintu Anda.
+              {t("footer.newsletter")}
             </p>
             <div className="flex gap-2">
               {[
@@ -30,13 +34,13 @@ export function Footer() {
           </div>
 
           <div className="space-y-3">
-            <h3 className="font-bold text-ink text-sm">Navigasi</h3>
+            <h3 className="font-bold text-ink text-sm">{t("footer.tautan")}</h3>
           <ul className="space-y-2">
             {[
-              { label: "Beranda", href: "/" },
-              { label: "Katalog", href: "/katalog" },
-              { label: "Tentang", href: "/tentang" },
-              { label: "Kontak", href: "/kontak" },
+              { label: t("nav.beranda"), href: "/" },
+              { label: t("nav.katalog"), href: "/katalog" },
+              { label: t("nav.tentang"), href: "/tentang" },
+              { label: t("nav.kontak"), href: "/kontak" },
             ].map((item) => (
               <li key={item.label}><Link href={item.href} className="text-sm hover:text-brick transition-colors">{item.label}</Link></li>
             ))}
@@ -58,19 +62,19 @@ export function Footer() {
           </div>
 
           <div className="space-y-3">
-            <h3 className="font-bold text-ink text-sm">Newsletter</h3>
-            <p className="text-sm text-ink-muted">Dapatkan promo dan info kopi terbaru langsung di email Anda.</p>
+            <h3 className="font-bold text-ink text-sm">{t("footer.newsletter")}</h3>
+            <p className="text-sm text-ink-muted">{t("footer.newsletter")}</p>
             <div className="flex gap-2">
-              <Input type="email" placeholder="Email kamu" aria-label="Email untuk newsletter" className="h-10 text-sm" />
-              <button aria-label="Langganan newsletter" className="shrink-0 text-xs h-10 px-4 rounded-[16px] bg-brick text-ink font-bold border-2 border-ink card-shadow-hard hover:card-shadow-hard-hover transition-all active:translate-x-[2px] active:translate-y-[2px] active:shadow-none">
-                Kirim
+              <Input type="email" placeholder={t("footer.newsletter_placeholder")} aria-label={t("footer.newsletter_placeholder")} className="h-10 text-sm" />
+              <button aria-label={t("footer.newsletter_btn")} className="shrink-0 text-xs h-10 px-4 rounded-[16px] bg-brick text-ink font-bold border-2 border-ink card-shadow-hard hover:card-shadow-hard-hover transition-all active:translate-x-[2px] active:translate-y-[2px] active:shadow-none">
+                {t("footer.newsletter_btn")}
               </button>
             </div>
           </div>
         </div>
 
         <div className="mt-10 border-t-2 border-ink/10 pt-6 text-center text-[11px] text-ink-muted">
-          <p>&copy; 2026 KOPI Nusantara. Dibuat dengan penuh cinta untuk kopi Indonesia.</p>
+          <p>{t("footer.hak_cipta")}</p>
         </div>
       </div>
     </footer>

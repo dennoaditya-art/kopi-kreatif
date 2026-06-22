@@ -1,80 +1,85 @@
+"use client"
+
 import { Badge } from "@/components/ui/badge"
 import { Coffee, Globe, Server, ShoppingCart, Palette, FileText } from "lucide-react"
-
-const STEPS = [
-  {
-    icon: Server,
-    title: "1. Instalasi",
-    items: [
-      "Buka terminal di folder project",
-      "Jalankan: npm install",
-      "Tunggu hingga semua dependencies terinstall",
-      "Selesai — project siap digunakan",
-    ],
-  },
-  {
-    icon: Coffee,
-    title: "2. Konten Produk",
-    items: [
-      "Buka src/lib/coffee-data.ts",
-      "Edit array products — ganti nama, harga, deskripsi, gambar",
-      "Sesuaikan flavorNotes, origin, roastLevel sesuai produk kamu",
-      "Edit array testimonials dengan ulasan pelanggan asli",
-    ],
-  },
-  {
-    icon: Palette,
-    title: "3. Branding",
-    items: [
-      "Buka src/config/index.ts — ganti SITE_CONFIG.name, tagline, sosial media",
-      "Buka src/app/globals.css — sesuaikan warna Brick/Olive jika perlu",
-      "Ganti favicon di src/app/favicon.ico dengan logo kamu",
-      "Edit gambar produk di folder public/",
-    ],
-  },
-  {
-    icon: ShoppingCart,
-    title: "4. Toko",
-    items: [
-      "Atur ongkos kirim di src/config/index.ts (freeThreshold, standardFee)",
-      "Sesuaikan berat dan grind option di coffee-data.ts",
-      "Test alur: katalog → detail → keranjang → checkout",
-    ],
-  },
-  {
-    icon: Globe,
-    title: "5. Deploy ke Vercel",
-    items: [
-      "Buat akun di vercel.com (gratis)",
-      "Install Vercel CLI: npm i -g vercel",
-      "Jalankan: vercel dari folder project",
-      "Ikuti wizard — Vercel auto-detect Next.js",
-      "Dapatkan URL: https://project-kamu.vercel.app",
-    ],
-  },
-  {
-    icon: FileText,
-    title: "6. Custom Domain (Opsional)",
-    items: [
-      "Beli domain di Niagahoster/Domainesia",
-      "Di Vercel dashboard → project → Domains",
-      "Masukkan domain kamu",
-      "Ikuti petunjuk setting DNS (biasanya CNAME ke cname.vercel-dns.com)",
-    ],
-  },
-]
+import { useI18n } from "@/lib/i18n/context"
 
 export default function SetupGuidePage() {
+  const { t } = useI18n()
+
+  const STEPS = [
+    {
+      icon: Server,
+      title: t("setup_guide.step_1_title"),
+      items: [
+        t("setup_guide.step_1_1"),
+        t("setup_guide.step_1_2"),
+        t("setup_guide.step_1_3"),
+        t("setup_guide.step_1_4"),
+      ],
+    },
+    {
+      icon: Coffee,
+      title: t("setup_guide.step_2_title"),
+      items: [
+        t("setup_guide.step_2_1"),
+        t("setup_guide.step_2_2"),
+        t("setup_guide.step_2_3"),
+        t("setup_guide.step_2_4"),
+      ],
+    },
+    {
+      icon: Palette,
+      title: t("setup_guide.step_3_title"),
+      items: [
+        t("setup_guide.step_3_1"),
+        t("setup_guide.step_3_2"),
+        t("setup_guide.step_3_3"),
+        "Edit gambar produk di folder public/",
+      ],
+    },
+    {
+      icon: ShoppingCart,
+      title: t("setup_guide.step_4_title"),
+      items: [
+        t("setup_guide.step_4_1"),
+        t("setup_guide.step_4_2"),
+        t("setup_guide.step_4_3"),
+      ],
+    },
+    {
+      icon: Globe,
+      title: t("setup_guide.step_5_title"),
+      items: [
+        t("setup_guide.step_5_1"),
+        "Install Vercel CLI: npm i -g vercel",
+        t("setup_guide.step_5_2"),
+        t("setup_guide.step_5_3"),
+        t("setup_guide.step_5_4"),
+      ],
+    },
+    {
+      icon: FileText,
+      title: t("setup_guide.step_6_title"),
+      items: [
+        t("setup_guide.step_6_1"),
+        t("setup_guide.step_6_2"),
+        t("setup_guide.step_6_3"),
+        t("setup_guide.step_6_4"),
+      ],
+    },
+  ]
+
   return (
     <div className="min-h-dvh bg-paper">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-20 sm:py-24">
         <div className="text-center mb-12">
           <Badge variant="olive" className="mb-4">Panduan</Badge>
           <h1 className="text-[clamp(2rem,5vw,3.5rem)] font-black leading-[0.95] tracking-[-0.03em] text-ink">
-            Panduan <span className="text-brick">Instalasi</span>
+            {t("setup_guide.title")}
           </h1>
           <p className="text-sm text-ink-muted mt-2 max-w-md mx-auto">
-            Dari folder kosong sampai toko online kopi kamu live — berikut langkah-langkahnya.
+            {t("setup_guide.desc")}
           </p>
         </div>
 
@@ -104,7 +109,7 @@ export default function SetupGuidePage() {
 
         <div className="mt-12 p-5 sm:p-6 rounded-[16px] border-2 border-brick/30 bg-brick/5 text-center">
           <p className="text-sm font-bold text-ink">
-            Butuh bantuan? Hubungi kami di {">"} <span className="text-brick">@kopi_nusantara</span>
+            {t("setup_guide.bantuan")} <span className="text-brick">@kopi_nusantara</span>
           </p>
         </div>
       </div>

@@ -6,8 +6,10 @@ import { motion, useReducedMotion } from "motion/react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Coffee, Eye, EyeOff, UserPlus, ArrowLeft, Loader2, Check } from "lucide-react"
+import { useI18n } from "@/lib/i18n/context"
 
 export default function DaftarPage() {
+  const { t } = useI18n()
   const reduce = useReducedMotion()
   const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -23,8 +25,8 @@ export default function DaftarPage() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setError("")
-    if (!form.name.trim()) { setError("Nama harus diisi"); return }
-    if (!form.email.trim()) { setError("Email harus diisi"); return }
+    if (!form.name.trim()) { setError(`${t("auth.nama")} harus diisi`); return }
+    if (!form.email.trim()) { setError(`${t("auth.email")} harus diisi`); return }
     if (form.password.length < 6) { setError("Password minimal 6 karakter"); return }
     if (form.password !== form.confirm) { setError("Konfirmasi password tidak cocok"); return }
     setLoading(true)
@@ -57,12 +59,12 @@ export default function DaftarPage() {
             <div className="mt-6 flex flex-col gap-3">
               <Link href="/masuk">
                 <Button className="w-full border-2 border-ink text-base card-shadow-hard hover:card-shadow-hard-hover">
-                  Masuk Sekarang
+                  {t("auth.masuk_sekarang")}
                 </Button>
               </Link>
               <Link href="/">
                 <Button variant="ghost" className="w-full text-sm">
-                  Kembali ke Beranda
+                  {t("nav.beranda")}
                 </Button>
               </Link>
             </div>
@@ -85,7 +87,7 @@ export default function DaftarPage() {
           className="mb-6 inline-flex items-center gap-2 text-sm font-bold text-ink-muted transition-colors hover:text-ink dark:text-ink-muted dark:hover:text-white"
         >
           <ArrowLeft size={14} />
-          Kembali ke Beranda
+          {t("nav.beranda")}
         </Link>
 
         <div className="card-shadow-hard rounded-[2rem] border-2 border-ink bg-white p-8 dark:bg-surface-alt-ink sm:p-10">
@@ -97,18 +99,18 @@ export default function DaftarPage() {
             >
               <Coffee size={24} />
             </motion.div>
-            <h1 className="text-2xl font-black text-ink dark:text-white">Buat Akun</h1>
+            <h1 className="text-2xl font-black text-ink dark:text-white">{t("auth.daftar_title")}</h1>
             <p className="mt-1 text-sm text-ink-muted dark:text-ink-muted">Gabung dan nikmati kopi terbaik Nusantara</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-1.5">
-              <label htmlFor="name" className="text-xs font-bold text-ink dark:text-white">Nama Lengkap</label>
+              <label htmlFor="name" className="text-xs font-bold text-ink dark:text-white">{t("auth.nama")}</label>
               <Input
                 id="name"
                 name="name"
                 type="text"
-                placeholder="Nama kamu"
+                placeholder={t("auth.nama")}
                 value={form.name}
                 onChange={handleChange}
                 className="h-12 border-2 border-ink bg-white text-ink placeholder:text-ink-muted focus:ring-brick dark:bg-surface-alt-ink dark:text-white"
@@ -117,7 +119,7 @@ export default function DaftarPage() {
             </div>
 
             <div className="space-y-1.5">
-              <label htmlFor="email" className="text-xs font-bold text-ink dark:text-white">Email</label>
+              <label htmlFor="email" className="text-xs font-bold text-ink dark:text-white">{t("auth.email")}</label>
               <Input
                 id="email"
                 name="email"
@@ -131,7 +133,7 @@ export default function DaftarPage() {
             </div>
 
             <div className="space-y-1.5">
-              <label htmlFor="password" className="text-xs font-bold text-ink dark:text-white">Password</label>
+              <label htmlFor="password" className="text-xs font-bold text-ink dark:text-white">{t("auth.password")}</label>
               <div className="relative">
                 <Input
                   id="password"
@@ -192,14 +194,14 @@ export default function DaftarPage() {
               className="h-12 w-full border-2 border-ink text-base card-shadow-hard hover:card-shadow-hard-hover"
             >
               {loading ? <Loader2 size={18} className="animate-spin" /> : <UserPlus size={18} />}
-              {loading ? "Memproses..." : "Daftar"}
+              {loading ? t("checkout.memproses") : t("auth.daftar_btn")}
             </Button>
           </form>
 
           <p className="mt-6 text-center text-xs text-ink-muted dark:text-ink-muted">
-            Sudah punya akun?{" "}
+            {t("auth.sudah_punya_akun")}{" "}
             <Link href="/masuk" className="font-bold text-brick underline-offset-2 hover:underline">
-              Masuk di sini
+              {t("auth.masuk_sekarang")}
             </Link>
           </p>
         </div>

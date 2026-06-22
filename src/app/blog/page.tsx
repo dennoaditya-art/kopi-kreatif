@@ -1,20 +1,24 @@
+"use client"
+
 import Link from "next/link"
 import Image from "next/image"
 import { blogPosts } from "@/lib/blog-data"
 import { Badge } from "@/components/ui/badge"
 import { ArrowRight, Calendar, Clock } from "lucide-react"
+import { useI18n } from "@/lib/i18n/context"
 
 export default function BlogPage() {
+  const { t } = useI18n()
   return (
     <div className="min-h-dvh bg-paper">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 sm:py-24">
         <div className="max-w-xl mb-12">
-          <Badge variant="outline" className="mb-4">Blog</Badge>
+          <Badge variant="outline" className="mb-4">{t("nav.blog")}</Badge>
           <h1 className="text-[clamp(2rem,5vw,3.5rem)] font-black leading-[0.95] tracking-[-0.03em] text-ink">
-            Cerita <span className="text-brick">Kopi</span>
+            {t("blog.title")}
           </h1>
           <p className="text-sm text-ink-muted mt-2">
-            Artikel seputar kopi Nusantara, tips menyeduh, dan cerita dari para pecinta kopi.
+            {t("blog.desc")}
           </p>
         </div>
 
@@ -43,7 +47,7 @@ export default function BlogPage() {
                   {post.excerpt}
                 </p>
                 <div className="flex items-center gap-1 text-brick text-xs font-bold pt-1 group">
-                  Baca selengkapnya <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
+                  {t("blog.baca")} <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
                 </div>
               </div>
             </Link>

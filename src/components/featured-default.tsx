@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import Image from "next/image"
+import { useI18n } from "@/lib/i18n/context"
 import type { ReactNode } from "react"
 import { motion, useReducedMotion } from "motion/react"
 import { products } from "@/lib/coffee-data"
@@ -23,6 +24,7 @@ interface FeaturedDefaultProps {
 }
 
 export function FeaturedDefault({ header }: FeaturedDefaultProps) {
+  const { t } = useI18n()
   const reduce = useReducedMotion()
 
   return (
@@ -39,7 +41,7 @@ export function FeaturedDefault({ header }: FeaturedDefaultProps) {
               <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-ink">
                 Pilihan <span className="text-brick">Terbaik</span>
               </h2>
-              <p className="text-sm text-ink-muted mt-1">Koleksi pilihan kami untuk kamu</p>
+              <p className="text-sm text-ink-muted mt-1">{t("katalog.desc")}</p>
             </motion.div>
             <motion.div
               initial={reduce ? false : { opacity: 0, x: 20 }}
@@ -49,7 +51,7 @@ export function FeaturedDefault({ header }: FeaturedDefaultProps) {
             >
               <Link href="/katalog">
                 <Button variant="outline" size="sm" className="gap-2 text-xs group">
-                  Lihat Semua <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                  {t("blog.lihat_semua")} <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
             </motion.div>

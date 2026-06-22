@@ -8,6 +8,7 @@ import { ThemeProvider } from "@/lib/theme-context"
 import { ErrorBoundary } from "@/components/error-boundary"
 import { ToastProvider } from "@/components/ui/toast"
 import { ScrollToTop } from "@/components/scroll-to-top"
+import { I18nProvider } from "@/lib/i18n/context"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -61,6 +62,7 @@ export default function RootLayout({
           <meta itemProp="potentialAction" content="https://kopi-kreatif.vercel.app/katalog?search={search_term_string}" />
         </div>
         <ThemeProvider>
+          <I18nProvider>
           <CartProvider>
             <ToastProvider>
               <Navbar />
@@ -70,8 +72,9 @@ export default function RootLayout({
               <ScrollToTop />
               <Footer />
             </ToastProvider>
-          </CartProvider>
-        </ThemeProvider>
+            </CartProvider>
+          </I18nProvider>
+          </ThemeProvider>
       </body>
     </html>
   )

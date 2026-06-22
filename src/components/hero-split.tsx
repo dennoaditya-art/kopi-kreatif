@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import type { Product } from "@/lib/coffee-data"
 import { ArrowRight, Coffee, Star } from "lucide-react"
 import { HERO_PRODUCTS } from "./hero"
+import { useI18n } from "@/lib/i18n/context"
 
 interface HeroSplitProps {
   current: number
@@ -15,6 +16,7 @@ interface HeroSplitProps {
 }
 
 export function HeroSplit({ current, setCurrent, item }: HeroSplitProps) {
+  const { t } = useI18n()
   return (
     <section className="relative overflow-hidden bg-paper">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -28,7 +30,7 @@ export function HeroSplit({ current, setCurrent, item }: HeroSplitProps) {
             >
               <span className="inline-flex items-center gap-2 bg-ink text-paper px-4 py-1.5 text-xs font-bold rounded-[16px] border-2 border-ink card-shadow-hard">
                 <Coffee size={12} />
-                Fresh Roasted tiap Minggu
+                {t("hero.badge")}
               </span>
             </motion.div>
 
@@ -41,7 +43,7 @@ export function HeroSplit({ current, setCurrent, item }: HeroSplitProps) {
               <span className="block">Kopi</span>
               <span className="block text-brick">Nusantara</span>
               <span className="block text-ink mt-1 text-[clamp(1rem,2vw,1.5rem)] tracking-[-0.02em] font-bold">
-                Asli Indonesia
+                {t("hero.title_2")}
               </span>
             </motion.h1>
 
@@ -51,7 +53,7 @@ export function HeroSplit({ current, setCurrent, item }: HeroSplitProps) {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
             >
-              Bubuk kopi premium dari petani lokal Indonesia. Dipanggang segar setiap minggu.
+              {t("hero.desc")}
             </motion.p>
 
             <motion.div
@@ -62,13 +64,13 @@ export function HeroSplit({ current, setCurrent, item }: HeroSplitProps) {
             >
               <Link href="/katalog">
                 <Button size="lg" className="text-base gap-2 group">
-                  Jelajahi Katalog
+                  {t("hero.cta")}
                   <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
               <Link href="#tentang">
                 <Button variant="outline" size="lg" className="text-base">
-                  Cerita Kami
+                  {t("hero.cta_alt")}
                 </Button>
               </Link>
             </motion.div>
@@ -167,7 +169,7 @@ export function HeroSplit({ current, setCurrent, item }: HeroSplitProps) {
                         ? "w-8 h-4 bg-brick"
                         : "w-4 h-4 bg-card hover:bg-brick/50"
                     }`}
-                    aria-label={`Produk ${i + 1}`}
+                    aria-label={`${t("aria.go_slide")} ${i + 1}`}
                   />
                 ))}
               </div>

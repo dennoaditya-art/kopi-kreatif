@@ -5,6 +5,7 @@ import Link from "next/link"
 import { motion, useReducedMotion } from "motion/react"
 import { Button } from "@/components/ui/button"
 import { Coffee, Sprout, Heart, Award, Users, ArrowRight } from "lucide-react"
+import { useI18n } from "@/lib/i18n/context"
 
 const values = [
   { icon: Sprout, title: "Petani Dulu", desc: "Kami bermitra langsung dengan petani kopi lokal dengan harga yang adil dan berkelanjutan.", color: "bg-brick", iconColor: "text-ink" },
@@ -29,6 +30,7 @@ const stats = [
 ]
 
 export default function TentangPage() {
+  const { t } = useI18n()
   const reduce = useReducedMotion()
 
   return (
@@ -48,11 +50,10 @@ export default function TentangPage() {
               Cerita Kami
             </span>
             <h1 className="text-4xl font-black leading-[1.05] tracking-display sm:text-5xl lg:text-6xl">
-              Tentang <span className="text-brick">KOPI</span> Nusantara
+              {t("tentang.title")}
             </h1>
             <p className="mx-auto mt-4 max-w-lg text-base leading-relaxed text-ink-muted dark:text-ink-muted/80">
-              Berawal dari secangkir kopi di pinggir jalan, tumbuh menjadi gerakan untuk memperkenalkan
-              kekayaan kopi Nusantara ke seluruh dunia.
+              {t("tentang.desc")}
             </p>
           </motion.div>
         </div>
@@ -146,7 +147,7 @@ export default function TentangPage() {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl font-black tracking-display sm:text-4xl">
-              Apa yang <span className="text-brick">Kami Percaya</span>
+              {t("tentang.values_title")}
             </h2>
           </motion.div>
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">

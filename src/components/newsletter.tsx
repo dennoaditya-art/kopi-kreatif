@@ -1,11 +1,13 @@
 "use client"
 
+import { useI18n } from "@/lib/i18n/context"
 import { motion, useReducedMotion } from "motion/react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Mail } from "lucide-react"
 
 export function Newsletter() {
+  const { t } = useI18n()
   const reduce = useReducedMotion()
 
   return (
@@ -27,20 +29,20 @@ export function Newsletter() {
               <Mail size={24} />
             </motion.div>
             <h2 className="text-3xl sm:text-4xl font-black text-paper">
-              Dapatkan Update Kopi
+              {t("footer.newsletter")}
             </h2>
             <p className="text-sm text-paper/70 leading-relaxed max-w-sm mx-auto">
-              Varian baru, promo spesial, dan tips brewing langsung ke email kamu.
+              {t("footer.newsletter")}
             </p>
             <div className="flex flex-col sm:flex-row gap-3 max-w-sm mx-auto">
               <Input
                 type="email"
-                placeholder="Masukkan email kamu"
-                aria-label="Email untuk newsletter"
+                placeholder={t("footer.newsletter_placeholder")}
+                aria-label={t("footer.newsletter_placeholder")}
                 className="flex-1 h-12 text-sm"
               />
               <Button className="whitespace-nowrap font-bold text-sm h-12 shrink-0 bg-brick text-ink hover:bg-brick-deep">
-                Berlangganan
+                {t("footer.newsletter_btn")}
               </Button>
             </div>
             <p className="text-[11px] text-paper/50 font-medium">Berhenti kapan saja.</p>

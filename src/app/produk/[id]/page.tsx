@@ -9,6 +9,7 @@ import { products, FLAVOR_COLORS } from "@/lib/coffee-data"
 import { useCart } from "@/lib/cart-context"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import { useI18n } from "@/lib/i18n/context"
 import { ProductCard } from "@/components/product-card"
 import { useToast } from "@/components/ui/toast"
 import { Star, ShoppingCart, ArrowLeft, Minus, Plus, Check, Frown, Package as PackageIcon, Truck, Flame, Loader2 } from "lucide-react"
@@ -22,6 +23,7 @@ export default function DetailProdukPage() {
   const [added, setAdded] = useState(false)
   const [adding, setAdding] = useState(false)
   const reduce = useReducedMotion()
+  const { t } = useI18n()
   const { toast } = useToast()
   const imageRef = useRef<HTMLDivElement>(null)
   const handleMouseMove = useCallback((e: React.MouseEvent) => {
@@ -75,8 +77,8 @@ export default function DetailProdukPage() {
         >
           <Frown size={22} />
         </motion.div>
-        <h1 className="text-xl font-bold">Produk tidak ditemukan</h1>
-        <Link href="/katalog"><Button>Kembali ke Katalog</Button></Link>
+              <h1 className="text-xl font-bold">{t("checkout.kosong_title")}</h1>
+        <Link href="/katalog"><Button>Kembali ke {t("nav.katalog")}</Button></Link>
       </div>
     )
   }
@@ -99,7 +101,7 @@ export default function DetailProdukPage() {
     })
     setAdded(true)
     setAdding(false)
-    toast(`${product.name} ditambahkan ke keranjang!`, "success")
+    toast(`${product.name} ${t("produk.ditambahkan")}`, "success")
     setTimeout(() => setAdded(false), 2000)
   }
 
@@ -113,7 +115,7 @@ export default function DetailProdukPage() {
         >
           <Link href="/katalog" className="inline-flex items-center gap-1.5 text-xs font-bold text-brick hover:text-brick-deep mb-5 transition-colors group">
             <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
-            Kembali ke Katalog
+            Kembali ke {t("nav.katalog")}
           </Link>
         </motion.div>
 
@@ -184,7 +186,7 @@ export default function DetailProdukPage() {
                 ))}
               </motion.div>
               <span className="text-xs font-bold">{product.rating}</span>
-              <span className="text-xs text-ink-muted">({product.reviewCount} ulasan)</span>
+              <span className="text-xs text-ink-muted">({product.reviewCount} {t("produk.ulasan")})</span>
             </motion.div>
 
             <p className="text-sm text-ink-muted dark:text-ink-muted leading-relaxed">{product.description}</p>
@@ -262,7 +264,7 @@ export default function DetailProdukPage() {
                   onClick={() => setQuantity(Math.max(1, quantity - 1))}
                   whileTap={{ scale: 0.9 }}
                   className="flex items-center justify-center h-full min-w-[44px] px-2 hover:bg-ink/5 dark:hover:bg-surface-alt-ink transition-colors rounded-l-xl"
-                  aria-label="Kurangi jumlah"
+                  aria-label={t("aria.kurangi")}
                 >
                   <Minus size={14} />
                 </motion.button>
@@ -279,7 +281,7 @@ export default function DetailProdukPage() {
                   onClick={() => setQuantity(Math.min(product.stock, quantity + 1))}
                   whileTap={{ scale: 0.9 }}
                   className="flex items-center justify-center h-full min-w-[44px] px-2 hover:bg-ink/5 dark:hover:bg-surface-alt-ink transition-colors rounded-r-xl"
-                  aria-label="Tambah jumlah"
+                  aria-label={t("aria.tambah")}
                 >
                   <Plus size={14} />
                 </motion.button>
@@ -304,7 +306,7 @@ export default function DetailProdukPage() {
                 onClick={handleAddToCart}
                 disabled={adding}
               >
-                {adding ? <><Loader2 size={18} className="animate-spin" /> Menambahkan...</> : added ? <><motion.span initial={{ rotate: -45 }} animate={{ rotate: 0 }}><Check size={18} /></motion.span> Ditambahkan!</> : <><ShoppingCart size={18} /> Tambah ke Keranjang</>}
+                {adding ? <><Loader2 size={18} className="animate-spin" /> {t("produk.menambahkan")}</> : added ? <><motion.span initial={{ rotate: -45 }} animate={{ rotate: 0 }}><Check size={18} /></motion.span> {t("produk.ditambahkan")}</> : <><ShoppingCart size={18} /> {t("produk.tambah")}</>}
               </Button>
             </motion.div>
 
@@ -318,14 +320,14 @@ export default function DetailProdukPage() {
                 className="flex items-center gap-1 text-brick font-semibold"
                 whileHover={{ scale: 1.05 }}
               >
-                <PackageIcon size={12} /> {product.stock > 10 ? "Stok tersedia" : `Sisa ${product.stock}`}
+                <PackageIcon size={12} /> {product.stock > 10 ? t("produk.stok_tersedia") : `${t("produk.sisa")} ${product.stock}`}
               </motion.span>
               <span className="w-1 h-1 rounded-full bg-ink/20 dark:bg-paper/20" />
               <motion.span
                 className="flex items-center gap-1 text-brick font-semibold"
                 whileHover={{ scale: 1.05 }}
               >
-                <Truck size={12} /> Gratis Ongkir
+                <Truck size={12} /> {t("hero.promo_label")}
               </motion.span>
               <span className="w-1 h-1 rounded-full bg-ink/20 dark:bg-paper/20" />
               <motion.span
@@ -347,7 +349,7 @@ export default function DetailProdukPage() {
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           >
             <h2 className="tracking-display text-xl sm:text-2xl font-black mb-5">
-              Produk <span className="text-brick">Terkait</span>
+              {t("hero.produk")} <span className="text-brick">Terkait</span>
             </h2>
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
               {related.map((p, i) => (

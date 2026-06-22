@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import type { Product } from "@/lib/coffee-data"
 import { ArrowRight, Coffee, Star } from "lucide-react"
 import { HERO_PRODUCTS } from "./hero"
+import { useI18n } from "@/lib/i18n/context"
 
 interface HeroDefaultProps {
   current: number
@@ -16,6 +17,7 @@ interface HeroDefaultProps {
 }
 
 export function HeroDefault({ current, setCurrent, item, reduce }: HeroDefaultProps) {
+  const { t } = useI18n()
   return (
     <section className="relative overflow-hidden bg-paper">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -29,7 +31,7 @@ export function HeroDefault({ current, setCurrent, item, reduce }: HeroDefaultPr
             >
               <span className="inline-flex items-center gap-2 bg-ink text-paper px-4 py-1.5 text-xs font-bold rounded-[16px] border-2 border-ink card-shadow-hard">
                 <Coffee size={12} />
-                Fresh Roasted tiap Minggu
+                {t("hero.badge")}
               </span>
             </motion.div>
 
@@ -39,9 +41,9 @@ export function HeroDefault({ current, setCurrent, item, reduce }: HeroDefaultPr
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.15 }}
             >
-              Kopi Nusantara
+              {t("hero.title_1")}
               <br />
-              <span className="text-brick">Asli Indonesia</span>
+              <span className="text-brick">{t("hero.title_2")}</span>
             </motion.h1>
 
             <motion.p
@@ -50,7 +52,7 @@ export function HeroDefault({ current, setCurrent, item, reduce }: HeroDefaultPr
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
             >
-              Bubuk kopi premium dari petani lokal Indonesia. Dipanggang segar setiap minggu.
+              {t("hero.desc")}
             </motion.p>
 
             <motion.div
@@ -61,13 +63,13 @@ export function HeroDefault({ current, setCurrent, item, reduce }: HeroDefaultPr
             >
               <Link href="/katalog">
                 <Button size="lg" className="text-base gap-2 group">
-                  Jelajahi Katalog
+                  {t("hero.cta")}
                   <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
               <Link href="#tentang">
                 <Button variant="outline" size="lg" className="text-base">
-                  Cerita Kami
+                  {t("hero.cta_alt")}
                 </Button>
               </Link>
             </motion.div>
@@ -76,7 +78,7 @@ export function HeroDefault({ current, setCurrent, item, reduce }: HeroDefaultPr
           <div className="lg:col-span-6 lg:col-start-7 relative z-10 flex items-center justify-center lg:justify-end">
             <div className="relative w-full max-w-md">
               <div className="absolute -top-3 sm:-top-6 -right-3 sm:-right-6 w-20 h-20 sm:w-32 sm:h-32 rounded-[16px] bg-brick border-2 border-ink card-shadow-hard rotate-12 flex items-center justify-center z-20">
-                <span className="font-black text-ink text-[10px] sm:text-sm -rotate-12">HOT!</span>
+                <span className="font-black text-ink text-[10px] sm:text-sm -rotate-12">{t("produk_item.hot")}</span>
               </div>
 
               <div className="relative overflow-hidden rounded-[24px] border-2 border-ink card-shadow-hard bg-card">
@@ -145,7 +147,7 @@ export function HeroDefault({ current, setCurrent, item, reduce }: HeroDefaultPr
                         ? "w-8 h-4 bg-brick"
                         : "w-4 h-4 bg-card hover:bg-brick/50"
                     }`}
-                    aria-label={`Produk ${i + 1}`}
+                    aria-label={`${t("aria.go_slide")} ${i + 1}`}
                   />
                 ))}
               </div>
@@ -155,8 +157,8 @@ export function HeroDefault({ current, setCurrent, item, reduce }: HeroDefaultPr
                 animate={reduce ? undefined : { y: [0, -6, 0] }}
                 transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
               >
-                <p className="text-[9px] sm:text-[10px] uppercase tracking-widest text-white/70 font-bold">Promo</p>
-                <p className="font-black text-sm sm:text-lg">Gratis Ongkir</p>
+                <p className="text-[9px] sm:text-[10px] uppercase tracking-widest text-white/70 font-bold">{t("produk_item.promo")}</p>
+                <p className="font-black text-sm sm:text-lg">{t("hero.promo_label")}</p>
               </motion.div>
             </div>
           </div>

@@ -1,5 +1,6 @@
 "use client"
 
+import { useI18n } from "@/lib/i18n/context"
 import Link from "next/link"
 import Image from "next/image"
 import { useRef, useState, type ReactNode } from "react"
@@ -16,6 +17,7 @@ interface FeaturedCarouselProps {
 }
 
 export function FeaturedCarousel({ header }: FeaturedCarouselProps) {
+  const { t } = useI18n()
   const scrollRef = useRef<HTMLDivElement>(null)
   const [canScrollLeft, setCanScrollLeft] = useState(false)
   const [canScrollRight, setCanScrollRight] = useState(true)
@@ -49,14 +51,14 @@ export function FeaturedCarousel({ header }: FeaturedCarouselProps) {
               <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-ink">
                 Pilihan <span className="text-brick">Terbaik</span>
               </h2>
-              <p className="text-sm text-ink-muted mt-1">Koleksi pilihan kami untuk kamu</p>
+              <p className="text-sm text-ink-muted mt-1">{t("katalog.desc")}</p>
             </motion.div>
             <div className="hidden sm:flex items-center gap-2">
               <button
                 onClick={() => scroll("left")}
                 disabled={!canScrollLeft}
                 className="h-10 w-10 rounded-[12px] border-2 border-ink bg-card text-ink flex items-center justify-center disabled:opacity-30 disabled:cursor-not-allowed hover:bg-brick/10 transition-colors"
-                aria-label="Geser ke kiri"
+                aria-label={t("aria.prev_slide")}
               >
                 <ChevronLeft size={16} />
               </button>
@@ -64,13 +66,13 @@ export function FeaturedCarousel({ header }: FeaturedCarouselProps) {
                 onClick={() => scroll("right")}
                 disabled={!canScrollRight}
                 className="h-10 w-10 rounded-[12px] border-2 border-ink bg-card text-ink flex items-center justify-center disabled:opacity-30 disabled:cursor-not-allowed hover:bg-brick/10 transition-colors"
-                aria-label="Geser ke kanan"
+                aria-label={t("aria.next_slide")}
               >
                 <ChevronRight size={16} />
               </button>
               <Link href="/katalog">
                 <Button variant="outline" size="sm" className="gap-2 text-xs group ml-2">
-                  Lihat Semua <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                  {t("blog.lihat_semua")} <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
             </div>
@@ -153,7 +155,7 @@ export function FeaturedCarousel({ header }: FeaturedCarouselProps) {
             onClick={() => scroll("left")}
             disabled={!canScrollLeft}
             className="h-10 w-10 rounded-[12px] border-2 border-ink bg-card text-ink flex items-center justify-center disabled:opacity-30"
-            aria-label="Geser ke kiri"
+            aria-label={t("aria.prev_slide")}
           >
             <ChevronLeft size={16} />
           </button>
@@ -161,7 +163,7 @@ export function FeaturedCarousel({ header }: FeaturedCarouselProps) {
             onClick={() => scroll("right")}
             disabled={!canScrollRight}
             className="h-10 w-10 rounded-[12px] border-2 border-ink bg-card text-ink flex items-center justify-center disabled:opacity-30"
-            aria-label="Geser ke kanan"
+            aria-label={t("aria.next_slide")}
           >
             <ChevronRight size={16} />
           </button>

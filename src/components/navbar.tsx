@@ -8,14 +8,7 @@ import { Button } from "@/components/ui/button"
 import { ShoppingCart, Menu, X, Coffee, Sun, Moon } from "lucide-react"
 import { useCart } from "@/lib/cart-context"
 import { useTheme } from "@/lib/theme-context"
-
-const navLinks = [
-  { href: "/", label: "Beranda" },
-  { href: "/katalog", label: "Katalog" },
-  { href: "/blog", label: "Blog" },
-  { href: "/tentang", label: "Tentang" },
-  { href: "/kontak", label: "Kontak" },
-]
+import { useI18n } from "@/lib/i18n/context"
 
 export function Navbar() {
   const [open, setOpen] = useState(false)
@@ -24,6 +17,14 @@ export function Navbar() {
   const { totalItems } = useCart()
   const reduce = useReducedMotion()
   const { theme, toggle: toggleTheme } = useTheme()
+  const { t, locale, setLocale } = useI18n()
+  const navLinks = [
+    { href: "/", label: t("nav.beranda") },
+    { href: "/katalog", label: t("nav.katalog") },
+    { href: "/blog", label: t("nav.blog") },
+    { href: "/tentang", label: t("nav.tentang") },
+    { href: "/kontak", label: t("nav.kontak") },
+  ]
   const mounted = useSyncExternalStore(
     () => () => {},
     () => true,
@@ -80,7 +81,7 @@ export function Navbar() {
             <Button
               variant="ghost"
               size="icon"
-              aria-label="Keranjang belanja"
+              aria-label={t("aria.keranjang")}
               className="rounded-xl"
             >
               <ShoppingCart size={20} />
@@ -100,24 +101,31 @@ export function Navbar() {
             href="/masuk"
             className="hidden sm:inline-flex items-center gap-1 text-xs font-bold transition-colors hover:text-brick text-ink-muted"
           >
-            Masuk
+            {t("nav.masuk")}
           </Link>
+          <button
+            onClick={() => setLocale(locale === "id" ? "en" : "id")}
+            className="flex h-11 w-11 items-center justify-center rounded-[12px] border-2 border-ink bg-card text-ink transition-all duration-200 hover:bg-brick/20 hover:text-brick active:translate-x-[1px] active:translate-y-[1px]"
+            aria-label={t("aria.toggle_lang")}
+          >
+            <span className="font-bold text-[11px] tracking-wider">{locale === "id" ? "ID" : "EN"}</span>
+          </button>
           <button
             onClick={toggleTheme}
             className="flex h-11 w-11 items-center justify-center rounded-[12px] border-2 border-ink bg-card text-ink transition-all duration-200 hover:bg-brick/20 hover:text-brick active:translate-x-[1px] active:translate-y-[1px]"
-            aria-label={mounted ? (theme === "light" ? "Mode gelap" : "Mode terang") : "Toggle tema"}
+            aria-label={t("aria.toggle_theme")}
           >
             {!mounted ? <div className="h-4 w-4" /> : theme === "light" ? <Moon size={16} /> : <Sun size={16} />}
           </button>
           <Link href="/katalog" className="hidden sm:block">
             <Button size="sm">
-              Beli Sekarang
+              {t("hero.cta")}
             </Button>
           </Link>
           <button
             onClick={() => setOpen(!open)}
             className="md:hidden flex h-11 w-11 items-center justify-center rounded-[12px] border-2 border-ink bg-card text-ink"
-            aria-label={open ? "Tutup menu" : "Buka menu"}
+            aria-label={open ? t("aria.tutup_menu") : t("aria.buka_menu")}
           >
             {open ? <X size={20} /> : <Menu size={20} />}
           </button>
@@ -136,7 +144,7 @@ export function Navbar() {
             <button
               onClick={() => setOpen(false)}
               className="absolute top-4 right-4 h-11 w-11 flex items-center justify-center rounded-xl border-2 border-ink bg-card text-ink"
-              aria-label="Tutup menu"
+              aria-label={t("aria.tutup_menu")}
             >
               <X size={20} />
             </button>
@@ -167,10 +175,10 @@ export function Navbar() {
               transition={{ delay: 0.08 + navLinks.length * 0.06, duration: 0.4 }}
             >
               <Link href="/masuk" onClick={() => setOpen(false)} className="text-sm font-bold text-ink-muted hover:text-brick transition-colors">
-                Masuk
+                {t("nav.masuk")}
               </Link>
               <Link href="/katalog" onClick={() => setOpen(false)} className="w-full">
-                <Button className="w-full text-base">Beli Sekarang</Button>
+                <Button className="w-full text-base">{t("hero.cta")}</Button>
               </Link>
             </motion.div>
           </motion.div>

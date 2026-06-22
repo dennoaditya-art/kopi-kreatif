@@ -6,8 +6,10 @@ import { motion, useReducedMotion } from "motion/react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Coffee, Eye, EyeOff, LogIn, ArrowLeft, Loader2 } from "lucide-react"
+import { useI18n } from "@/lib/i18n/context"
 
 export default function MasukPage() {
+  const { t } = useI18n()
   const reduce = useReducedMotion()
   const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -22,8 +24,8 @@ export default function MasukPage() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setError("")
-    if (!form.email.trim()) { setError("Email harus diisi"); return }
-    if (!form.password.trim()) { setError("Password harus diisi"); return }
+    if (!form.email.trim()) { setError(`${t("auth.email")} harus diisi`); return }
+    if (!form.password.trim()) { setError(`${t("auth.password")} harus diisi`); return }
     setLoading(true)
     await new Promise((r) => setTimeout(r, 1200))
     setLoading(false)
@@ -43,7 +45,7 @@ export default function MasukPage() {
           className="mb-6 inline-flex items-center gap-2 text-sm font-bold text-ink-muted transition-colors hover:text-ink dark:text-ink-muted dark:hover:text-white"
         >
           <ArrowLeft size={14} />
-          Kembali ke Beranda
+          {t("nav.beranda")}
         </Link>
 
         <div className="card-shadow-hard rounded-[2rem] border-2 border-ink bg-white p-8 dark:bg-surface-alt-ink sm:p-10">
@@ -56,12 +58,12 @@ export default function MasukPage() {
               <Coffee size={24} />
             </motion.div>
             <h1 className="text-2xl font-black text-ink dark:text-white">Selamat Datang</h1>
-            <p className="mt-1 text-sm text-ink-muted dark:text-ink-muted">Masuk ke akun KOPI kamu</p>
+            <p className="mt-1 text-sm text-ink-muted dark:text-ink-muted">{t("auth.masuk_title")}</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-1.5">
-              <label htmlFor="email" className="text-xs font-bold text-ink dark:text-white">Email</label>
+              <label htmlFor="email" className="text-xs font-bold text-ink dark:text-white">{t("auth.email")}</label>
               <Input
                 id="email"
                 name="email"
@@ -75,13 +77,13 @@ export default function MasukPage() {
             </div>
 
             <div className="space-y-1.5">
-              <label htmlFor="password" className="text-xs font-bold text-ink dark:text-white">Password</label>
+              <label htmlFor="password" className="text-xs font-bold text-ink dark:text-white">{t("auth.password")}</label>
               <div className="relative">
                 <Input
                   id="password"
                   name="password"
                   type={showPassword ? "text" : "password"}
-                  placeholder="Masukkan password"
+                  placeholder={t("auth.password")}
                   value={form.password}
                   onChange={handleChange}
                   className="h-12 border-2 border-ink bg-white pr-11 text-ink placeholder:text-ink-muted focus:ring-brick dark:bg-surface-alt-ink dark:text-white"
@@ -124,14 +126,14 @@ export default function MasukPage() {
               className="h-12 w-full border-2 border-ink text-base card-shadow-hard hover:card-shadow-hard-hover"
             >
               {loading ? <Loader2 size={18} className="animate-spin" /> : <LogIn size={18} />}
-              {loading ? "Memproses..." : "Masuk"}
+              {loading ? t("checkout.memproses") : t("auth.masuk_btn")}
             </Button>
           </form>
 
           <p className="mt-6 text-center text-xs text-ink-muted dark:text-ink-muted">
-            Belum punya akun?{" "}
+            {t("auth.belum_punya_akun")}{" "}
             <Link href="/daftar" className="font-bold text-brick underline-offset-2 hover:underline">
-              Daftar sekarang
+              {t("auth.daftar_sekarang")}
             </Link>
           </p>
         </div>
