@@ -6,11 +6,15 @@ import { motion, useReducedMotion } from "motion/react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Coffee, Eye, EyeOff, LogIn, ArrowLeft, Loader2 } from "lucide-react"
+import { usePageTitle } from "@/hooks/use-page-title"
 import { useI18n } from "@/lib/i18n/context"
+import { useToast } from "@/components/ui/toast"
 
 export default function MasukPage() {
   const { t } = useI18n()
+  usePageTitle(`${t("auth.masuk_title")} — KOPI Nusantara`)
   const reduce = useReducedMotion()
+  const { toast } = useToast()
   const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
@@ -29,7 +33,8 @@ export default function MasukPage() {
     setLoading(true)
     await new Promise((r) => setTimeout(r, 1200))
     setLoading(false)
-    setError(t("auth.error_salah"))
+    setError("")
+    toast(t("umum.berhasil_masuk"), "success")
   }
 
   return (

@@ -6,31 +6,33 @@ import { motion, useReducedMotion } from "motion/react"
 import { Button } from "@/components/ui/button"
 import { Coffee, Sprout, Heart, Award, Users, ArrowRight } from "lucide-react"
 import { useI18n } from "@/lib/i18n/context"
+import { usePageTitle } from "@/hooks/use-page-title"
 
 const values = [
-  { icon: Sprout, title: "Petani Dulu", desc: "Kami bermitra langsung dengan petani kopi lokal dengan harga yang adil dan berkelanjutan.", color: "bg-brick", iconColor: "text-ink" },
-  { icon: Heart, title: "Cinta Produk Lokal", desc: "Setiap biji adalah kekayaan Nusantara yang kami banggakan ke seluruh dunia.", color: "bg-olive", iconColor: "text-white" },
-  { icon: Award, title: "Kualitas Terjaga", desc: "Roasting small-batch mingguan memastikan setiap pengiriman dalam kondisi puncak kesegaran.", color: "bg-ink", iconColor: "text-paper" },
-  { icon: Users, title: "Komunitas", desc: "Lebih dari sekadar jual kopi — kami membangun ekosistem pecinta kopi Nusantara.", color: "bg-brick", iconColor: "text-ink" },
+  { icon: Sprout, titleKey: "value_1_title", descKey: "value_1_desc", color: "bg-brick", iconColor: "text-ink" },
+  { icon: Heart, titleKey: "value_2_title", descKey: "value_2_desc", color: "bg-olive", iconColor: "text-white" },
+  { icon: Award, titleKey: "value_3_title", descKey: "value_3_desc", color: "bg-ink", iconColor: "text-paper" },
+  { icon: Users, titleKey: "value_4_title", descKey: "value_4_desc", color: "bg-brick", iconColor: "text-ink" },
 ]
 
 const timeline = [
-  { year: "2018", title: "Bermula dari Cinta Kopi", desc: "Didirikan oleh dua sahabat yang jatuh cinta pada kopi Gayo saat traveling ke Aceh." },
-  { year: "2019", title: "Roasting Pertama", desc: "Memulai roasting di dapur kecil di Yogyakarta dengan kapasitas 5kg per batch." },
-  { year: "2021", title: "Mitra Petani", desc: "Menjalin kerja sama langsung dengan 50+ petani kopi di 5 daerah penghasil utama." },
-  { year: "2023", title: "Skala Nasional", desc: "Menjangkau 20+ kota di Indonesia dengan lebih dari 200 varian kopi Nusantara." },
-  { year: "2026", title: "Go Global", desc: "Ekspor perdana ke Malaysia dan Singapura. 1.200+ petani binaan di 15 daerah." },
+  { year: "2018", titleKey: "timeline_1_title", descKey: "timeline_1_desc" },
+  { year: "2019", titleKey: "timeline_2_title", descKey: "timeline_2_desc" },
+  { year: "2021", titleKey: "timeline_3_title", descKey: "timeline_3_desc" },
+  { year: "2023", titleKey: "timeline_4_title", descKey: "timeline_4_desc" },
+  { year: "2026", titleKey: "timeline_5_title", descKey: "timeline_5_desc" },
 ]
 
 const stats = [
-  { val: "1.200+", label: "Petani Binaan" },
-  { val: "15", label: "Daerah Asal" },
-  { val: "200+", label: "Varian Kopi" },
-  { val: "20rb+", label: "Pelanggan Puas" },
+  { val: "1.200+", labelKey: "stat_1" },
+  { val: "15", labelKey: "stat_2" },
+  { val: "200+", labelKey: "stat_3" },
+  { val: "20rb+", labelKey: "stat_4" },
 ]
 
 export default function TentangPage() {
   const { t } = useI18n()
+  usePageTitle(t("tentang.page_title"))
   const reduce = useReducedMotion()
 
   return (
@@ -65,7 +67,7 @@ export default function TentangPage() {
           <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
             {stats.map((s, i) => (
               <motion.div
-                key={s.label}
+                key={s.labelKey}
                 className="text-center"
                 initial={reduce ? false : { opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -73,7 +75,7 @@ export default function TentangPage() {
                 transition={{ duration: 0.4, delay: i * 0.1 }}
               >
                 <p className="text-3xl font-black text-brick sm:text-4xl">{s.val}</p>
-                <p className="mt-1 text-xs font-bold text-ink-muted">{s.label}</p>
+                <p className="mt-1 text-xs font-bold text-ink-muted">{t(`tentang.${s.labelKey}`)}</p>
               </motion.div>
             ))}
           </div>
@@ -95,14 +97,10 @@ export default function TentangPage() {
                 {t("tentang.perjalanan_title")} <span className="text-brick">KOPI</span>
               </h2>
               <p className="text-sm leading-relaxed text-ink-muted dark:text-ink-muted/80">
-                KOPI Nusantara lahir dari kegelisahan melihat petani kopi lokal kurang mendapatkan tempat
-                yang layak. Biji kopi terbaik seringkali dijual murah ke tengkulak, sementara kopi impor
-                mendominasi kafe di Indonesia.
+                {t("tentang.story_p1")}
               </p>
               <p className="text-sm leading-relaxed text-ink-muted dark:text-ink-muted/80">
-                Kami memutuskan untuk menjadi jembatan — menghubungkan petani kopi berkualitas langsung
-                dengan pecinta kopi di seluruh Indonesia. Dengan roasting segar setiap minggu dan harga
-                yang adil untuk kedua sisi.
+                {t("tentang.story_p2")}
               </p>
               <Link href="/katalog">
                 <Button className="gap-2">
@@ -129,8 +127,8 @@ export default function TentangPage() {
                 <div className="absolute inset-0 bg-gradient-to-t from-ink/40 to-transparent" />
               </div>
               <div className="absolute bottom-0 left-0 right-0 p-6">
-                <p className="text-xs font-bold text-white/70">KOPI Nusantara</p>
-                <p className="text-lg font-black text-white">Asli Indonesia</p>
+                <p className="text-xs font-bold text-white/70">{t("tentang.overlay_brand")}</p>
+                <p className="text-lg font-black text-white">{t("tentang.overlay_tagline")}</p>
               </div>
             </motion.div>
           </div>
@@ -153,7 +151,7 @@ export default function TentangPage() {
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {values.map((v, i) => (
               <motion.div
-                key={v.title}
+                key={v.titleKey}
                 className="card-shadow-hard rounded-2xl border-2 border-ink bg-white p-6 transition-all duration-200 hover:card-shadow-hard-hover dark:bg-surface-alt-ink"
                 initial={reduce ? false : { opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -164,8 +162,8 @@ export default function TentangPage() {
                 <div className={`mb-3 flex h-12 w-12 items-center justify-center rounded-xl ${v.color} ${v.iconColor} card-shadow-hard`}>
                   <v.icon size={20} />
                 </div>
-                <h3 className="font-black text-ink dark:text-white">{v.title}</h3>
-                <p className="mt-1.5 text-sm leading-relaxed text-ink-muted dark:text-ink-muted/80">{v.desc}</p>
+                <h3 className="font-black text-ink dark:text-white">{t(`tentang.${v.titleKey}`)}</h3>
+                <p className="mt-1.5 text-sm leading-relaxed text-ink-muted dark:text-ink-muted/80">{t(`tentang.${v.descKey}`)}</p>
               </motion.div>
             ))}
           </div>
@@ -182,14 +180,14 @@ export default function TentangPage() {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl font-black tracking-display sm:text-4xl">
-              {t("tentang.timeline_title")} <span className="text-brick">Kami</span>
+              {t("tentang.timeline_title")}
             </h2>
           </motion.div>
           <div className="relative space-y-0">
             <div className="absolute left-[19px] top-0 h-full w-0.5 bg-ink/30 dark:bg-white/10" />
-            {timeline.map((t, i) => (
+            {timeline.map((item, i) => (
               <motion.div
-                key={t.year}
+                key={item.year}
                 className="relative flex gap-6 pb-10 last:pb-0"
                 initial={reduce ? false : { opacity: 0, x: -16 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -197,11 +195,11 @@ export default function TentangPage() {
                 transition={{ duration: 0.4, delay: i * 0.1 }}
               >
                 <div className="relative z-10 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border-2 border-ink bg-white text-xs font-black text-ink card-shadow-hard dark:bg-surface-alt-ink dark:text-white">
-                  {t.year.slice(2)}
+                  {item.year.slice(2)}
                 </div>
                 <div className="pt-1">
-                  <h3 className="font-black text-ink dark:text-white">{t.title}</h3>
-                  <p className="mt-0.5 text-sm leading-relaxed text-ink-muted dark:text-ink-muted/80">{t.desc}</p>
+                  <h3 className="font-black text-ink dark:text-white">{t(`tentang.${item.titleKey}`)}</h3>
+                  <p className="mt-0.5 text-sm leading-relaxed text-ink-muted dark:text-ink-muted/80">{t(`tentang.${item.descKey}`)}</p>
                 </div>
               </motion.div>
             ))}
@@ -223,7 +221,7 @@ export default function TentangPage() {
               {t("tentang.cta_title")}
             </h2>
             <p className="mx-auto max-w-md text-sm leading-relaxed text-on-brick-deep">
-              Setiap pembelianmu adalah dukungan langsung untuk petani kopi Nusantara.
+              {t("tentang.cta_caption")}
             </p>
             <Link href="/katalog">
               <Button

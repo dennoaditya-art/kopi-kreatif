@@ -13,10 +13,12 @@ import { useI18n } from "@/lib/i18n/context"
 import { ProductCard } from "@/components/product-card"
 import { useToast } from "@/components/ui/toast"
 import { Star, ShoppingCart, ArrowLeft, Minus, Plus, Check, Frown, Package as PackageIcon, Truck, Flame, Loader2 } from "lucide-react"
+import { usePageTitle } from "@/hooks/use-page-title"
 
 export default function DetailProdukPage() {
   const params = useParams()
   const product = products.find((p) => p.id === params.id)
+  usePageTitle(product ? `${product.name} — KOPI Nusantara` : "Produk — KOPI Nusantara")
   const { addItem } = useCart()
   const [quantity, setQuantity] = useState(1)
   const [selectedGrind, setSelectedGrind] = useState(product?.grind[0] || "")
@@ -38,7 +40,11 @@ export default function DetailProdukPage() {
 
   useEffect(() => {
     if (!product) return
+    const id = "ld-product"
+    const existing = document.getElementById(id)
+    if (existing) existing.remove()
     const el = document.createElement("script")
+    el.id = id
     el.type = "application/ld+json"
     el.text = JSON.stringify({
       "@context": "https://schema.org",
@@ -64,7 +70,7 @@ export default function DetailProdukPage() {
       },
     })
     document.head.appendChild(el)
-    return () => { el.remove() }
+    return () => { const e = document.getElementById(id); if (e) e.remove() }
   }, [product])
 
   if (!product) {

@@ -2,9 +2,11 @@
 
 import { Badge } from "@/components/ui/badge"
 import { Coffee, Globe, Server, ShoppingCart, Palette, FileText } from "lucide-react"
+import { usePageTitle } from "@/hooks/use-page-title"
 import { useI18n } from "@/lib/i18n/context"
 
 export default function SetupGuidePage() {
+  usePageTitle("Setup Guide — KOPI Nusantara")
   const { t } = useI18n()
 
   const STEPS = [
@@ -35,7 +37,7 @@ export default function SetupGuidePage() {
         t("setup_guide.step_3_1"),
         t("setup_guide.step_3_2"),
         t("setup_guide.step_3_3"),
-        "Edit gambar produk di folder public/",
+        t("setup_guide.step_3_4"),
       ],
     },
     {
@@ -52,7 +54,7 @@ export default function SetupGuidePage() {
       title: t("setup_guide.step_5_title"),
       items: [
         t("setup_guide.step_5_1"),
-        "Install Vercel CLI: npm i -g vercel",
+        t("setup_guide.step_5_1b"),
         t("setup_guide.step_5_2"),
         t("setup_guide.step_5_3"),
         t("setup_guide.step_5_4"),

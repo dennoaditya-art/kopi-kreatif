@@ -6,9 +6,11 @@ import { motion, useReducedMotion } from "motion/react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Coffee, Eye, EyeOff, UserPlus, ArrowLeft, Loader2, Check } from "lucide-react"
+import { usePageTitle } from "@/hooks/use-page-title"
 import { useI18n } from "@/lib/i18n/context"
 
 export default function DaftarPage() {
+  usePageTitle("Daftar — KOPI Nusantara")
   const { t } = useI18n()
   const reduce = useReducedMotion()
   const [showPassword, setShowPassword] = useState(false)

@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input"
 import { useToast } from "@/components/ui/toast"
 import { Mail, MapPin, Phone, Send, MessageSquare, Clock, Loader2, Check } from "lucide-react"
 import { useI18n } from "@/lib/i18n/context"
+import { usePageTitle } from "@/hooks/use-page-title"
 
 interface ContactForm {
   name: string
@@ -16,6 +17,7 @@ interface ContactForm {
 }
 
 export default function KontakPage() {
+  usePageTitle("Kontak — KOPI Nusantara")
   const reduce = useReducedMotion()
   const { toast } = useToast()
   const [loading, setLoading] = useState(false)

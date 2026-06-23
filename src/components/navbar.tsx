@@ -5,8 +5,9 @@ import Link from "next/link"
 import { motion, AnimatePresence, useScroll, useMotionValueEvent, useReducedMotion } from "motion/react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import { ShoppingCart, Menu, X, Coffee, Sun, Moon } from "lucide-react"
+import { ShoppingCart, Menu, X, Coffee, Sun, Moon, Heart } from "lucide-react"
 import { useCart } from "@/lib/cart-context"
+import { useWishlist } from "@/lib/wishlist-context"
 import { useTheme } from "@/lib/theme-context"
 import { useI18n } from "@/lib/i18n/context"
 
@@ -15,6 +16,7 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const { scrollY } = useScroll()
   const { totalItems } = useCart()
+  const { count: wishlistCount } = useWishlist()
   const reduce = useReducedMotion()
   const { theme, toggle: toggleTheme } = useTheme()
   const { t, locale, setLocale } = useI18n()
@@ -24,6 +26,11 @@ export function Navbar() {
     { href: "/blog", label: t("nav.blog") },
     { href: "/tentang", label: t("nav.tentang") },
     { href: "/kontak", label: t("nav.kontak") },
+  ]
+  const navLinksExtra = [
+    { href: "/favorit", label: t("nav.favorit") },
+    { href: "/profil", label: t("nav.profil") },
+    { href: "/faq", label: t("footer.faq") },
   ]
   const mounted = useSyncExternalStore(
     () => () => {},
@@ -76,7 +83,17 @@ export function Navbar() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-3 shrink-0">
+        <div className="flex items-center gap-2 shrink-0">
+          <Link href="/favorit" className="relative">
+            <Button variant="ghost" size="icon" aria-label={t("nav.favorit")} className="rounded-xl">
+              <Heart size={20} />
+            </Button>
+            {wishlistCount > 0 && (
+              <span className="absolute -top-0.5 -right-0.5 h-5 w-5 rounded-full bg-olive text-white text-[10px] font-bold flex items-center justify-center leading-none border border-ink">
+                {wishlistCount > 9 ? "9+" : wishlistCount}
+              </span>
+            )}
+          </Link>
           <Link href="/keranjang" className="relative">
             <Button
               variant="ghost"
@@ -167,6 +184,24 @@ export function Navbar() {
                 </motion.div>
               ))}
             </nav>
+            <div className="flex items-center gap-6">
+              {navLinksExtra.map((link, i) => (
+                <motion.div
+                  key={link.href}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.08 + (navLinks.length + i) * 0.06, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                >
+                  <Link
+                    href={link.href}
+                    onClick={() => setOpen(false)}
+                    className="text-lg font-bold text-ink-muted hover:text-brick transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
 
             <motion.div
               className="flex flex-col items-center gap-3 w-full max-w-[200px]"

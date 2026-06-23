@@ -4,6 +4,8 @@ import "./globals.css"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { CartProvider } from "@/lib/cart-context"
+import { WishlistProvider } from "@/lib/wishlist-context"
+import { OrderProvider } from "@/lib/order-context"
 import { ThemeProvider } from "@/lib/theme-context"
 import { ErrorBoundary } from "@/components/error-boundary"
 import { ToastProvider } from "@/components/ui/toast"
@@ -22,7 +24,10 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://kopi-kreatif.vercel.app"),
-  title: "KOPI — Bubuk Kopi Nusantara Premium",
+  title: {
+    default: "KOPI — Bubuk Kopi Nusantara Premium",
+    template: "%s | KOPI Nusantara",
+  },
   description: "Jelajahi cita rasa kopi bubuk pilihan dari berbagai daerah di Indonesia. Segar, murni, tanpa campuran.",
   openGraph: {
     title: "KOPI Nusantara — Neobrutalist Coffee E-Commerce Template",
@@ -33,6 +38,11 @@ export const metadata: Metadata = {
     locale: "id_ID",
     type: "website",
   },
+  manifest: "/manifest.json",
+  icons: [
+    { rel: "icon", url: "/favicon.ico" },
+    { rel: "apple-touch-icon", url: "/icon-192.png" },
+  ],
 }
 
 export default function RootLayout({
@@ -63,15 +73,19 @@ export default function RootLayout({
         </div>
         <ThemeProvider>
           <I18nProvider>
-          <CartProvider>
-            <ToastProvider>
+            <CartProvider>
+              <WishlistProvider>
+              <OrderProvider>
+              <ToastProvider>
               <Navbar />
               <ErrorBoundary>
                 <main className="flex-1">{children}</main>
               </ErrorBoundary>
               <ScrollToTop />
               <Footer />
-            </ToastProvider>
+              </ToastProvider>
+              </OrderProvider>
+              </WishlistProvider>
             </CartProvider>
           </I18nProvider>
           </ThemeProvider>

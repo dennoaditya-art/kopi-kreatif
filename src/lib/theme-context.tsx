@@ -13,15 +13,24 @@ interface ThemeContextValue {
 const STORAGE_KEY = "kopi-theme"
 
 function getInitialTheme(): Theme {
+  if (typeof window === "undefined") return "light"
   try {
-    const stored = typeof window !== "undefined" && localStorage.getItem(STORAGE_KEY)
-    if (stored === "dark" || stored === "light") return stored
-    if (typeof window !== "undefined" && window.matchMedia("(prefers-color-scheme: dark)").matches) return "dark"
+    const stored = localStorage.getItem(STORAGE_KEY)
+    if (stored === "dark" || stored === "light") {
+      applyTheme(stored)
+      return stored
+    }
+    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      applyTheme("dark")
+      return "dark"
+    }
   } catch {}
+  applyTheme("light")
   return "light"
 }
 
 function applyTheme(theme: Theme) {
+  if (typeof window === "undefined") return
   const root = document.documentElement
   root.classList.toggle("dark", theme === "dark")
   try {

@@ -1,13 +1,15 @@
 "use client"
 
 import { useState } from "react"
-import Image from "next/image"
+import Link from "next/link"
 import { motion, useReducedMotion } from "motion/react"
-import { dashboardStats, recentOrders, products } from "@/lib/coffee-data"
+import { dashboardStats, recentOrders } from "@/lib/coffee-data"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { SITE_CONFIG } from "@/config"
-import { LayoutDashboard, Package, Users, TrendingUp, Download, Plus, MoreHorizontal, Lock, LogIn, ArrowUpRight, ArrowDownRight, ShoppingCart, Settings } from "lucide-react"
+import { ProductManager } from "@/components/product-manager"
+import { LayoutDashboard, Package, Users, TrendingUp, Download, MoreHorizontal, Lock, LogIn, ArrowUpRight, ArrowDownRight, ShoppingCart, Settings, BarChart3 } from "lucide-react"
+import { usePageTitle } from "@/hooks/use-page-title"
 import { useI18n } from "@/lib/i18n/context"
 
 const statIcons = [ShoppingCart, TrendingUp, Package, Users]
@@ -32,7 +34,15 @@ function statusLabel(s: string, t: (k: string) => string) {
   return labels[s] || s
 }
 
+if (typeof window !== "undefined") {
+  console.warn(
+    "Dashboard auth is client-side only (demo). " +
+    "In production, verify password server-side via API route or server action."
+  )
+}
+
 export default function DashboardPage() {
+  usePageTitle("Dashboard — KOPI Nusantara")
   const [authed, setAuthed] = useState(false)
   const [pass, setPass] = useState("")
   const [error, setError] = useState(false)
@@ -111,9 +121,11 @@ export default function DashboardPage() {
           <Button variant="outline" size="sm" className="gap-1.5 text-xs rounded-xl">
             <Download size={14} /> {t("dashboard.laporan")}
           </Button>
-          <Button size="sm" className="gap-1.5 text-xs rounded-xl bg-gradient-to-b from-plum to-plum-medium text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] hover:from-plum-medium hover:to-plum border-0">
-            <Plus size={14} /> {t("dashboard.produk_baru")}
-          </Button>
+          <Link href="/dashboard/analitik">
+            <Button variant="outline" size="sm" className="gap-1.5 text-xs rounded-xl">
+              <BarChart3 size={14} /> {t("dashboard.lihat_analitik")}
+            </Button>
+          </Link>
         </div>
       </div>
 
@@ -220,41 +232,7 @@ export default function DashboardPage() {
                 <MoreHorizontal size={15} />
               </Button>
             </div>
-            <div className="space-y-1">
-              {products.slice(0, 5).map((product, pi) => (
-                <motion.div
-                  key={product.id}
-                  initial={{ opacity: 0, x: -8 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: pi * 0.04 }}
-                  className="flex items-center justify-between gap-3 px-2 py-2 rounded-xl hover:bg-ink/[0.03] dark:hover:bg-white/[0.03] transition-colors cursor-pointer"
-                >
-                  <div className="flex items-center gap-2.5 min-w-0">
-                    <div className="h-8 w-8 shrink-0 relative rounded-lg overflow-hidden bg-brick/10 dark:bg-surface-ink ring-1 ring-ink/10 dark:ring-white/10">
-                      <Image
-                        src={product.image}
-                        alt={product.name}
-                        fill
-                        className="object-cover"
-                        sizes="32px"
-                      />
-                    </div>
-                    <div className="min-w-0">
-                      <p className="text-sm font-semibold truncate">{product.name}</p>
-                      <p className="text-[11px] text-ink-muted">{product.weight}</p>
-                    </div>
-                  </div>
-                  <span className={`text-xs font-semibold shrink-0 tabular-nums ${
-                    product.stock < 30
-                      ? "text-red-500"
-                      : "text-ink-muted dark:text-[#D4D0DC]"
-                  }`}>
-                    {product.stock}
-                  </span>
-                </motion.div>
-              ))}
-            </div>
+<ProductManager />
           </motion.div>
 
           {/* Quick Actions */}
@@ -268,13 +246,13 @@ export default function DashboardPage() {
             <h2 className="text-sm font-bold mb-3">{t("dashboard.aktivitas_cepat")}</h2>
             <div className="space-y-1">
               {[
-                { icon: Package, label: t("dashboard.tambah_produk") },
-                { icon: Users, label: t("dashboard.atur_pelanggan") },
-                { icon: TrendingUp, label: t("dashboard.lihat_analitik") },
-                { icon: Settings, label: t("umum.pengaturan") },
+                { icon: Package, label: t("dashboard.tambah_produk"), href: "/dashboard" },
+                { icon: BarChart3, label: t("dashboard.lihat_analitik"), href: "/dashboard/analitik" },
+                { icon: Package, label: t("dashboard.total_produk"), href: "/katalog" },
+                { icon: Settings, label: t("umum.pengaturan"), href: "/profil" },
               ].map((item) => (
+                <Link href={item.href} key={item.label}>
                 <motion.button
-                  key={item.label}
                   whileHover={{ x: 2 }}
                   whileTap={{ scale: 0.98 }}
                   className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-ink/[0.03] dark:hover:bg-white/[0.03] transition-all text-left group"
@@ -283,9 +261,10 @@ export default function DashboardPage() {
                     <item.icon size={15} />
                   </div>
                   <span className="text-sm font-medium">{item.label}</span>
-                </motion.button>
-              ))}
-            </div>
+                  </motion.button>
+                </Link>
+                ))}
+              </div>
           </motion.div>
         </div>
       </div>

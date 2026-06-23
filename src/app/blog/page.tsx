@@ -6,8 +6,10 @@ import { getBlogPosts } from "@/lib/blog-data"
 import { Badge } from "@/components/ui/badge"
 import { ArrowRight, Calendar, Clock } from "lucide-react"
 import { useI18n } from "@/lib/i18n/context"
+import { usePageTitle } from "@/hooks/use-page-title"
 
 export default function BlogPage() {
+  usePageTitle("Blog — KOPI Nusantara")
   const { t, locale } = useI18n()
   return (
     <div className="min-h-dvh bg-paper">

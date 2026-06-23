@@ -1,11 +1,31 @@
 "use client"
 
+import { useState } from "react"
 import Link from "next/link"
 import { Input } from "@/components/ui/input"
 import { useI18n } from "@/lib/i18n/context"
+import { useToast } from "@/components/ui/toast"
+import { Loader2 } from "lucide-react"
 
 export function Footer() {
   const { t } = useI18n()
+  const { toast } = useToast()
+  const [email, setEmail] = useState("")
+  const [loading, setLoading] = useState(false)
+
+  async function handleSubscribe(e: React.FormEvent) {
+    e.preventDefault()
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      toast(t("umum.email_tidak_valid"), "error")
+      return
+    }
+    setLoading(true)
+    await new Promise((r) => setTimeout(r, 1000))
+    toast(t("umum.berhasil_berlangganan"), "success")
+    setEmail("")
+    setLoading(false)
+  }
+
   return (
     <footer className="border-t-2 border-ink/10 bg-paper text-ink-muted">
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
@@ -39,6 +59,7 @@ export function Footer() {
             {[
               { label: t("nav.beranda"), href: "/" },
               { label: t("nav.katalog"), href: "/katalog" },
+              { label: t("nav.blog"), href: "/blog" },
               { label: t("nav.tentang"), href: "/tentang" },
               { label: t("nav.kontak"), href: "/kontak" },
             ].map((item) => (
@@ -51,10 +72,10 @@ export function Footer() {
             <h3 className="font-bold text-ink text-sm">{t("footer.bantuan")}</h3>
           <ul className="space-y-2">
             {[
-              { label: t("footer.cara_memesan"), href: "/kontak#cara-memesan" },
-              { label: t("footer.pengiriman"), href: "/kontak#pengiriman" },
-              { label: t("footer.kebijakan_retur"), href: "/kontak#kebijakan-retur" },
-              { label: t("footer.faq"), href: "/kontak#faq" },
+              { label: t("footer.faq"), href: "/faq" },
+              { label: t("nav.favorit"), href: "/favorit" },
+              { label: t("nav.profil"), href: "/profil" },
+              { label: t("nav.pesanan"), href: "/profil" },
             ].map((item) => (
               <li key={item.label}><Link href={item.href} className="text-sm hover:text-brick transition-colors">{item.label}</Link></li>
             ))}
@@ -64,17 +85,21 @@ export function Footer() {
           <div className="space-y-3">
             <h3 className="font-bold text-ink text-sm">{t("footer.newsletter")}</h3>
             <p className="text-sm text-ink-muted">{t("footer.newsletter")}</p>
-            <div className="flex gap-2">
-              <Input type="email" placeholder={t("footer.newsletter_placeholder")} aria-label={t("footer.newsletter_placeholder")} className="h-10 text-sm" />
-              <button aria-label={t("footer.newsletter_btn")} className="shrink-0 text-xs h-10 px-4 rounded-[16px] bg-brick text-ink font-bold border-2 border-ink card-shadow-hard hover:card-shadow-hard-hover transition-all active:translate-x-[2px] active:translate-y-[2px] active:shadow-none">
-                {t("footer.newsletter_btn")}
+            <form onSubmit={handleSubscribe} className="flex gap-2">
+              <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder={t("footer.newsletter_placeholder")} aria-label={t("footer.newsletter_placeholder")} className="h-10 text-sm" />
+              <button type="submit" disabled={loading} aria-label={t("footer.newsletter_btn")} className="shrink-0 text-xs h-10 px-4 rounded-[16px] bg-brick text-ink font-bold border-2 border-ink card-shadow-hard hover:card-shadow-hard-hover transition-all active:translate-x-[2px] active:translate-y-[2px] active:shadow-none disabled:opacity-50 disabled:cursor-not-allowed">
+                {loading ? <Loader2 size={14} className="animate-spin" /> : t("footer.newsletter_btn")}
               </button>
-            </div>
+            </form>
           </div>
         </div>
 
-        <div className="mt-10 border-t-2 border-ink/10 pt-6 text-center text-[11px] text-ink-muted">
-          <p>{t("footer.hak_cipta")}</p>
+        <div className="mt-10 border-t-2 border-ink/10 pt-6 text-center text-[11px] text-ink-muted flex flex-wrap items-center justify-center gap-4">
+          <p>&copy; {new Date().getFullYear()} KOPI Nusantara. {t("footer.hak_cipta")}</p>
+          <span className="hidden sm:inline w-px h-3 bg-ink/20" />
+          <Link href="/privasi" className="hover:text-brick transition-colors">{t("footer.privasi")}</Link>
+          <span className="w-px h-3 bg-ink/20" />
+          <Link href="/syarat" className="hover:text-brick transition-colors">{t("footer.syarat")}</Link>
         </div>
       </div>
     </footer>

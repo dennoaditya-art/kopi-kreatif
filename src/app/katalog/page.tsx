@@ -9,6 +9,8 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { EmptyState } from "@/components/empty-state"
 import { useI18n } from "@/lib/i18n/context"
+import { useDebounce } from "@/hooks/use-debounce"
+import { usePageTitle } from "@/hooks/use-page-title"
 
 const allCategories = Array.from(new Set(products.map((p) => p.category)))
 const allRoasts = Array.from(new Set(products.map((p) => p.roastLevel)))
@@ -29,17 +31,19 @@ const itemVariants = {
 }
 
 export default function KatalogPage() {
+  usePageTitle("Katalog Kopi — KOPI Nusantara")
   const [search, setSearch] = useState("")
   const [category, setCategory] = useState("")
   const [roast, setRoast] = useState("")
   const [sort, setSort] = useState("")
   const reduce = useReducedMotion()
   const { t } = useI18n()
+  const debouncedSearch = useDebounce(search, 250)
 
   const filtered = useMemo(() => {
     let result = [...products]
-    if (search) {
-      const q = search.toLowerCase()
+    const q = debouncedSearch.toLowerCase()
+    if (q) {
       result = result.filter(
         (p) =>
           p.name.toLowerCase().includes(q) ||
@@ -53,7 +57,9 @@ export default function KatalogPage() {
     else if (sort === "price-desc") result.sort((a, b) => b.price - a.price)
     else if (sort === "rating") result.sort((a, b) => b.rating - a.rating)
     return result
-  }, [search, category, roast, sort])
+  }, [debouncedSearch, category, roast, sort])
+
+  const isSearching = search !== debouncedSearch
 
   return (
     <div>
@@ -166,7 +172,12 @@ export default function KatalogPage() {
           </div>
         </motion.div>
 
-        {filtered.length === 0 ? (
+        {isSearching ? (
+          <div className="flex items-center justify-center py-20 text-sm text-ink-muted animate-pulse">
+            <div className="animate-spin h-5 w-5 border-2 border-brick border-t-transparent rounded-full mr-2" />
+            {t("umum.loading")}
+          </div>
+        ) : filtered.length === 0 ? (
           <EmptyState
             icon={<SearchX size={32} />}
             title={t("katalog.tidak_ditemukan")}

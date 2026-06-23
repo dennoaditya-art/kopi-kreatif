@@ -1,6 +1,6 @@
 "use client"
 
-import { createContext, useContext, useCallback, useSyncExternalStore, type ReactNode } from "react"
+import { createContext, useContext, useCallback, useRef, useSyncExternalStore, type ReactNode } from "react"
 
 export interface CartItem {
   id: string
@@ -28,50 +28,49 @@ interface CartContextValue {
 }
 
 const STORAGE_KEY = "kopi-cart"
-const EMPTY_CART: CartItem[] = []
-
-let listeners: (() => void)[] = []
-let cachedSnapshot: CartItem[] = EMPTY_CART
-let lastJson = ""
-
-function subscribe(listener: () => void) {
-  listeners.push(listener)
-  return () => {
-    listeners = listeners.filter((l) => l !== listener)
-  }
-}
-
-function getSnapshot(): CartItem[] {
-  if (typeof window === "undefined") return EMPTY_CART
-  try {
-    const saved = localStorage.getItem(STORAGE_KEY)
-    if (saved === lastJson) return cachedSnapshot
-    lastJson = saved ?? ""
-    cachedSnapshot = saved ? JSON.parse(saved) : EMPTY_CART
-    return cachedSnapshot
-  } catch {
-    return EMPTY_CART
-  }
-}
-
-function getServerSnapshot(): CartItem[] {
-  return EMPTY_CART
-}
-
-function emitChange() {
-  listeners.forEach((l) => l())
-}
-
-function saveItems(items: CartItem[]) {
-  if (typeof window !== "undefined") {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(items))
-  }
-  emitChange()
-}
 
 const CartContext = createContext<CartContextValue | null>(null)
 
+const EMPTY_CART: CartItem[] = []
+
 export function CartProvider({ children }: { children: ReactNode }) {
+  const listenersRef = useRef<(() => void)[]>([])
+  const cachedRef = useRef<CartItem[]>([])
+  const lastJsonRef = useRef<string | null>(null)
+
+  const subscribe = useCallback((listener: () => void) => {
+    listenersRef.current.push(listener)
+    return () => {
+      listenersRef.current = listenersRef.current.filter((l) => l !== listener)
+    }
+  }, [])
+
+  const getSnapshot = useCallback((): CartItem[] => {
+    if (typeof window === "undefined") return EMPTY_CART
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY)
+      if (saved === lastJsonRef.current) return cachedRef.current
+      lastJsonRef.current = saved
+      cachedRef.current = saved ? JSON.parse(saved) : EMPTY_CART
+      return cachedRef.current
+    } catch {
+      return EMPTY_CART
+    }
+  }, [])
+
+  const getServerSnapshot = useCallback((): CartItem[] => EMPTY_CART, [])
+
+  const emitChange = useCallback(() => {
+    listenersRef.current.forEach((l) => l())
+  }, [])
+
+  const saveItems = useCallback((items: CartItem[]) => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(items))
+    }
+    emitChange()
+  }, [emitChange])
+
   const items = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot)
 
   const addItem = useCallback((newItem: CartItem) => {
@@ -89,7 +88,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     } else {
       saveItems([...current, newItem])
     }
-  }, [])
+  }, [getSnapshot, saveItems])
 
   const updateQuantity = useCallback((key: string, delta: number) => {
     const current = getSnapshot()
@@ -100,16 +99,16 @@ export function CartProvider({ children }: { children: ReactNode }) {
           : item
       )
     )
-  }, [])
+  }, [getSnapshot, saveItems])
 
   const removeItem = useCallback((key: string) => {
     const current = getSnapshot()
     saveItems(current.filter((item) => itemKey(item.id, item.grind) !== key))
-  }, [])
+  }, [getSnapshot, saveItems])
 
   const clearCart = useCallback(() => {
-    saveItems(EMPTY_CART)
-  }, [])
+    saveItems([])
+  }, [saveItems])
 
   const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0)
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0)

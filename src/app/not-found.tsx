@@ -4,9 +4,11 @@ import Link from "next/link"
 import { motion, useReducedMotion } from "motion/react"
 import { Button } from "@/components/ui/button"
 import { Coffee, ArrowLeft } from "lucide-react"
+import { useI18n } from "@/lib/i18n/context"
 
 export default function NotFoundPage() {
   const reduce = useReducedMotion()
+  const { t } = useI18n()
 
   return (
     <div className="flex min-h-dvh items-center justify-center px-4">
@@ -34,10 +36,9 @@ export default function NotFoundPage() {
         </motion.h1>
 
         <div className="space-y-2">
-          <h2 className="text-xl font-black text-ink">Halaman Tidak Ditemukan</h2>
+          <h2 className="text-xl font-black text-ink">{t("umum.halaman_tidak_ditemukan")}</h2>
           <p className="text-sm text-ink-muted leading-relaxed">
-            Sepertinya halaman ini sudah habis terjual, atau mungkin tidak pernah ada.
-            Yuk kembali ke beranda dan nikmati kopi yang masih tersedia.
+            {t("umum.tidak_ditemukan_desc")}
           </p>
         </div>
 
@@ -45,11 +46,11 @@ export default function NotFoundPage() {
           <Link href="/">
             <Button className="gap-2 border-2 border-ink card-shadow-hard hover:card-shadow-hard-hover">
               <ArrowLeft size={16} />
-              Kembali ke Beranda
+              {t("umum.kembali_ke_beranda")}
             </Button>
           </Link>
           <Link href="/katalog">
-            <Button variant="outline">Lihat Katalog</Button>
+            <Button variant="outline">{t("umum.lihat_katalog")}</Button>
           </Link>
         </div>
       </motion.div>

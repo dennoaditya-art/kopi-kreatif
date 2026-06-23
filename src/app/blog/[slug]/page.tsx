@@ -8,11 +8,13 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft, Calendar, Clock, User } from "lucide-react"
 import { useI18n } from "@/lib/i18n/context"
+import { usePageTitle } from "@/hooks/use-page-title"
 
 export default function BlogDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params)
   const { t, locale } = useI18n()
   const post = getBlogPost(slug, locale)
+  usePageTitle(post ? `${post.title} — KOPI Nusantara` : "Blog — KOPI Nusantara")
 
   if (!post) return <div className="min-h-dvh bg-paper flex items-center justify-center"><p className="text-ink-muted">{t("umum.error")}</p></div>
 

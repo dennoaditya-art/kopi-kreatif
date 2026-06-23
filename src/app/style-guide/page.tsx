@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { Coffee, Star, ShoppingCart, Heart, Search, ExternalLink } from "lucide-react"
+import { usePageTitle } from "@/hooks/use-page-title"
 
 const COLORS = [
   { name: "paper", hex: "#F8F6F0", dark: "#12100E", token: "bg-paper" },
@@ -31,6 +32,7 @@ const TYPE_SCALE = [
 ]
 
 export default function StyleGuidePage() {
+  usePageTitle("Style Guide — KOPI Nusantara")
   const { t } = useI18n()
   const [activeSection, setActiveSection] = useState("colors")
 

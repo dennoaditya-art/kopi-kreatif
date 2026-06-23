@@ -11,8 +11,10 @@ import { useToast } from "@/components/ui/toast"
 import { Trash2, Minus, Plus, ShoppingCart, ArrowLeft, Tag, Coffee, Loader2 } from "lucide-react"
 import { EmptyState } from "@/components/empty-state"
 import { useI18n } from "@/lib/i18n/context"
+import { usePageTitle } from "@/hooks/use-page-title"
 
 export default function KeranjangPage() {
+  usePageTitle("Keranjang Belanja — KOPI Nusantara")
   const { items, updateQuantity, removeItem, subtotal } = useCart()
   const [coupon, setCoupon] = useState("")
   const [couponApplied, setCouponApplied] = useState(false)

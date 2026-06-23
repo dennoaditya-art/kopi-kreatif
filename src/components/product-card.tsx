@@ -1,11 +1,15 @@
 "use client"
 
-import Link from "next/link"
+import { useState, useCallback } from "react"
+import { useRouter } from "next/navigation"
 import Image from "next/image"
 import { motion, useReducedMotion } from "motion/react"
 import { useI18n } from "@/lib/i18n/context"
+import { useCart } from "@/lib/cart-context"
+import { useWishlist } from "@/lib/wishlist-context"
+import { useToast } from "@/components/ui/toast"
 import { Badge } from "@/components/ui/badge"
-import { Star, ShoppingCart } from "lucide-react"
+import { Star, ShoppingCart, Heart, Loader2 } from "lucide-react"
 import type { Product } from "@/lib/coffee-data"
 import { FLAVOR_COLORS } from "@/lib/coffee-data"
 
@@ -14,8 +18,44 @@ function getFlavorColor(note: string) {
 }
 
 export function ProductCard({ product }: { product: Product }) {
+  const router = useRouter()
   const { t } = useI18n()
+  const { addItem } = useCart()
+  const { toggleItem, isWishlisted } = useWishlist()
+  const { toast } = useToast()
   const reduce = useReducedMotion()
+  const [addingId, setAddingId] = useState<string | null>(null)
+
+  function handleCardClick() {
+    router.push(`/produk/${product.id}`)
+  }
+
+  const handleAddCart = useCallback((e: React.MouseEvent) => {
+    e.stopPropagation()
+    if (addingId) return
+    setAddingId(product.id)
+    addItem({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      originalPrice: product.originalPrice,
+      quantity: 1,
+      grind: product.grind[0],
+      weight: product.weight,
+      image: product.image,
+    })
+    setTimeout(() => {
+      setAddingId(null)
+      toast(`${product.name} ${t("produk.ditambahkan")}`, "success")
+    }, 600)
+  }, [product, addItem, t, toast, addingId])
+
+  function handleKeyDown(e: React.KeyboardEvent) {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault()
+      router.push(`/produk/${product.id}`)
+    }
+  }
 
   return (
     <motion.div
@@ -23,9 +63,12 @@ export function ProductCard({ product }: { product: Product }) {
       transition={{ type: "spring", stiffness: 300, damping: 12 }}
       className="group"
     >
-      <Link
-        href={`/produk/${product.id}`}
-        className="block bg-card rounded-[16px] border-2 border-ink card-shadow-hard group-hover:card-shadow-hard-hover transition-all duration-200 h-full overflow-hidden"
+      <div
+        role="button"
+        tabIndex={0}
+        onClick={handleCardClick}
+        onKeyDown={handleKeyDown}
+        className="block bg-card rounded-[16px] border-2 border-ink card-shadow-hard group-hover:card-shadow-hard-hover transition-all duration-200 h-full overflow-hidden cursor-pointer"
       >
         <div className="relative aspect-[4/3] overflow-hidden">
           <Image
@@ -48,11 +91,26 @@ export function ProductCard({ product }: { product: Product }) {
             </div>
           )}
 
-          <div className="absolute bottom-0 left-0 right-0 h-8 bg-ink/80 backdrop-blur-sm items-center overflow-hidden opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden sm:flex" aria-hidden="true">
+          <button
+            onClick={(e) => {
+              e.preventDefault()
+              toggleItem({ id: product.id, name: product.name, price: product.price, originalPrice: product.originalPrice, image: product.image, weight: product.weight, category: product.category })
+            }}
+            className="absolute top-3 right-3 h-9 w-9 rounded-lg bg-card/90 backdrop-blur-sm border-2 border-ink flex items-center justify-center transition-all duration-200 hover:scale-110 z-10"
+            aria-label={t("produk.favorit")}
+          >
+            <Heart size={16} className={isWishlisted(product.id) ? "fill-red-500 text-red-500" : "text-ink"} />
+          </button>
+
+          <button
+            onClick={handleAddCart}
+            className="absolute bottom-0 left-0 right-0 h-8 bg-ink/80 backdrop-blur-sm items-center overflow-hidden opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden sm:flex cursor-pointer w-full"
+            aria-label={t("produk.tambah")}
+          >
             <span className="text-paper text-[11px] font-bold uppercase tracking-widest whitespace-nowrap animate-marquee">
               {t("produk.tambah")} &bull; {t("produk.tambah")} &bull; {t("produk.tambah")} &bull;
             </span>
-          </div>
+          </button>
         </div>
 
         <div className="p-3.5 sm:p-4 space-y-2.5 sm:space-y-3">
@@ -87,15 +145,16 @@ export function ProductCard({ product }: { product: Product }) {
                 <span className="text-[10px] sm:text-[11px] text-ink-muted line-through">Rp{product.originalPrice.toLocaleString("id-ID")}</span>
               )}
             </div>
-            <motion.button
+              <motion.button
+              onClick={handleAddCart}
               className="h-10 w-10 rounded-lg bg-ink text-paper flex items-center justify-center border-2 border-ink card-shadow-hard"
               whileHover={reduce ? undefined : { scale: 1.2, rotate: 10 }}
               whileTap={reduce ? undefined : { scale: 0.9, rotate: -10 }}
               transition={{ type: "spring", stiffness: 400, damping: 8 }}
               aria-label={t("produk.tambah")}
-              onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); /* add to cart */ } }}
+              disabled={addingId === product.id}
             >
-              <ShoppingCart size={14} />
+              {addingId === product.id ? <Loader2 size={14} className="animate-spin" /> : <ShoppingCart size={14} />}
             </motion.button>
           </div>
 
@@ -105,7 +164,7 @@ export function ProductCard({ product }: { product: Product }) {
             <span className="text-ink font-bold">{product.roastLevel}</span>
           </div>
         </div>
-      </Link>
+      </div>
     </motion.div>
   )
 }
