@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "KOPI Nusantara — Neobrutalist Coffee E-Commerce Template",
     description: "Premium Next.js template untuk brand kopi, roastery, dan F&B artisan. Desain neobrutalist berani dengan palette Olive + Brick + Paper.",
-    url: "https://kopi-nusantara.vercel.app",
+    url: "https://kopi-kreatif.vercel.app",
     siteName: "KOPI Nusantara",
     images: [{ url: "/preview.png", width: 1440, height: 900 }],
     locale: "id_ID",

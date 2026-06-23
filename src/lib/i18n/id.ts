@@ -281,6 +281,7 @@ export const id = {
     cari: "Cari",
     kembali_ke: "Kembali ke",
     semua: "Semua",
+    pengaturan: "Pengaturan",
   },
   featured: {
     title_start: "Pilihan",

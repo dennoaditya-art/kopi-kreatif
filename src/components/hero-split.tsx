@@ -99,7 +99,7 @@ export function HeroSplit({ current, setCurrent, item }: HeroSplitProps) {
           <div className="relative z-10 flex items-center justify-center lg:justify-end">
             <div className="relative w-full max-w-md">
               {/* Decorative elements */}
-              <div className="absolute -top-6 -right-6 w-24 h-24 rounded-[16px] bg-olive border-2 border-ink card-shadow-hard -rotate-6 flex items-center justify-center z-20">
+              <div className="absolute -top-3 sm:-top-6 -right-3 sm:-right-6 w-20 h-20 sm:w-24 sm:h-24 rounded-[16px] bg-olive border-2 border-ink card-shadow-hard -rotate-6 flex items-center justify-center z-20">
                 <span className="font-black text-white text-sm -rotate-6">#1</span>
               </div>
 

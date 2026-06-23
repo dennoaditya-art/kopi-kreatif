@@ -199,6 +199,34 @@ export const testimonials: Testimonial[] = [
     role: "Remote Worker, Yogyakarta",
     content: "Cold Brew Pack ini life saver. Tinggal masukin kulkas semalem, paginya tinggal minum. Praktis.",
     rating: 5
+  },
+  {
+    id: "5",
+    name: "Sari Dewi",
+    role: "Barista, Malang",
+    content: "Espresso Blend-nya perfect untuk base minuman signature kafe kami. Crema-nya rich banget!",
+    rating: 5
+  },
+  {
+    id: "6",
+    name: "Hendra Kusuma",
+    role: "Coffee Roaster, Bali",
+    content: "Biji hijau yang dikirim konsisten grade-nya. Roasting profile-nya mudah ditebak, cocok buat specialty coffee.",
+    rating: 4
+  },
+  {
+    id: "7",
+    name: "Fitri Handayani",
+    role: "Ibu Rumah Tangga, Semarang",
+    content: "Beli Arabika Gayo untuk stok lebaran. Semua tamu suka, katanya beda sama kopi biasa. Wanginya harum.",
+    rating: 5
+  },
+  {
+    id: "8",
+    name: "Dimas Ardiansyah",
+    role: "Mahasiswa, Bandung",
+    content: "Cold Brew Pack jadi teman begadang skripsi. Tinggal seduh dingin, diemin semalem, tinggal minum. Praktis banget.",
+    rating: 4
   }
 ]
 

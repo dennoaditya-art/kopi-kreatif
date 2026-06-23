@@ -12,6 +12,8 @@
   --color-olive: var(--olive);
   --color-surface-ink: var(--surface-ink);
   --color-surface-alt-ink: var(--surface-alt-ink);
+  --color-plum: var(--plum);
+  --color-plum-medium: var(--plum-medium);
 
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
@@ -33,19 +35,23 @@
   --olive: #7A8B5E;
   --surface-ink: #12100E;
   --surface-alt-ink: #1F1B17;
+  --plum: #42344B;
+  --plum-medium: #5A4869;
 }
 
 .dark {
-  --paper: #12100E;
-  --card: #1F1B17;
-  --paper-alt: #1A1612;
-  --ink: #EDE0D8;
-  --ink-muted: #9C9082;
+  --paper: #13111A;
+  --card: #181621;
+  --paper-alt: #1A1722;
+  --ink: #FFFFFF;
+  --ink-muted: #D4D0DC;
   --brick: #B85C3C;
   --brick-deep: #7A3820;
   --olive: #5D6E42;
-  --surface-ink: #0A0807;
-  --surface-alt-ink: #12100E;
+  --surface-ink: #0E0C14;
+  --surface-alt-ink: #181621;
+  --plum: #42344B;
+  --plum-medium: #5A4869;
 }
 
 body {
@@ -70,6 +76,55 @@ body {
   }
   .card-shadow-hard-hover {
     box-shadow: 6px 6px 0px 0px var(--ink);
+  }
+
+  .dashboard-card {
+    background: var(--card);
+    border: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+    border-radius: 16px;
+    padding: 1.25rem;
+    transition: all 0.2s ease;
+  }
+  .dark .dashboard-card {
+    background: linear-gradient(to bottom, #1C1926, #181621);
+    border-color: #33313B;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+
+  .card-shadow-none {
+    box-shadow: none;
+  }
+
+  .tracking-display {
+    letter-spacing: -0.02em;
+  }
+
+  .dashboard-card-hover:hover {
+    transform: translateY(-2px);
+  }
+  .dark .dashboard-card-hover:hover {
+    box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+  }
+
+  .dashboard-stat-value {
+    font-size: 1.5rem;
+    line-height: 1.1;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+  }
+  @media (min-width: 640px) {
+    .dashboard-stat-value {
+      font-size: 1.75rem;
+    }
+  }
+
+  .dashboard-status-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 9999px;
+    margin-right: 5px;
+    vertical-align: middle;
   }
 
   .scrollbar-none {
@@ -120,9 +175,4 @@ body {
   }
 }
 
-@media (prefers-color-scheme: dark) {
-  .dark ::selection {
-    background: color-mix(in srgb, var(--brick) 80%, white);
-    color: var(--surface-ink);
-  }
-}
+

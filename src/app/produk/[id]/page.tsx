@@ -45,7 +45,7 @@ export default function DetailProdukPage() {
       "@type": "Product",
       name: product.name,
       description: product.description,
-      image: `https://kopi-kreatif.vercel.app${product.image}`,
+      image: product.image,
       sku: product.id,
       mpn: product.id,
       brand: { "@type": "Brand", name: "KOPI Nusantara" },

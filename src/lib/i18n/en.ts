@@ -281,6 +281,7 @@ export const en = {
     cari: "Search",
     kembali_ke: "Back to",
     semua: "All",
+    pengaturan: "Settings",
   },
   featured: {
     title_start: "Best",

@@ -48,6 +48,7 @@ export function FeaturedDefault({ header }: FeaturedDefaultProps) {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              className="hidden sm:block"
             >
               <Link href="/katalog">
                 <Button variant="outline" size="sm" className="gap-2 text-xs group">
