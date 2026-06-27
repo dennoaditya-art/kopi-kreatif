@@ -20,6 +20,8 @@ Palette "Olive + Brick + Paper": latar paper warm-off-white (#F8F6F0) dengan acc
 | Brick | `#B85C3C` | `#B85C3C` | `--color-brick` | Primary accent — actions, highlight, badge |
 | Brick Deep | `#9A4A30` | `#7A3820` | `--color-brick-deep` | Hover/active untuk Brick, CTA background |
 | Olive | `#7A8B5E` | `#5D6E42` | `--color-olive` | Secondary accent — success state, organic |
+| Plum | `#42344B` | `#42344B` | `--color-plum` | Dashboard accent — icon containers, gradient |
+| Plum Medium | `#5A4869` | `#5A4869` | `--color-plum-medium` | Dashboard gradient partner for Plum |
 | Surface Ink | `#12100E` | — | `--color-surface-ink` | Dark mode surface (dark setara light-ink) |
 | Surface Ink Alt | `#1F1B17` | — | `--color-surface-alt-ink` | Dark mode card surface |
 

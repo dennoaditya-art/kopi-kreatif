@@ -8,10 +8,12 @@ import { Input } from "@/components/ui/input"
 import { Coffee, Eye, EyeOff, UserPlus, ArrowLeft, Loader2, Check } from "lucide-react"
 import { usePageTitle } from "@/hooks/use-page-title"
 import { useI18n } from "@/lib/i18n/context"
+import { useAuth } from "@/lib/auth-context"
 
 export default function DaftarPage() {
   usePageTitle("Daftar — KOPI Nusantara")
   const { t } = useI18n()
+  const { register } = useAuth()
   const reduce = useReducedMotion()
   const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -32,9 +34,14 @@ export default function DaftarPage() {
     if (form.password.length < 6) { setError(t("auth.password_minimal")); return }
     if (form.password !== form.confirm) { setError(t("auth.password_tidak_cocok")); return }
     setLoading(true)
-    await new Promise((r) => setTimeout(r, 1500))
+    await new Promise((r) => setTimeout(r, 800))
+    const result = register(form.name, form.email, form.password)
     setLoading(false)
-    setSuccess(true)
+    if (result.ok) {
+      setSuccess(true)
+    } else {
+      setError(result.error || "")
+    }
   }
 
   if (success) {

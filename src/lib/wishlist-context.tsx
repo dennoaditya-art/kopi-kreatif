@@ -1,6 +1,7 @@
 "use client"
 
-import { createContext, useContext, useCallback, useRef, useSyncExternalStore, type ReactNode } from "react"
+import { createContext, useContext, useCallback, type ReactNode } from "react"
+import { useLocalStorage } from "@/hooks/use-local-storage"
 
 export interface WishlistItem {
   id: string
@@ -20,60 +21,29 @@ interface WishlistContextValue {
   count: number
 }
 
-const STORAGE_KEY = "kopi-wishlist"
+const WISHLIST_KEY = "kopi-wishlist"
+const EMPTY_WISHLIST: WishlistItem[] = []
 
 const WishlistContext = createContext<WishlistContextValue | null>(null)
 
-const EMPTY_WISHLIST: WishlistItem[] = []
-
 export function WishlistProvider({ children }: { children: ReactNode }) {
-  const listenersRef = useRef<(() => void)[]>([])
-  const cachedRef = useRef<WishlistItem[]>([])
-  const lastJsonRef = useRef<string | null>(null)
-
-  const subscribe = useCallback((listener: () => void) => {
-    listenersRef.current.push(listener)
-    return () => {
-      listenersRef.current = listenersRef.current.filter((l) => l !== listener)
-    }
-  }, [])
-
-  const getSnapshot = useCallback((): WishlistItem[] => {
-    if (typeof window === "undefined") return EMPTY_WISHLIST
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY)
-      if (saved === lastJsonRef.current) return cachedRef.current
-      lastJsonRef.current = saved
-      cachedRef.current = saved ? JSON.parse(saved) : EMPTY_WISHLIST
-      return cachedRef.current
-    } catch { return EMPTY_WISHLIST }
-  }, [])
-
-  const getServerSnapshot = useCallback((): WishlistItem[] => EMPTY_WISHLIST, [])
-
-  const emitChange = useCallback(() => {
-    listenersRef.current.forEach((l) => l())
-  }, [])
-
-  const saveItems = useCallback((items: WishlistItem[]) => {
-    if (typeof window !== "undefined") localStorage.setItem(STORAGE_KEY, JSON.stringify(items))
-    emitChange()
-  }, [emitChange])
-
-  const items = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot)
+  const [items, setItems] = useLocalStorage<WishlistItem[]>(WISHLIST_KEY, EMPTY_WISHLIST)
 
   const toggleItem = useCallback((item: WishlistItem) => {
-    const current = getSnapshot()
-    const exists = current.some((i) => i.id === item.id)
-    if (exists) saveItems(current.filter((i) => i.id !== item.id))
-    else saveItems([...current, item])
-  }, [getSnapshot, saveItems])
+    setItems((current) => {
+      const exists = current.some((i) => i.id === item.id)
+      if (exists) return current.filter((i) => i.id !== item.id)
+      return [...current, item]
+    })
+  }, [setItems])
 
-  const isWishlisted = useCallback((id: string) => getSnapshot().some((i) => i.id === id), [getSnapshot])
+  const isWishlisted = useCallback((id: string) => {
+    return items.some((i) => i.id === id)
+  }, [items])
 
   const removeItem = useCallback((id: string) => {
-    saveItems(getSnapshot().filter((i) => i.id !== id))
-  }, [getSnapshot, saveItems])
+    setItems((current) => current.filter((i) => i.id !== id))
+  }, [setItems])
 
   return (
     <WishlistContext.Provider value={{ items, toggleItem, isWishlisted, removeItem, count: items.length }}>

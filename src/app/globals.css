@@ -80,7 +80,8 @@ body {
 
   .dashboard-card {
     background: var(--card);
-    border: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+    border: 1px solid var(--ink);
+    border-color: color-mix(in srgb, var(--ink) 12%, transparent);
     border-radius: 16px;
     padding: 1.25rem;
     transition: all 0.2s ease;

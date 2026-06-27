@@ -5,14 +5,18 @@ import Link from "next/link"
 import { motion, useReducedMotion } from "motion/react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { useRouter } from "next/navigation"
 import { Coffee, Eye, EyeOff, LogIn, ArrowLeft, Loader2 } from "lucide-react"
 import { usePageTitle } from "@/hooks/use-page-title"
 import { useI18n } from "@/lib/i18n/context"
+import { useAuth } from "@/lib/auth-context"
 import { useToast } from "@/components/ui/toast"
 
 export default function MasukPage() {
   const { t } = useI18n()
   usePageTitle(`${t("auth.masuk_title")} — KOPI Nusantara`)
+  const { login } = useAuth()
+  const router = useRouter()
   const reduce = useReducedMotion()
   const { toast } = useToast()
   const [showPassword, setShowPassword] = useState(false)
@@ -31,10 +35,15 @@ export default function MasukPage() {
     if (!form.email.trim()) { setError(`${t("auth.email")} ${t("kontak.harus_diisi")}`); return }
     if (!form.password.trim()) { setError(`${t("auth.password")} ${t("kontak.harus_diisi")}`); return }
     setLoading(true)
-    await new Promise((r) => setTimeout(r, 1200))
+    await new Promise((r) => setTimeout(r, 800))
+    const result = login(form.email, form.password)
     setLoading(false)
-    setError("")
-    toast(t("umum.berhasil_masuk"), "success")
+    if (result.ok) {
+      toast(t("umum.berhasil_masuk"), "success")
+      router.push("/")
+    } else {
+      setError(result.error || "")
+    }
   }
 
   return (

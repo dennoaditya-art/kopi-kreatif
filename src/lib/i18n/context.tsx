@@ -29,17 +29,29 @@ function getNestedValue(obj: Dict | string | undefined, path: string[]): string 
   return typeof current === "string" ? current : undefined
 }
 
+const LOCALE_STORAGE_KEY = "kopi-locale"
+
+function getInitialLocale(): Locale {
+  if (typeof window === "undefined") return "id"
+  try {
+    const stored = localStorage.getItem(LOCALE_STORAGE_KEY)
+    if (stored === "en" || stored === "id") return stored
+  } catch {}
+  return "id"
+}
+
 export function I18nProvider({
-  initialLocale = "id",
+  initialLocale,
   children,
 }: {
   initialLocale?: Locale
   children: ReactNode
 }) {
-  const [locale, setLocaleState] = useState<Locale>(initialLocale)
+  const [locale, setLocaleState] = useState<Locale>(initialLocale ?? getInitialLocale())
 
   const setLocale = useCallback((l: Locale) => {
     setLocaleState(l)
+    try { localStorage.setItem(LOCALE_STORAGE_KEY, l) } catch {}
   }, [])
 
   const t = useCallback(

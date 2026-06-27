@@ -8,22 +8,28 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useCart, itemKey } from "@/lib/cart-context"
 import { useToast } from "@/components/ui/toast"
-import { Trash2, Minus, Plus, ShoppingCart, ArrowLeft, Tag, Coffee, Loader2 } from "lucide-react"
+import { Trash2, Minus, Plus, ShoppingCart, ArrowLeft, Tag, Coffee, Loader2, X } from "lucide-react"
 import { EmptyState } from "@/components/empty-state"
 import { useI18n } from "@/lib/i18n/context"
 import { usePageTitle } from "@/hooks/use-page-title"
+
+const COUPONS: Record<string, number> = {
+  KOPI10: 0.1,
+  GRATIS20: 0.2,
+  BARU15: 0.15,
+}
 
 export default function KeranjangPage() {
   usePageTitle("Keranjang Belanja — KOPI Nusantara")
   const { items, updateQuantity, removeItem, subtotal } = useCart()
   const [coupon, setCoupon] = useState("")
-  const [couponApplied, setCouponApplied] = useState(false)
+  const [couponCode, setCouponCode] = useState<string | null>(null)
   const [couponLoading, setCouponLoading] = useState(false)
   const reduce = useReducedMotion()
   const { t } = useI18n()
   const { toast } = useToast()
 
-  const discount = couponApplied ? subtotal * 0.1 : 0
+  const discount = couponCode ? subtotal * COUPONS[couponCode] : 0
   const shipping = subtotal > 100000 ? 0 : 12000
   const total = subtotal - discount + shipping
 
@@ -159,13 +165,13 @@ export default function KeranjangPage() {
                     <span className="text-ink-muted">{t("keranjang.subtotal")}</span>
                     <span className="font-bold">Rp{subtotal.toLocaleString("id-ID")}</span>
                   </motion.div>
-                  {discount > 0 && (
+                  {couponCode && (
                     <motion.div
                       className="flex justify-between text-brick"
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: "auto" }}
                     >
-                      <span>{t("keranjang.diskon")} (10%)</span>
+                      <span>{t("keranjang.diskon")} ({couponCode})</span>
                       <span className="font-bold">-Rp{discount.toLocaleString("id-ID")}</span>
                     </motion.div>
                   )}
@@ -185,19 +191,29 @@ export default function KeranjangPage() {
                   </motion.div>
                 </div>
                 <div className="flex gap-2">
-                  <Input type="text" placeholder={t("keranjang.kupon")} value={coupon} onChange={(e) => setCoupon(e.target.value)} className="text-sm h-10" />
-                  <Button size="sm" variant={couponApplied ? "brick" : "outline"} onClick={async () => {
-                    if (couponLoading) return
-                    setCouponLoading(true)
-                    await new Promise((r) => setTimeout(r, 800))
-                    const next = !couponApplied
-                    setCouponApplied(next)
-                    setCouponLoading(false)
-                    if (next) toast(t("keranjang.diterapkan"), "success")
-                  }} disabled={(!coupon && !couponApplied) || couponLoading} className="gap-1 shrink-0 text-xs">
-                    {couponLoading ? <Loader2 size={13} className="animate-spin" /> : <Tag size={13} />}
-                    {couponLoading ? t("umum.loading") : couponApplied ? t("keranjang.diterapkan") : t("keranjang.terapkan")}
-                  </Button>
+                  <Input type="text" placeholder={t("keranjang.kupon")} value={coupon} onChange={(e) => setCoupon(e.target.value.toUpperCase())} className="text-sm h-10" disabled={couponCode !== null} />
+                  {couponCode ? (
+                    <Button size="sm" variant="danger" onClick={() => { setCouponCode(null); setCoupon(""); toast("Kupon dihapus", "info") }} className="gap-1 shrink-0 text-xs">
+                      <X size={13} /> Hapus
+                    </Button>
+                  ) : (
+                    <Button size="sm" variant="outline" onClick={async () => {
+                      if (couponLoading || !coupon.trim()) return
+                      setCouponLoading(true)
+                      await new Promise((r) => setTimeout(r, 800))
+                      const rate = COUPONS[coupon.toUpperCase()]
+                      if (rate) {
+                        setCouponCode(coupon.toUpperCase())
+                        toast(`${coupon.toUpperCase()} ${t("keranjang.diterapkan")}`, "success")
+                      } else {
+                        toast("Kode kupon tidak valid", "error")
+                      }
+                      setCouponLoading(false)
+                    }} disabled={!coupon.trim() || couponLoading} className="gap-1 shrink-0 text-xs">
+                      {couponLoading ? <Loader2 size={13} className="animate-spin" /> : <Tag size={13} />}
+                      {couponLoading ? t("umum.loading") : t("keranjang.terapkan")}
+                    </Button>
+                  )}
                 </div>
                 {shipping > 0 && <p className="text-xs text-ink-muted text-center">{t("keranjang.gratis_ongkir")}</p>}
                 <Link href="/checkout"><Button className="w-full text-sm gap-2" size="lg">{t("keranjang.checkout")}</Button></Link>

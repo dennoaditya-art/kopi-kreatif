@@ -1,14 +1,13 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { motion, useReducedMotion } from "motion/react"
 import { dashboardStats, recentOrders } from "@/lib/coffee-data"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { SITE_CONFIG } from "@/config"
 import { ProductManager } from "@/components/product-manager"
-import { LayoutDashboard, Package, Users, TrendingUp, Download, MoreHorizontal, Lock, LogIn, ArrowUpRight, ArrowDownRight, ShoppingCart, Settings, BarChart3 } from "lucide-react"
+import { LayoutDashboard, Package, Users, TrendingUp, Download, MoreHorizontal, Lock, LogIn, LogOut, ArrowUpRight, ArrowDownRight, ShoppingCart, Settings, BarChart3, Loader2 } from "lucide-react"
 import { usePageTitle } from "@/hooks/use-page-title"
 import { useI18n } from "@/lib/i18n/context"
 
@@ -34,33 +33,66 @@ function statusLabel(s: string, t: (k: string) => string) {
   return labels[s] || s
 }
 
-if (typeof window !== "undefined") {
-  console.warn(
-    "Dashboard auth is client-side only (demo). " +
-    "In production, verify password server-side via API route or server action."
-  )
-}
-
 export default function DashboardPage() {
   usePageTitle("Dashboard — KOPI Nusantara")
   const [authed, setAuthed] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [pass, setPass] = useState("")
   const [error, setError] = useState(false)
+  const [authLoading, setAuthLoading] = useState(false)
   const { t } = useI18n()
   const reduce = useReducedMotion()
 
-  function handleAuth() {
-    if (pass === SITE_CONFIG.dashboard.accessCode) {
-      setAuthed(true)
-    } else {
+  useEffect(() => {
+    fetch("/api/auth")
+      .then((r) => r.json())
+      .then((data) => { setAuthed(data.ok); setLoading(false) })
+      .catch(() => setLoading(false))
+  }, [])
+
+  async function handleAuth(e?: React.FormEvent) {
+    if (e) e.preventDefault()
+    if (!pass.trim()) { setError(true); return }
+    setAuthLoading(true)
+    setError(false)
+    try {
+      const r = await fetch("/api/auth", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password: pass }),
+      })
+      const data = await r.json()
+      if (data.ok) {
+        setAuthed(true)
+      } else {
+        setError(true)
+      }
+    } catch {
       setError(true)
+    } finally {
+      setAuthLoading(false)
     }
+  }
+
+  async function handleLogout() {
+    await fetch("/api/auth", { method: "DELETE" })
+    setAuthed(false)
+    setPass("")
+  }
+
+  if (loading) {
+    return (
+      <div className="min-h-dvh flex items-center justify-center p-4">
+        <Loader2 size={32} className="animate-spin text-brick" />
+      </div>
+    )
   }
 
   if (!authed) {
     return (
       <div className="min-h-dvh flex items-center justify-center p-4">
-        <motion.div
+        <motion.form
+          onSubmit={handleAuth}
           className="w-full max-w-sm text-center space-y-6"
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
@@ -83,8 +115,8 @@ export default function DashboardPage() {
               placeholder={t("dashboard.masukkan_kode")}
               value={pass}
               onChange={(e) => { setPass(e.target.value); setError(false) }}
-              onKeyDown={(e) => { if (e.key === "Enter") handleAuth() }}
               className="text-center text-sm h-11"
+              disabled={authLoading}
             />
             {error && (
               <motion.p
@@ -96,10 +128,11 @@ export default function DashboardPage() {
               </motion.p>
             )}
           </div>
-          <Button onClick={handleAuth} className="gap-2 mx-auto">
-            <LogIn size={16} /> {t("auth.masuk_btn")}
+          <Button type="submit" className="gap-2 mx-auto" disabled={authLoading}>
+            {authLoading ? <Loader2 size={16} className="animate-spin" /> : <LogIn size={16} />}
+            {authLoading ? t("umum.loading") : t("auth.masuk_btn")}
           </Button>
-        </motion.div>
+        </motion.form>
       </div>
     )
   }
@@ -126,6 +159,9 @@ export default function DashboardPage() {
               <BarChart3 size={14} /> {t("dashboard.lihat_analitik")}
             </Button>
           </Link>
+          <Button variant="ghost" size="sm" className="gap-1.5 text-xs rounded-xl text-red-500 hover:text-red-600" onClick={handleLogout}>
+            <LogOut size={14} /> {t("dashboard.logout")}
+          </Button>
         </div>
       </div>
 

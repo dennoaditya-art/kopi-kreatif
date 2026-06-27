@@ -1,6 +1,7 @@
 "use client"
 
-import { createContext, useContext, useState, useCallback, type ReactNode } from "react"
+import { createContext, useContext, useCallback, type ReactNode } from "react"
+import { useLocalStorage } from "@/hooks/use-local-storage"
 
 export interface OrderItem {
   id: string
@@ -47,17 +48,19 @@ const defaultOrders: Order[] = [
   { id: "INV-20260616-004", date: "16 Jun 2026", customer: "Arief Pratama", items: [{ id: "cold-brew-pack", productName: "Cold Brew Pack", quantity: 1, price: 48000, image: "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=100&h=100&fit=crop" }], total: 48000, shipping: 12000, status: "Selesai", shippingMethod: "Reguler", paymentMethod: "Transfer Mandiri", address: "Jl. Malioboro No. 15, Yogyakarta", trackingNumber: "JNE456789123", estimasi: "3-5 hari" },
 ]
 
+const ORDERS_KEY = "kopi-orders"
+
 const OrderContext = createContext<OrderContextValue | null>(null)
 
 export function OrderProvider({ children }: { children: ReactNode }) {
-  const [orders, setOrders] = useState<Order[]>(defaultOrders)
+  const [orders, setOrders] = useLocalStorage<Order[]>(ORDERS_KEY, defaultOrders)
 
   const addOrder = useCallback((data: Omit<Order, "id" | "date">) => {
     const id = generateId()
     const date = formatDate()
     setOrders((prev) => [{ id, date, ...data }, ...prev])
     return id
-  }, [])
+  }, [setOrders])
 
   const getOrder = useCallback((id: string) => orders.find((o) => o.id === id), [orders])
 

@@ -83,7 +83,7 @@ export function Footer() {
           </div>
 
           <div className="space-y-3">
-            <h3 className="font-bold text-ink text-sm">{t("footer.newsletter")}</h3>
+            <h3 className="font-bold text-ink text-sm">{t("footer.newsletter_heading")}</h3>
             <p className="text-sm text-ink-muted">{t("footer.newsletter")}</p>
             <form onSubmit={handleSubscribe} className="flex gap-2">
               <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder={t("footer.newsletter_placeholder")} aria-label={t("footer.newsletter_placeholder")} className="h-10 text-sm" />

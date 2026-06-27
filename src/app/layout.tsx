@@ -11,6 +11,8 @@ import { ErrorBoundary } from "@/components/error-boundary"
 import { ToastProvider } from "@/components/ui/toast"
 import { ScrollToTop } from "@/components/scroll-to-top"
 import { I18nProvider } from "@/lib/i18n/context"
+import { AuthProvider } from "@/lib/auth-context"
+import { LangAttributeUpdater } from "@/hooks/use-lang-attribute"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -51,7 +53,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="id" className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html lang="id" className={`${geistSans.variable} ${geistMono.variable}`} suppressHydrationWarning>
       <body className="min-h-dvh flex flex-col antialiased">
         <div itemScope itemType="https://schema.org/Organization" style={{ display: "none" }}>
           <meta itemProp="name" content="KOPI Nusantara" />
@@ -73,6 +75,8 @@ export default function RootLayout({
         </div>
         <ThemeProvider>
           <I18nProvider>
+            <LangAttributeUpdater />
+            <AuthProvider>
             <CartProvider>
               <WishlistProvider>
               <OrderProvider>
@@ -87,6 +91,7 @@ export default function RootLayout({
               </OrderProvider>
               </WishlistProvider>
             </CartProvider>
+            </AuthProvider>
           </I18nProvider>
           </ThemeProvider>
       </body>

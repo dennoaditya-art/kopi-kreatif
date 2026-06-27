@@ -10,6 +10,7 @@ import { useCart } from "@/lib/cart-context"
 import { useWishlist } from "@/lib/wishlist-context"
 import { useTheme } from "@/lib/theme-context"
 import { useI18n } from "@/lib/i18n/context"
+import { useAuth } from "@/lib/auth-context"
 
 export function Navbar() {
   const [open, setOpen] = useState(false)
@@ -20,6 +21,7 @@ export function Navbar() {
   const reduce = useReducedMotion()
   const { theme, toggle: toggleTheme } = useTheme()
   const { t, locale, setLocale } = useI18n()
+  const { user, logout, isAuthenticated } = useAuth()
   const navLinks = [
     { href: "/", label: t("nav.beranda") },
     { href: "/katalog", label: t("nav.katalog") },
@@ -114,12 +116,32 @@ export function Navbar() {
               </motion.span>
             )}
           </Link>
-          <Link
-            href="/masuk"
-            className="hidden sm:inline-flex items-center gap-1 text-xs font-bold transition-colors hover:text-brick text-ink-muted"
-          >
-            {t("nav.masuk")}
-          </Link>
+          {isAuthenticated ? (
+            <div className="hidden sm:flex items-center gap-2">
+              <Link
+                href="/profil"
+                className="inline-flex items-center gap-1.5 text-xs font-bold text-ink-muted hover:text-brick transition-colors"
+              >
+                <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-brick text-white text-[10px] font-bold">
+                  {user!.name.charAt(0)}
+                </span>
+                {user!.name.split(" ")[0]}
+              </Link>
+              <button
+                onClick={logout}
+                className="text-xs font-bold text-ink-muted hover:text-red-500 transition-colors"
+              >
+                {t("dashboard.logout")}
+              </button>
+            </div>
+          ) : (
+            <Link
+              href="/masuk"
+              className="hidden sm:inline-flex items-center gap-1 text-xs font-bold transition-colors hover:text-brick text-ink-muted"
+            >
+              {t("nav.masuk")}
+            </Link>
+          )}
           <button
             onClick={() => setLocale(locale === "id" ? "en" : "id")}
             className="flex h-11 w-11 items-center justify-center rounded-[12px] border-2 border-ink bg-card text-ink transition-all duration-200 hover:bg-brick/20 hover:text-brick active:translate-x-[1px] active:translate-y-[1px]"
@@ -209,9 +231,20 @@ export function Navbar() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.08 + navLinks.length * 0.06, duration: 0.4 }}
             >
-              <Link href="/masuk" onClick={() => setOpen(false)} className="text-sm font-bold text-ink-muted hover:text-brick transition-colors">
-                {t("nav.masuk")}
-              </Link>
+              {isAuthenticated ? (
+                <div className="flex items-center gap-2">
+                  <Link href="/profil" onClick={() => setOpen(false)} className="text-sm font-bold text-brick transition-colors">
+                    {user!.name}
+                  </Link>
+                  <button onClick={() => { logout(); setOpen(false) }} className="text-xs font-bold text-ink-muted hover:text-red-500 transition-colors">
+                    {t("dashboard.logout")}
+                  </button>
+                </div>
+              ) : (
+                <Link href="/masuk" onClick={() => setOpen(false)} className="text-sm font-bold text-ink-muted hover:text-brick transition-colors">
+                  {t("nav.masuk")}
+                </Link>
+              )}
               <Link href="/katalog" onClick={() => setOpen(false)} className="w-full">
                 <Button className="w-full text-base">{t("hero.cta")}</Button>
               </Link>

@@ -7,8 +7,10 @@ import { useOrder } from "@/lib/order-context"
 import { useI18n } from "@/lib/i18n/context"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { User, ChevronRight, Package as PackageIcon, Clock, CreditCard, Package } from "lucide-react"
+import { useToast } from "@/components/ui/toast"
+import { User, ChevronRight, Package as PackageIcon, Clock, CreditCard, Package, Check } from "lucide-react"
 import { usePageTitle } from "@/hooks/use-page-title"
+import { useLocalStorage } from "@/hooks/use-local-storage"
 
 const statusColors: Record<string, string> = {
   Selesai: "bg-emerald-500",
@@ -21,9 +23,11 @@ export default function ProfilPage() {
   usePageTitle("Profil — KOPI Nusantara")
   const { orders } = useOrder()
   const { t } = useI18n()
+  const { toast } = useToast()
   const reduce = useReducedMotion()
   const [tab, setTab] = useState<"profil" | "pesanan">("pesanan")
-  const [profile, setProfile] = useState({ name: "Rina Wijaya", email: "rina@email.com", phone: "0812-3456-7890", address: "Jl. Merdeka No. 10, Jakarta" })
+  const [profile, setProfile] = useLocalStorage("kopi-profile", { name: "Rina Wijaya", email: "rina@email.com", phone: "0812-3456-7890", address: "Jl. Merdeka No. 10, Jakarta" })
+  const [saved, setSaved] = useState(false)
 
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28 pb-12">
@@ -118,7 +122,9 @@ export default function ProfilPage() {
                 <label className="text-xs font-bold text-ink-muted">{t("checkout.alamat")}</label>
                 <Input value={profile.address} onChange={(e) => setProfile({ ...profile, address: e.target.value })} className="h-11" />
               </div>
-              <Button className="w-full gap-2"><User size={16} />{t("umum.simpan")}</Button>
+              <Button className="w-full gap-2" onClick={() => { setSaved(true); toast(t("umum.berhasil_disimpan"), "success"); setTimeout(() => setSaved(false), 2000) }}>
+                {saved ? <><Check size={16} /> {t("umum.berhasil_disimpan")}</> : <><User size={16} /> {t("umum.simpan")}</>}
+              </Button>
             </div>
             <div className="flex gap-2">
               <Link href="/katalog" className="flex-1"><Button variant="outline" className="w-full gap-2"><Package size={16} />{t("keranjang.lanjut_belanja")}</Button></Link>

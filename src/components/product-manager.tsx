@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef, useCallback } from "react"
 import { motion, AnimatePresence, useReducedMotion } from "motion/react"
 import { products, type Product } from "@/lib/coffee-data"
 import { useI18n } from "@/lib/i18n/context"
@@ -8,6 +8,21 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { X, Plus, Pencil, Trash2, Search } from "lucide-react"
 import Image from "next/image"
+
+const STORAGE_KEY = "kopi-products"
+
+function loadProducts(): Product[] {
+  if (typeof window === "undefined") return products
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY)
+    if (saved) return JSON.parse(saved) as Product[]
+  } catch {}
+  return products
+}
+
+function saveProducts(list: Product[]) {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(list)) } catch {}
+}
 
 const emptyProduct = (): Product => ({
   id: "", name: "", tagline: "", description: "", price: 0, weight: "200g",
@@ -17,13 +32,19 @@ const emptyProduct = (): Product => ({
 })
 
 export function ProductManager() {
-  const [localProducts, setLocalProducts] = useState<Product[]>(products)
+  const [localProducts, setLocalProducts] = useState<Product[]>(loadProducts)
   const [searchTerm, setSearchTerm] = useState("")
   const [showModal, setShowModal] = useState(false)
   const [editing, setEditing] = useState<Product | null>(null)
   const [editForm, setEditForm] = useState<Product>(emptyProduct())
   const { t } = useI18n()
   const reduce = useReducedMotion()
+  const modalRef = useRef<HTMLDivElement>(null)
+  const previousActiveElement = useRef<HTMLElement | null>(null)
+
+  useEffect(() => {
+    saveProducts(localProducts)
+  }, [localProducts])
 
   const filtered = localProducts.filter((p) =>
     p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -59,14 +80,49 @@ export function ProductManager() {
     }
   }
 
-  useEffect(() => {
+  const handleKeyDown = useCallback((e: KeyboardEvent) => {
     if (!showModal) return
-    const handleKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setShowModal(false)
+    if (e.key === "Escape") {
+      setShowModal(false)
+      return
     }
-    document.addEventListener("keydown", handleKey)
-    return () => document.removeEventListener("keydown", handleKey)
+    if (e.key !== "Tab" || !modalRef.current) return
+    const focusable = modalRef.current.querySelectorAll<HTMLElement>(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    )
+    if (focusable.length === 0) return
+    const first = focusable[0]
+    const last = focusable[focusable.length - 1]
+    if (e.shiftKey) {
+      if (document.activeElement === first) {
+        e.preventDefault()
+        last.focus()
+      }
+    } else {
+      if (document.activeElement === last) {
+        e.preventDefault()
+        first.focus()
+      }
+    }
   }, [showModal])
+
+  useEffect(() => {
+    if (showModal) {
+      previousActiveElement.current = document.activeElement as HTMLElement
+      document.addEventListener("keydown", handleKeyDown)
+      requestAnimationFrame(() => {
+        const first = modalRef.current?.querySelector<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        )
+        first?.focus()
+      })
+    } else {
+      previousActiveElement.current?.focus()
+    }
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown)
+    }
+  }, [showModal, handleKeyDown])
 
   return (
     <div>
@@ -124,8 +180,12 @@ export function ProductManager() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            role="dialog"
+            aria-modal="true"
+            aria-label={editing ? "Edit Produk" : "Produk Baru"}
           >
             <motion.div
+              ref={modalRef}
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -133,46 +193,46 @@ export function ProductManager() {
             >
               <div className="flex items-center justify-between p-5 border-b-2 border-ink">
                 <h3 className="font-black text-lg">{editing ? "Edit Produk" : "Produk Baru"}</h3>
-                <button onClick={() => setShowModal(false)} className="h-9 w-9 rounded-xl border-2 border-ink flex items-center justify-center">
+                <button onClick={() => setShowModal(false)} className="h-9 w-9 rounded-xl border-2 border-ink flex items-center justify-center" aria-label="Tutup">
                   <X size={16} />
                 </button>
               </div>
               <div className="p-5 space-y-4">
                 <div className="grid grid-cols-2 gap-3">
                   <div className="col-span-2 space-y-1">
-                    <label className="text-xs font-bold text-ink-muted">Nama Produk</label>
-                    <Input value={editForm.name} onChange={(e) => setEditForm({ ...editForm, name: e.target.value })} className="h-10 text-sm" />
+                    <label className="text-xs font-bold text-ink-muted" htmlFor="pm-name">Nama Produk</label>
+                    <Input id="pm-name" value={editForm.name} onChange={(e) => setEditForm({ ...editForm, name: e.target.value })} className="h-10 text-sm" />
                   </div>
                   <div className="space-y-1">
-                    <label className="text-xs font-bold text-ink-muted">Harga (Rp)</label>
-                    <Input type="number" value={editForm.price} onChange={(e) => setEditForm({ ...editForm, price: Number(e.target.value) })} className="h-10 text-sm" />
+                    <label className="text-xs font-bold text-ink-muted" htmlFor="pm-price">Harga (Rp)</label>
+                    <Input id="pm-price" type="number" value={editForm.price} onChange={(e) => setEditForm({ ...editForm, price: Number(e.target.value) })} className="h-10 text-sm" />
                   </div>
                   <div className="space-y-1">
-                    <label className="text-xs font-bold text-ink-muted">Stok</label>
-                    <Input type="number" value={editForm.stock} onChange={(e) => setEditForm({ ...editForm, stock: Number(e.target.value) })} className="h-10 text-sm" />
+                    <label className="text-xs font-bold text-ink-muted" htmlFor="pm-stock">Stok</label>
+                    <Input id="pm-stock" type="number" value={editForm.stock} onChange={(e) => setEditForm({ ...editForm, stock: Number(e.target.value) })} className="h-10 text-sm" />
                   </div>
                   <div className="space-y-1">
-                    <label className="text-xs font-bold text-ink-muted">Berat</label>
-                    <Input value={editForm.weight} onChange={(e) => setEditForm({ ...editForm, weight: e.target.value })} className="h-10 text-sm" />
+                    <label className="text-xs font-bold text-ink-muted" htmlFor="pm-weight">Berat</label>
+                    <Input id="pm-weight" value={editForm.weight} onChange={(e) => setEditForm({ ...editForm, weight: e.target.value })} className="h-10 text-sm" />
                   </div>
                   <div className="space-y-1">
-                    <label className="text-xs font-bold text-ink-muted">Roast Level</label>
-                    <Input value={editForm.roastLevel} onChange={(e) => setEditForm({ ...editForm, roastLevel: e.target.value })} className="h-10 text-sm" />
+                    <label className="text-xs font-bold text-ink-muted" htmlFor="pm-roast">Roast Level</label>
+                    <Input id="pm-roast" value={editForm.roastLevel} onChange={(e) => setEditForm({ ...editForm, roastLevel: e.target.value })} className="h-10 text-sm" />
                   </div>
                   <div className="col-span-2 space-y-1">
-                    <label className="text-xs font-bold text-ink-muted">Origin</label>
-                    <Input value={editForm.origin} onChange={(e) => setEditForm({ ...editForm, origin: e.target.value })} className="h-10 text-sm" />
+                    <label className="text-xs font-bold text-ink-muted" htmlFor="pm-origin">Origin</label>
+                    <Input id="pm-origin" value={editForm.origin} onChange={(e) => setEditForm({ ...editForm, origin: e.target.value })} className="h-10 text-sm" />
                   </div>
                   <div className="col-span-2 space-y-1">
-                    <label className="text-xs font-bold text-ink-muted">Kategori</label>
-                    <select value={editForm.category} onChange={(e) => setEditForm({ ...editForm, category: e.target.value })} className="w-full h-10 rounded-[12px] border-2 border-ink bg-card text-sm px-3 font-medium text-ink">
+                    <label className="text-xs font-bold text-ink-muted" htmlFor="pm-category">Kategori</label>
+                    <select id="pm-category" value={editForm.category} onChange={(e) => setEditForm({ ...editForm, category: e.target.value })} className="w-full h-10 rounded-[12px] border-2 border-ink bg-card text-sm px-3 font-medium text-ink">
                       <option value="single-origin">Single Origin</option>
                       <option value="blend">Blend</option>
                     </select>
                   </div>
                   <div className="col-span-2 space-y-1">
-                    <label className="text-xs font-bold text-ink-muted">Image URL</label>
-                    <Input value={editForm.image} onChange={(e) => setEditForm({ ...editForm, image: e.target.value })} className="h-10 text-sm" />
+                    <label className="text-xs font-bold text-ink-muted" htmlFor="pm-image">Image URL</label>
+                    <Input id="pm-image" value={editForm.image} onChange={(e) => setEditForm({ ...editForm, image: e.target.value })} className="h-10 text-sm" />
                   </div>
                 </div>
               </div>

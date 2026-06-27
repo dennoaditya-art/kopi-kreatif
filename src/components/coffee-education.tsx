@@ -7,49 +7,34 @@ import { Bean, Droplets, MapPin, ChevronRight, Mountain, CloudSun, Trees, Sprout
 import { useI18n } from "@/lib/i18n/context"
 
 interface CoffeeType {
-  name: string
-  latin: string
-  desc: string
-  regions: string[]
+  nameKey: string
+  latinKey: string
+  descKey: string
+  regionsKey: string
 }
 
 const coffeeTypes: CoffeeType[] = [
-  {
-    name: "Arabika",
-    latin: "Coffea Arabica",
-    desc: "Jenis kopi paling populer di Indonesia. Tumbuh di dataran tinggi 1000–2000 mdpl. Cita rasa ringan dengan acidity tinggi dan aroma kompleks — floral, fruity, citrus. Produksi ±60% dari total kopi Indonesia.",
-    regions: ["Aceh Gayo", "Toraja", "Kintamani", "Java Ijen"],
-  },
-  {
-    name: "Robusta",
-    latin: "Coffea Canephora",
-    desc: "Jenis kopi lebih kuat dan tahan hama. Tumbuh di dataran rendah 400–800 mdpl. Kandungan kafein 2x lipat Arabika, body tebal, rasa earthy dan pahit. Cocok untuk espresso dan campuran.",
-    regions: ["Temanggung", "Lampung", "Jawa Timur"],
-  },
-  {
-    name: "Liberika",
-    latin: "Coffea Liberica",
-    desc: "Jenis kopi langka dengan biji besar dan bentuk asimetris. Aroma unik — fruity, floral, smoky. Tumbuh di lahan gambut dan rawa. Produksi sangat terbatas, hanya ±1% dari kopi dunia.",
-    regions: ["Pulau Riau", "Kalimantan"],
-  },
+  { nameKey: "coffee_education.arabika_name", latinKey: "coffee_education.arabika_latin", descKey: "coffee_education.arabika_desc", regionsKey: "coffee_education.arabika_regions" },
+  { nameKey: "coffee_education.robusta_name", latinKey: "coffee_education.robusta_latin", descKey: "coffee_education.robusta_desc", regionsKey: "coffee_education.robusta_regions" },
+  { nameKey: "coffee_education.liberika_name", latinKey: "coffee_education.liberika_latin", descKey: "coffee_education.liberika_desc", regionsKey: "coffee_education.liberika_regions" },
 ]
 
 interface Origin {
-  name: string
-  elevation: string
-  flavor: string
+  nameKey: string
+  elevationKey: string
+  flavorKey: string
   icon: React.ReactNode
 }
 
 const origins: Origin[] = [
-  { name: "Aceh Gayo", elevation: "1200–1600 mdpl", flavor: "Jeruk, Cokelat Susu, Herbal", icon: <Mountain size={16} /> },
-  { name: "Toraja", elevation: "1400–1800 mdpl", flavor: "Buah Tropis, Dark Chocolate", icon: <CloudSun size={16} /> },
-  { name: "Kintamani", elevation: "900–1500 mdpl", flavor: "Lemon, Jeruk Bali, Gula Aren", icon: <Trees size={16} /> },
-  { name: "Temanggung", elevation: "400–800 mdpl", flavor: "Kacang, Kayu Manis, Earthy", icon: <Sprout size={16} /> },
-  { name: "Java Ijen", elevation: "1000–1600 mdpl", flavor: "Melati, Kayu Manis, Madu", icon: <Leaf size={16} /> },
-  { name: "Flores", elevation: "1200–1700 mdpl", flavor: "Buah Hitam, Gula Bakar", icon: <Factory size={16} /> },
-  { name: "Papua", elevation: "1300–1800 mdpl", flavor: "Tembakau, Rempah, Kakao", icon: <LocateFixed size={16} /> },
-  { name: "Lampung", elevation: "400–900 mdpl", flavor: "Earthy, Cokelat Hitam", icon: <Flame size={16} /> },
+  { nameKey: "coffee_education.origin_aceh_gayo", elevationKey: "coffee_education.origin_aceh_gayo_elevation", flavorKey: "coffee_education.origin_aceh_gayo_flavor", icon: <Mountain size={16} /> },
+  { nameKey: "coffee_education.origin_toraja", elevationKey: "coffee_education.origin_toraja_elevation", flavorKey: "coffee_education.origin_toraja_flavor", icon: <CloudSun size={16} /> },
+  { nameKey: "coffee_education.origin_kintamani", elevationKey: "coffee_education.origin_kintamani_elevation", flavorKey: "coffee_education.origin_kintamani_flavor", icon: <Trees size={16} /> },
+  { nameKey: "coffee_education.origin_temanggung", elevationKey: "coffee_education.origin_temanggung_elevation", flavorKey: "coffee_education.origin_temanggung_flavor", icon: <Sprout size={16} /> },
+  { nameKey: "coffee_education.origin_java_ijen", elevationKey: "coffee_education.origin_java_ijen_elevation", flavorKey: "coffee_education.origin_java_ijen_flavor", icon: <Leaf size={16} /> },
+  { nameKey: "coffee_education.origin_flores", elevationKey: "coffee_education.origin_flores_elevation", flavorKey: "coffee_education.origin_flores_flavor", icon: <Factory size={16} /> },
+  { nameKey: "coffee_education.origin_papua", elevationKey: "coffee_education.origin_papua_elevation", flavorKey: "coffee_education.origin_papua_flavor", icon: <LocateFixed size={16} /> },
+  { nameKey: "coffee_education.origin_lampung", elevationKey: "coffee_education.origin_lampung_elevation", flavorKey: "coffee_education.origin_lampung_flavor", icon: <Flame size={16} /> },
 ]
 
 export function CoffeeEducation() {
@@ -95,7 +80,7 @@ export function CoffeeEducation() {
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
               </div>
 
               <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
@@ -123,7 +108,7 @@ export function CoffeeEducation() {
           <div className="order-1 space-y-4 sm:space-y-5 lg:order-2">
             {coffeeTypes.map((type, i) => (
               <motion.div
-                key={type.name}
+                key={type.nameKey}
                 className="card-shadow-hard rounded-[16px] border-2 border-ink bg-card p-5 transition-all duration-200 hover:card-shadow-hard-hover"
                 initial={reduce ? false : { opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -141,14 +126,14 @@ export function CoffeeEducation() {
                   </motion.div>
                   <div className="min-w-0 flex-1">
                     <div className="flex flex-wrap items-center gap-2">
-                      <h3 className="text-base font-black text-ink sm:text-lg">{type.name}</h3>
-                      <span className="font-mono text-[11px] italic text-ink-muted">{type.latin}</span>
+                      <h3 className="text-base font-black text-ink sm:text-lg">{t(type.nameKey)}</h3>
+                      <span className="font-mono text-[11px] italic text-ink-muted">{t(type.latinKey)}</span>
                     </div>
                     <p className="mt-1.5 text-xs leading-relaxed text-ink-muted sm:text-sm">
-                      {type.desc}
+                      {t(type.descKey)}
                     </p>
                     <div className="mt-3 flex flex-wrap gap-1.5">
-                      {type.regions.map((r) => (
+                      {t(type.regionsKey).split(", ").map((r) => (
                         <span
                           key={r}
                           className="inline-flex items-center gap-1 rounded-full border border-ink/10 bg-ink/5 px-2.5 py-1 text-[10px] font-bold text-ink"
@@ -182,7 +167,7 @@ export function CoffeeEducation() {
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
             {origins.map((origin, i) => (
               <motion.div
-                key={origin.name}
+                key={origin.nameKey}
                 className="card-shadow-hard rounded-[12px] border-2 border-ink bg-card p-4 transition-all duration-200 hover:card-shadow-hard-hover"
                 initial={reduce ? false : { opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -193,13 +178,13 @@ export function CoffeeEducation() {
                 <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-ink/5 text-ink">
                   {origin.icon}
                 </div>
-                <h4 className="mt-2 text-sm font-black text-ink">{origin.name}</h4>
+                <h4 className="mt-2 text-sm font-black text-ink">{t(origin.nameKey)}</h4>
                 <div className="mt-1 flex items-center gap-1 text-[10px] font-bold text-ink-muted">
                   <Flame size={10} aria-hidden="true" />
-                  {origin.elevation}
+                  {t(origin.elevationKey)}
                 </div>
                 <p className="mt-1.5 text-[11px] leading-relaxed text-ink-muted">
-                  {origin.flavor}
+                  {t(origin.flavorKey)}
                 </p>
               </motion.div>
             ))}

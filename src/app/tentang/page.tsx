@@ -124,7 +124,7 @@ export default function TentangPage() {
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-ink/40 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
               </div>
               <div className="absolute bottom-0 left-0 right-0 p-6">
                 <p className="text-xs font-bold text-white/70">{t("tentang.overlay_brand")}</p>

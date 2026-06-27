@@ -1,6 +1,7 @@
 "use client"
 
-import { createContext, useContext, useCallback, useRef, useSyncExternalStore, type ReactNode } from "react"
+import { createContext, useContext, useCallback, type ReactNode } from "react"
+import { useLocalStorage } from "@/hooks/use-local-storage"
 
 export interface CartItem {
   id: string
@@ -27,88 +28,46 @@ interface CartContextValue {
   totalItems: number
 }
 
-const STORAGE_KEY = "kopi-cart"
+const CART_KEY = "kopi-cart"
+const EMPTY_CART: CartItem[] = []
 
 const CartContext = createContext<CartContextValue | null>(null)
 
-const EMPTY_CART: CartItem[] = []
-
 export function CartProvider({ children }: { children: ReactNode }) {
-  const listenersRef = useRef<(() => void)[]>([])
-  const cachedRef = useRef<CartItem[]>([])
-  const lastJsonRef = useRef<string | null>(null)
-
-  const subscribe = useCallback((listener: () => void) => {
-    listenersRef.current.push(listener)
-    return () => {
-      listenersRef.current = listenersRef.current.filter((l) => l !== listener)
-    }
-  }, [])
-
-  const getSnapshot = useCallback((): CartItem[] => {
-    if (typeof window === "undefined") return EMPTY_CART
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY)
-      if (saved === lastJsonRef.current) return cachedRef.current
-      lastJsonRef.current = saved
-      cachedRef.current = saved ? JSON.parse(saved) : EMPTY_CART
-      return cachedRef.current
-    } catch {
-      return EMPTY_CART
-    }
-  }, [])
-
-  const getServerSnapshot = useCallback((): CartItem[] => EMPTY_CART, [])
-
-  const emitChange = useCallback(() => {
-    listenersRef.current.forEach((l) => l())
-  }, [])
-
-  const saveItems = useCallback((items: CartItem[]) => {
-    if (typeof window !== "undefined") {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(items))
-    }
-    emitChange()
-  }, [emitChange])
-
-  const items = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot)
+  const [items, setItems] = useLocalStorage<CartItem[]>(CART_KEY, EMPTY_CART)
 
   const addItem = useCallback((newItem: CartItem) => {
-    const current = getSnapshot()
-    const key = itemKey(newItem.id, newItem.grind)
-    const existing = current.find((i) => itemKey(i.id, i.grind) === key)
-    if (existing) {
-      saveItems(
-        current.map((i) =>
+    setItems((current) => {
+      const key = itemKey(newItem.id, newItem.grind)
+      const existing = current.find((i) => itemKey(i.id, i.grind) === key)
+      if (existing) {
+        return current.map((i) =>
           itemKey(i.id, i.grind) === key
             ? { ...i, quantity: i.quantity + newItem.quantity }
             : i
         )
-      )
-    } else {
-      saveItems([...current, newItem])
-    }
-  }, [getSnapshot, saveItems])
+      }
+      return [...current, newItem]
+    })
+  }, [setItems])
 
   const updateQuantity = useCallback((key: string, delta: number) => {
-    const current = getSnapshot()
-    saveItems(
+    setItems((current) =>
       current.map((item) =>
         itemKey(item.id, item.grind) === key
           ? { ...item, quantity: Math.max(1, item.quantity + delta) }
           : item
       )
     )
-  }, [getSnapshot, saveItems])
+  }, [setItems])
 
   const removeItem = useCallback((key: string) => {
-    const current = getSnapshot()
-    saveItems(current.filter((item) => itemKey(item.id, item.grind) !== key))
-  }, [getSnapshot, saveItems])
+    setItems((current) => current.filter((item) => itemKey(item.id, item.grind) !== key))
+  }, [setItems])
 
   const clearCart = useCallback(() => {
-    saveItems([])
-  }, [saveItems])
+    setItems(EMPTY_CART)
+  }, [setItems])
 
   const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0)
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0)
